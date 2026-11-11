@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2686.7884583333325 1154.3" width="2686.7884583333325" height="1154.3" style="--bg:#18181B;--fg:#F4F4F5;--line:#71717A;--muted:#A1A1AA;--surface:#27272A;--border:#3F3F46;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="arrowhead" markerWidth="8" markerHeight="5" refX="7" refY="2.5" orient="auto">
+    <polygon points="0 0, 8 2.5, 0 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+  <marker id="arrowhead-start" markerWidth="8" markerHeight="5" refX="1" refY="2.5" orient="auto-start-reverse">
+    <polygon points="8 0, 0 2.5, 8 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+</defs>
+<g class="subgraph" data-id="Client" data-label="Client Layer (Browser)">
+  <rect x="644.644" y="40" width="1019.1679999999999" height="96.9" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="644.644" y="40" width="1019.1679999999999" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="656.644" y="54" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">Client Layer (Browser)</text>
+</g>
+<g class="subgraph" data-id="Backend" data-label="Backend API Layer (FastAPI - Port 8000)">
+  <rect x="597.297875" y="265.20000000000005" width="926.247" height="266.70000000000005" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="597.297875" y="265.20000000000005" width="926.247" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="609.297875" y="279.20000000000005" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">Backend API Layer (FastAPI - Port 8000)</text>
+</g>
+<g class="subgraph" data-id="DB" data-label="Persistent Database Layer (MySQL 8.0 - Port 3306)">
+  <rect x="511.2374583333333" y="660.2" width="2135.5509999999995" height="454.1" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="511.2374583333333" y="660.2" width="2135.5509999999995" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="523.2374583333333" y="674.2" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">Persistent Database Layer (MySQL 8.0 - Port 3306)</text>
+<g class="subgraph" data-id="Tables" data-label="13 Relational Tables">
+  <rect x="527.2374583333333" y="971.4000000000001" width="1304.4529999999997" height="96.9" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="527.2374583333333" y="971.4000000000001" width="1304.4529999999997" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="539.2374583333333" y="985.4000000000001" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">13 Relational Tables</text>
+</g>
+<g class="subgraph" data-id="Logic" data-label="Active Database Intelligence">
+  <rect x="618.6724583333332" y="746.2" width="1868.6499999999996" height="96.9" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="618.6724583333332" y="746.2" width="1868.6499999999996" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="630.6724583333332" y="760.2" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">Active Database Intelligence</text>
+</g>
+</g>
+<g class="subgraph" data-id="Ingestion" data-label="External Ingestion Layer">
+  <rect x="40" y="64" width="576.644" height="96.9" rx="0" ry="0" fill="var(--_group-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="40" y="64" width="576.644" height="28" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="52" y="78" font-size="12" font-weight="600" fill="var(--_text-sec)" dy="4.199999999999999">External Ingestion Layer</text>
+</g>
+<polyline class="edge" data-from="DB" data-to="Logic" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="553.0004999999999,0 553.0004999999999,86" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="Logic" data-to="Tables" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="1026.1989999999998,182.9 1026.1989999999998,269.20000000000005 916.9427499999999,269.20000000000005 916.9427499999999,311.20000000000005" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="UI1" data-to="API" data-style="solid" data-arrow-start="true" data-arrow-end="true" data-label="JSON REST Requests via Axios" points="1360.8925,132.9 1360.8925,247.20000000000002 1066.164125,247.20000000000002 1066.164125,309.20000000000005" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" marker-start="url(#arrowhead-start)" />
+<polyline class="edge" data-from="POOL" data-to="DB" data-style="solid" data-arrow-start="true" data-arrow-end="true" data-label="Raw Parameterized SQL / Stored Procedures" points="1066.164125,515.9000000000001 1066.164125,573.9000000000001 933.4166666666666,573.9000000000001 933.4166666666666,642.2 847.4825416666665,642.2 847.4825416666665,660.2" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" marker-start="url(#arrowhead-start)" />
+<polyline class="edge" data-from="WORKER" data-to="T3" data-style="dotted" data-arrow-start="false" data-arrow-end="true" data-label="Periodic Price Snapshots" points="209.24349999999998,132.9 209.24349999999998,597.9000000000001 246.81208333333313,597.9000000000001 246.81208333333313,642.2 573.968625,642.2 573.968625,941.4000000000001 620.6997916666664,941.4000000000001 620.6997916666668,1015.4000000000001" fill="none" stroke="var(--_line)" stroke-width="1" stroke-dasharray="4 4" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="SIM" data-to="R4" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="Simulate Price Drop" points="495.5655,132.9 495.5655,202.9 439.25316666666663,202.9 439.25316666666663,247.20000000000002 677.6692083333332,247.20000000000002 677.6692083333332,394.1" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="R4" data-to="T3" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="709.854875,431 709.854875,455 659.4309583333333,455 659.4309583333333,1015.4000000000001" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="T3" data-to="TRG1" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="Triggers" points="148.19349999999997,392.1 148.19349999999974,438.1 2093.6329999999994,438.1 2093.6329999999994,56 563.0004999999995,56 563.0004999999998,130.00000000000003" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="TRG1" data-to="T2" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="Updates Listing Price" points="563.0004999999999,166.9 563.0005,200.90000000000003 630.4354999999999,200.90000000000003 630.4354999999997,355.20000000000005" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="T2" data-to="TRG2" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="Triggers Price Drop Check" points="630.4354999999998,392.1 630.4354999999995,426.1 1986.0849999999991,426.1 1986.0849999999991,68 1489.3974999999996,68 1489.3974999999996,130.00000000000003" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="TRG2" data-to="T5" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="Transitions status = TRIGGERED" points="1489.3974999999998,166.9 1489.3975,269.20000000000005 1203.4499999999998,269.20000000000005 1203.4499999999996,355.20000000000005" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="API" data-to="R1" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="1066.164125,346.1 1066.164125,370.1 945.047875,370.1 945.047875,394.1" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="API" data-to="R2" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="1066.164125,346.1 1066.164125,370.1 1187.2803749999998,370.1 1187.2803749999998,394.1" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="API" data-to="R3" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="1066.164125,346.1 1066.164125,370.1 1413.210875,370.1 1413.210875,394.1" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="API" data-to="R4" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="1066.164125,346.1 1066.164125,370.1 709.854875,370.1 709.854875,394.1" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="R1" data-to="POOL" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="945.047875,431 945.047875,455 1066.164125,455 1066.164125,479.00000000000006" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="R2" data-to="POOL" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="1187.2803749999998,431 1187.2803749999998,455 1066.164125,455 1066.164125,479.00000000000006" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="R3" data-to="POOL" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="1413.210875,431 1413.210875,455 1066.164125,455 1066.164125,479.00000000000006" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="R4" data-to="POOL" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="709.854875,431 709.854875,455 1066.164125,455 1066.164125,479.00000000000006" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<g class="edge-label" data-from="UI1" data-to="API" data-label="JSON REST Requests via Axios">
+  <rect x="1276.3925" y="185.9" width="168.52599999999998" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="1360.6554999999998" y="201.05" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">JSON REST Requests via Axios</text>
+</g>
+<g class="edge-label" data-from="POOL" data-to="DB" data-label="Raw Parameterized SQL / Stored Procedures">
+  <rect x="817.4166666666666" y="580.9000000000001" width="231.49" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="933.1616666666666" y="596.0500000000001" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Raw Parameterized SQL / Stored Procedures</text>
+</g>
+<g class="edge-label" data-from="WORKER" data-to="T3" data-label="Periodic Price Snapshots">
+  <rect x="177.31208333333313" y="604.9000000000001" width="138.82600000000002" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="246.72508333333315" y="620.0500000000001" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Periodic Price Snapshots</text>
+</g>
+<g class="edge-label" data-from="SIM" data-to="R4" data-label="Simulate Price Drop">
+  <rect x="383.75316666666663" y="209.9" width="110.31400000000002" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="438.91016666666667" y="225.05" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Simulate Price Drop</text>
+</g>
+<g class="edge-label" data-from="T3" data-to="TRG1" data-label="Triggers">
+  <rect x="2063.133" y="231.9" width="60.418000000000006" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="2093.3419999999996" y="247.05" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Triggers</text>
+</g>
+<g class="edge-label" data-from="TRG1" data-to="T2" data-label="Updates Listing Price">
+  <rect x="570.9354999999999" y="231.9" width="118.63000000000001" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="630.2505" y="247.05" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Updates Listing Price</text>
+</g>
+<g class="edge-label" data-from="T2" data-to="TRG2" data-label="Triggers Price Drop Check">
+  <rect x="1912.585" y="231.9" width="146.54800000000003" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="1985.8590000000002" y="247.05" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Triggers Price Drop Check</text>
+</g>
+<g class="edge-label" data-from="TRG2" data-to="T5" data-label="Transitions status = TRIGGERED">
+  <rect x="1403.3974999999994" y="231.9" width="171.496" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="1489.1454999999994" y="247.05" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">Transitions status = TRIGGERED</text>
+</g>
+<g class="node" data-id="UI1" data-label="React UI (Port 5173)" data-shape="rectangle">
+  <rect x="1284.713" y="96" width="152.359" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1360.8925" y="114.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">React UI (Port 5173)</text>
+</g>
+<g class="node" data-id="UI2" data-label="Search &amp; Filters" data-shape="rectangle">
+  <rect x="876.5709999999999" y="96" width="136.798" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="944.9699999999999" y="114.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Search &amp; Filters</text>
+</g>
+<g class="node" data-id="UI3" data-label="Store Comparison Matrix" data-shape="rectangle">
+  <rect x="660.644" y="96" width="187.92699999999996" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="754.6075" y="114.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Store Comparison Matrix</text>
+</g>
+<g class="node" data-id="UI4" data-label="Recharts 90-Day Trend Chart" data-shape="rectangle">
+  <rect x="1041.369" y="96" width="215.34399999999997" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1149.041" y="114.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Recharts 90-Day Trend Chart</text>
+</g>
+<g class="node" data-id="UI5" data-label="Admin Trigger Simulator" data-shape="rectangle">
+  <rect x="1465.072" y="96" width="182.73999999999998" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1556.4419999999998" y="114.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Admin Trigger Simulator</text>
+</g>
+<g class="node" data-id="API" data-label="FastAPI REST Application" data-shape="rectangle">
+  <rect x="968.866125" y="309.20000000000005" width="194.59599999999995" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1066.164125" y="327.65000000000003" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">FastAPI REST Application</text>
+</g>
+<g class="node" data-id="R1" data-label="/api/products &amp; /api/categories" data-shape="rectangle">
+  <rect x="834.411875" y="394.1" width="221.27199999999996" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="945.047875" y="412.55" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">/api/products &amp; /api/categories</text>
+</g>
+<g class="node" data-id="R2" data-label="/api/deals &amp; Deal Intelligence" data-shape="rectangle">
+  <rect x="1083.683875" y="394.1" width="207.19299999999996" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1187.2803749999998" y="412.55" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">/api/deals &amp; Deal Intelligence</text>
+</g>
+<g class="node" data-id="R3" data-label="/api/watchlist &amp; /api/alerts" data-shape="rectangle">
+  <rect x="1318.876875" y="394.1" width="188.668" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1413.210875" y="412.55" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">/api/watchlist &amp; /api/alerts</text>
+</g>
+<g class="node" data-id="R4" data-label="/api/simulate/price-update" data-shape="rectangle">
+  <rect x="613.297875" y="394.1" width="193.114" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="709.854875" y="412.55" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">/api/simulate/price-update</text>
+</g>
+<g class="node" data-id="POOL" data-label="MySQL Connection Pool (mysql.connector)" data-shape="rectangle">
+  <rect x="919.9601250000001" y="479.00000000000006" width="292.40799999999996" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1066.164125" y="497.45000000000005" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">MySQL Connection Pool (mysql.connector)</text>
+</g>
+<g class="node" data-id="T1" data-label="product, product_spec, category" data-shape="rectangle">
+  <rect x="803.6244583333332" y="1015.4000000000001" width="234.60999999999999" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="920.9294583333332" y="1033.8500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">product, product_spec, category</text>
+</g>
+<g class="node" data-id="T2" data-label="store, store_listing" data-shape="rectangle">
+  <rect x="1066.2344583333331" y="1015.4000000000001" width="150.877" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1141.672958333333" y="1033.8500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">store, store_listing</text>
+</g>
+<g class="node" data-id="T3" data-label="price_history (Time-Series Data)" data-shape="rectangle">
+  <rect x="543.2374583333333" y="1015.4000000000001" width="232.38699999999994" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="659.4309583333333" y="1033.8500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">price_history (Time-Series Data)</text>
+</g>
+<g class="node" data-id="T4" data-label="offer, coupon_offer, discount_offer, cashback_offer" data-shape="rectangle">
+  <rect x="1245.1114583333333" y="1015.4000000000001" width="340.57299999999987" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1415.3979583333332" y="1033.8500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">offer, coupon_offer, discount_offer, cashback_offer</text>
+</g>
+<g class="node" data-id="T5" data-label="users, watches, price_alert" data-shape="rectangle">
+  <rect x="1613.684458333333" y="1015.4000000000001" width="202.00599999999994" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1714.6874583333329" y="1033.8500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">users, watches, price_alert</text>
+</g>
+<g class="node" data-id="TRG1" data-label="Trigger: trg_sync_listing_price" data-shape="rectangle">
+  <rect x="961.0084583333332" y="790.2" width="226.45899999999997" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1074.2379583333332" y="808.6500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Trigger: trg_sync_listing_price</text>
+</g>
+<g class="node" data-id="TRG2" data-label="Trigger: trg_check_price_alerts" data-shape="rectangle">
+  <rect x="1883.700458333333" y="790.2" width="233.86899999999997" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="2000.634958333333" y="808.6500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Trigger: trg_check_price_alerts</text>
+</g>
+<g class="node" data-id="VW1" data-label="View: product_price_summary (30d/90d averages)" data-shape="rectangle">
+  <rect x="1215.467458333333" y="790.2" width="338.34999999999997" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1384.642458333333" y="808.6500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">View: product_price_summary (30d/90d averages)</text>
+</g>
+<g class="node" data-id="VW2" data-label="View: v_deal_intelligence (Deal scoring)" data-shape="rectangle">
+  <rect x="1581.817458333333" y="790.2" width="273.883" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="1718.7589583333329" y="808.6500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">View: v_deal_intelligence (Deal scoring)</text>
+</g>
+<g class="node" data-id="VW3" data-label="View: v_store_comparison (Total cost + delivery)" data-shape="rectangle">
+  <rect x="2145.5694583333334" y="790.2" width="325.7529999999999" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="2308.4459583333332" y="808.6500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">View: v_store_comparison (Total cost + delivery)</text>
+</g>
+<g class="node" data-id="SP" data-label="Stored Procedures (Search, History, Deals)" data-shape="rectangle">
+  <rect x="634.6724583333332" y="790.2" width="298.33599999999996" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="783.8404583333332" y="808.6500000000001" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Stored Procedures (Search, History, Deals)</text>
+</g>
+<g class="node" data-id="WORKER" data-label="Background Ingestion Worker / Live Scraper" data-shape="rectangle">
+  <rect x="56" y="96" width="306.48699999999997" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="209.24349999999998" y="114.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Background Ingestion Worker / Live Scraper</text>
+</g>
+<g class="node" data-id="SIM" data-label="Admin Simulated Price Drops" data-shape="rectangle">
+  <rect x="390.48699999999997" y="96" width="210.157" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="495.5655" y="114.45" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">Admin Simulated Price Drops</text>
+</g>
+</svg>
