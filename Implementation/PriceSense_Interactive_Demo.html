@@ -1,0 +1,1244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10111f">
+  <meta name="description" content="PriceSense — a brighter way to buy. Explore colourful 3D scenes, price histories and sample marketplace comparisons.">
+  <title>PriceSense — A brighter way to buy.</title>
+  
+  
+  
+  <style>
+:root{--black:#101315;--black-2:#161a1c;--black-3:#22282a;--cream:#f4f3ed;--paper:#eeede5;--white:#f9f9f4;--lime:#d3fd67;--lime-dark:#adcf40;--muted:#9fa9a9;--text:#1c2625;--radius:22px;--ease:cubic-bezier(.22,1,.36,1)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--black);color:var(--white);font-family:'DM Sans',Inter,Arial,sans-serif;-webkit-font-smoothing:antialiased}button,input,select{font:inherit}button,a{-webkit-tap-highlight-color:transparent}a{color:inherit;text-decoration:none}button{cursor:pointer}button:disabled{cursor:not-allowed}svg{display:block}img{display:block;max-width:100%}::selection{background:var(--lime);color:var(--black)}:focus-visible{outline:3px solid #a9db27;outline-offset:4px}.shell{width:min(1320px,calc(100% - 88px));margin-inline:auto}.serif-word{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-style:italic;letter-spacing:-.065em}.reading-progress{position:fixed;top:0;left:0;width:100%;height:3px;background:var(--lime);z-index:110;transform:scaleX(0);transform-origin:left}.skip-link{position:absolute;top:-100px;left:15px;z-index:200;padding:12px 22px;background:var(--lime);color:var(--black)}.skip-link:focus{top:15px}
+/* Navigation */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:90;transition:background .35s,box-shadow .35s}.topbar.is-scrolled{background:rgba(16,19,21,.91);box-shadow:0 10px 45px rgba(0,0,0,.13);}.nav{display:flex;align-items:center;min-height:87px;gap:24px}.brand{display:inline-flex;align-items:center;white-space:nowrap;font-size:24px;letter-spacing:-1.35px;font-weight:800}.brand-mark{display:inline-flex;width:31px;height:31px;align-items:center;justify-content:center;margin-right:9px;font-size:34px;color:var(--lime);font-weight:400;line-height:1}.brand-period{color:var(--lime)}.nav-links{display:flex;gap:37px;align-items:center;justify-content:center;margin:auto}.nav-links a{font-size:13px;color:#c3c9c6;font-weight:600;transition:color .2s}.nav-links a:hover{color:var(--lime)}.nav-actions{display:flex;align-items:center;gap:14px}.nav-cta{display:inline-flex;align-items:center;gap:19px;background:var(--lime);color:var(--black);padding:14px 19px;border-radius:50px;font-size:12px;font-weight:800;white-space:nowrap;transition:transform .2s,background .2s}.nav-cta:hover,.closing-cta:hover{background:#e3ff9d;transform:translateY(-3px)}.nav-cta span{font-size:17px}.watchlist-nav{display:flex;align-items:center;gap:9px;color:#f2f3ee;border:none;background:transparent;font-size:12px;font-weight:700;padding:8px}.watchlist-nav svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.saved-number{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:#333a39;color:var(--lime);font-size:10px}.mobile-toggle{border:0;background:none;padding:9px;display:none}.mobile-toggle span{display:block;background:#f4f5f0;width:24px;height:2px;margin:5px 0}
+/* Hero */
+.hero{min-height:810px;padding-top:97px;position:relative;overflow:hidden;isolation:isolate;background:radial-gradient(ellipse at 83% 45%,rgba(73,82,63,.20),transparent 40%),var(--black)}.hero:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.18;z-index:-1;background-image:radial-gradient(#b4bf98 .55px,transparent .55px);background-size:16px 16px;mask-image:linear-gradient(to right,transparent 35%,black)}.hero-orb{position:absolute;z-index:-1;border-radius:50%;filter:blur(100px);pointer-events:none}.hero-orb-one{width:340px;height:340px;right:13%;top:160px;background:rgba(181,229,74,.075)}.hero-orb-two{width:220px;height:220px;left:-70px;bottom:20px;background:rgba(114,157,117,.07)}.hero-inner{display:grid;grid-template-columns:1.07fr .93fr;gap:10px;align-items:center;min-height:660px}.hero-copy{position:relative;z-index:4;padding:34px 0 70px}.eyebrow,.section-kicker{font-size:11px;letter-spacing:.17em;font-weight:800;color:var(--lime);display:flex;align-items:center;gap:13px}.eyebrow-line{display:inline-block;width:25px;height:1px;background:var(--lime)}.eyebrow-star{font-size:15px;margin-left:5px}.hero h1{font-size:clamp(65px,6.4vw,112px);line-height:.98;letter-spacing:-.09em;font-weight:700;margin:35px 0 30px;white-space:nowrap}.hero h1 .serif-word{color:var(--lime);display:inline-block;font-size:1.11em;margin-left:-.03em}.hero-sub{max-width:500px;color:#adb6b3;font-size:17px;line-height:1.74;margin:0 0 38px}.hero-search{width:min(530px,100%);display:flex;align-items:center;padding:6px 6px 6px 18px;background:var(--white);border-radius:100px;box-shadow:0 16px 60px rgba(0,0,0,.2)}.hero-search>svg{width:20px;height:20px;fill:none;stroke:#6e7773;stroke-width:1.8;stroke-linecap:round;flex-shrink:0}.hero-search input{background:transparent;border:0;outline:0;min-width:0;flex:1;padding:11px 13px;color:var(--black);font-size:12px}.hero-search input::placeholder{color:#848c87}.hero-search button{flex-shrink:0;border:0;border-radius:100px;background:var(--lime);color:var(--black);padding:14px 19px;font-size:12px;font-weight:800;display:flex;align-items:center;gap:18px}.hero-search button span{font-size:18px}.hero-small{display:flex;align-items:center;gap:13px;color:#a0a9a7;font-size:11px;margin:28px 0 0 4px;letter-spacing:.01em}.tiny-avatars{display:flex;padding-left:2px}.tiny-avatars i{height:24px;width:24px;border-radius:50%;background:#b8aaff;color:#1b2020;display:grid;place-items:center;border:2px solid var(--black);font-style:normal;font-size:12px;margin-left:-3px}.tiny-avatars i:nth-child(2){background:var(--lime)}.tiny-avatars i:nth-child(3){background:#ffb994}.hero-art{height:585px;position:relative;}.hero-visual-grid{position:absolute;inset:9% 5% 7%;border-radius:50%;opacity:.32;background:repeating-radial-gradient(circle,transparent 0,transparent 65px,rgba(211,253,103,.2) 66px,transparent 67px)}.hero-ring{position:absolute;inset:14% 5% 17%;border:1px solid rgba(212,248,147,.19);border-radius:50%;transform:rotate(-18deg) scaleX(.78)}.hero-ring-two{inset:2% 2% 0%;transform:rotate(31deg) scaleX(.58);border-color:rgba(212,248,147,.13)}.hero-ghost{position:absolute;font-size:clamp(100px,10vw,172px);letter-spacing:-.095em;line-height:.83;font-weight:800;color:rgba(205,227,198,.055);top:8%;left:9%;pointer-events:none}.hero-product{position:absolute;width:min(85%,520px);left:6%;top:1%;transform:rotate(-7deg);animation:heroFloat 7s ease-in-out infinite}.hero-product img{height:495px;width:100%;object-fit:contain}.float-card{z-index:2;position:absolute;background:rgba(238,244,224,.95);color:#1b2222;border:1px solid rgba(255,255,255,.55);box-shadow:0 24px 50px rgba(0,0,0,.25);border-radius:16px;display:flex;align-items:center;gap:11px;}.float-card small{font-size:9px;letter-spacing:.11em;color:#69726c;font-weight:800;display:block;margin-bottom:7px}.float-card strong{font-size:23px;letter-spacing:-.06em}.float-card strong span{font-size:12px;font-weight:600;color:#68746d;letter-spacing:0}.float-card-price{top:14%;right:-1%;padding:13px 22px 14px 14px;transform:rotate(7deg);animation:floatRight 6s 1s ease-in-out infinite}.float-card-icon{width:43px;height:43px;border-radius:12px;background:var(--lime);display:grid;place-items:center;font-size:29px;font-weight:600}.float-card-store{bottom:20%;left:-3%;padding:16px 19px;transform:rotate(-6deg);animation:floatLeft 6s .3s ease-in-out infinite}.store-dot{height:34px;width:34px;display:grid;place-items:center;border-radius:50%;background:#151a1a;color:white;font-weight:700;font-family:Georgia,serif;font-size:24px}.float-caption{display:block;color:#8a8f88;font-size:10px;margin-top:2px}.float-card-arrow{margin-left:22px;font-size:24px}.float-sticker{position:absolute;right:1%;bottom:13%;height:118px;width:118px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;background:var(--lime);color:var(--black);font-weight:900;font-size:21px;line-height:1.05;letter-spacing:-.08em;transform:rotate(15deg);box-shadow:0 12px 40px rgba(0,0,0,.22)}.float-sticker em{font-family:Georgia,serif;font-size:20px;font-weight:400}.float-sticker span{font-size:17px;margin-top:5px}.hero-art-foot{position:absolute;left:16%;bottom:3%;font-size:9px;letter-spacing:.13em;color:#8c9b91;font-weight:700;display:flex;gap:30px}.hero-art-foot span{color:var(--lime);font-size:18px}.hero-bottom{height:70px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.11);font-size:10px;color:#8f9a95;letter-spacing:.13em;font-weight:700}.scroll-indicator{display:inline-block;margin-left:14px;font-size:18px;color:var(--lime);animation:arrowBob 1.5s infinite}.marquee{overflow:hidden;background:var(--lime);color:#161b16;border-block:1px solid rgba(0,0,0,.12);white-space:nowrap;min-height:84px;display:flex;align-items:center}.marquee-track{display:flex;white-space:nowrap;animation:marqueeMove 36s linear infinite}.marquee-track>span{flex-shrink:0;font-size:24px;font-weight:800;letter-spacing:-.045em}.marquee-track b{font-size:23px;font-weight:400;display:inline-block;padding:0 38px}
+/* Scrollytelling */
+.story-section{background:#171c1e;padding:122px 0 70px;position:relative}.story-section:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 19% 46%,rgba(176,203,94,.055),transparent 45%)}.story-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:42px;margin-bottom:85px;position:relative}.story-heading h2,.section-header h2,.insights-copy h2{font-size:clamp(48px,5.5vw,84px);line-height:1.06;font-weight:700;letter-spacing:-.078em;margin:20px 0 0}.ink-serif{color:var(--lime)}.story-heading>p{max-width:324px;font-size:15px;color:#9fa9a8;line-height:1.75;margin:0 0 5px}.story-layout{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(42px,6vw,105px);align-items:start}.story-sticky{height:100%;position:relative}.demo-window{position:sticky;top:calc(50vh - 258px);min-height:515px;background:#222b2b;border:1px solid #424b45;border-radius:22px;overflow:hidden;box-shadow:0 35px 100px rgba(0,0,0,.3);transition:box-shadow .5s}.demo-titlebar{height:51px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:#1b2323;border-bottom:1px solid #3b4743;gap:8px;font-size:9px;font-weight:800;color:#98a89d;letter-spacing:.10em}.demo-titlebar>span:first-child{display:flex;gap:6px}.demo-titlebar i{height:8px;width:8px;background:#6c8277;border-radius:50%}.demo-titlebar i:first-child{background:#c8e77b}.demo-titlebar span:last-child{color:#d2f982}.demo-content{padding:26px 28px 7px}.demo-tag{display:flex;justify-content:space-between;font-size:9px;letter-spacing:.13em;color:#c5db9c;font-weight:800}.demo-tag span{font-size:15px}.demo-topline{display:flex;align-items:center;justify-content:space-between;min-height:142px}.demo-topline h3{font-size:clamp(26px,2.45vw,42px);font-weight:700;letter-spacing:-.07em;line-height:1.05;margin:12px 0}.demo-topline p{color:#9aa7a2;font-size:11px;margin:10px 0 0}.demo-mini-product{height:128px;width:144px;display:grid;place-items:center;background:radial-gradient(circle,#677265 0,transparent 70%)}.demo-mini-product img{width:138px;height:134px;object-fit:contain;}.demo-list{display:grid;gap:8px}.demo-row{display:grid;grid-template-columns:1fr auto 65px;align-items:center;gap:14px;padding:11px 12px;border:1px solid #3b4743;border-radius:9px;background:rgba(255,255,255,.025);transition:background .5s,border-color .5s,transform .5s,opacity .5s}.demo-row>span{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:800}.demo-row small{font-size:9px;font-weight:500;color:#7e8c86;margin-left:3px}.demo-row b{font-size:14px}.demo-row i{font-size:9px;text-align:right;font-style:normal;color:#9baca3}.store-bubble{width:19px;height:19px;border-radius:50%;display:grid;place-items:center;background:#d8e4cc;color:#1c2421;font-family:Georgia;font-size:16px}.store-bubble.flip{font-family:inherit;font-size:9px;font-weight:900;background:#e4d98a}.store-bubble.croma{font-family:inherit;font-size:9px;background:#a5d6d0}.demo-row.row-one{border-color:#c8f45a;background:rgba(199,245,89,.075)}.demo-row.row-one i{color:var(--lime);font-weight:900}.demo-history{margin-top:15px;padding:14px 15px 0;background:#192223;border-radius:9px;border:1px solid #374344;overflow:hidden}.demo-history>div{display:flex;justify-content:space-between;align-items:center}.demo-history span{font-size:9px;letter-spacing:.1em;color:#9caea6;font-weight:700}.demo-history b{font-size:18px;color:var(--lime)}.demo-history svg{width:100%;height:76px;margin-top:0;overflow:visible}.demo-bottom{padding:13px 28px 16px;display:flex;justify-content:space-between;align-items:center;color:#a5b2ad;font-size:9px;letter-spacing:.05em}.demo-bottom>span:first-child{display:flex;align-items:center;gap:7px}.live-pulse,.chart-indicator i{display:inline-block;width:7px;height:7px;background:var(--lime);border-radius:50%;box-shadow:0 0 0 4px rgba(207,244,113,.1)}#sceneLabel{color:var(--lime);font-weight:800}.demo-window[data-scene="1"] .demo-list .row-one,.demo-window[data-scene="1"] .demo-list .row-two,.demo-window[data-scene="1"] .demo-list .row-three{opacity:.62}.demo-window[data-scene="1"] .demo-history{border-color:var(--lime);box-shadow:0 0 0 1px rgba(211,253,103,.15)}.demo-window[data-scene="1"] .demo-line{stroke-dasharray:700;stroke-dashoffset:0;animation:drawLine 1.4s var(--ease)}.demo-window[data-scene="2"] .demo-row.row-one{background:rgba(207,244,113,.12)}.demo-window[data-scene="2"] .demo-row.row-two{opacity:.55}.story-steps{padding-top:0}.story-step{min-height:490px;display:flex;flex-direction:column;justify-content:center;border-top:1px solid #394342;opacity:.37;transform:translateY(12px);transition:opacity .5s,transform .5s}.story-step:last-child{border-bottom:1px solid #394342}.story-step.active{opacity:1;transform:translateY(0)}.step-index{font-size:11px;color:var(--lime);font-weight:800;letter-spacing:.14em}.step-icon{color:var(--lime);font-size:55px;margin-top:26px;line-height:1}.story-step h3{font-size:clamp(35px,3.6vw,55px);line-height:1.09;letter-spacing:-.075em;margin:24px 0}.story-step h3 em{font-family:'Instrument Serif',Georgia,serif;font-weight:400;color:var(--lime);font-size:1.05em}.story-step p{font-size:15px;line-height:1.82;color:#a5b0ac;max-width:335px;margin:0}
+/* Product discovery */
+.explore-section{color:var(--text);background:var(--cream);padding:126px 0 135px}.section-header{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:48px}.dark-kicker{color:#718939}.section-header h2{font-size:clamp(52px,6vw,91px);margin:15px 0 19px}.section-header .serif-word{color:#718f2e}.section-header p{max-width:530px;color:#79817b;font-size:15px;line-height:1.7;margin:0}.outline-stamp{border:2px solid #1c2524;height:126px;width:126px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;transform:rotate(15deg);gap:3px;margin-right:20px;margin-bottom:10px}.outline-stamp span{font-size:9px;font-weight:900;letter-spacing:.15em}.outline-stamp b{font-size:39px;line-height:1}.explore-toolbar{display:flex;justify-content:space-between;align-items:center;gap:17px;margin-top:56px;border-block:1px solid #d7d8ce;padding:22px 0}.filter-chips{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.filter-chips button{background:none;border:1px solid #cfd2c7;border-radius:50px;color:#59625d;font-size:11px;font-weight:700;padding:10px 16px;transition:.2s}.filter-chips button:hover,.filter-chips button.active{background:#1f2926;color:#f7f8ee;border-color:#1f2926}.toolbar-right{display:flex;gap:8px}.inline-search{display:flex;align-items:center;gap:9px;border:1px solid #d0d4c8;padding:8px 13px;border-radius:50px;min-width:160px}.inline-search svg{width:17px;height:17px;stroke:#6d786e;fill:none;stroke-width:1.9}.inline-search input{border:0;outline:0;background:transparent;min-width:0;width:132px;font-size:11px;color:#1d2520}.inline-search input::placeholder{color:#919990}.toolbar-right select{border-radius:50px;background:transparent;border:1px solid #cfd2c7;font-size:11px;font-weight:700;color:#3f4b42;padding:8px 24px 8px 12px;max-width:145px;cursor:pointer}.results-heading{display:flex;justify-content:space-between;color:#788378;font-size:10px;letter-spacing:.09em;font-weight:800;padding:28px 0 19px}.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}.product-card{background:#fff;border-radius:19px;overflow:hidden;border:1px solid #e5e6de;display:flex;flex-direction:column;transition:transform .4s var(--ease),box-shadow .4s var(--ease);min-height:394px}.product-card:hover{transform:translateY(-8px);box-shadow:0 26px 50px rgba(43,50,34,.11)}.product-image{height:211px;position:relative;display:grid;place-items:center;overflow:hidden}.product-image:after{content:"";position:absolute;width:225px;height:225px;border-radius:50%;border:1px solid rgba(32,44,36,.09);top:13px;left:50%;transform:translateX(-50%)}.product-image img{width:82%;height:193px;object-fit:contain;z-index:1;transition:transform .5s var(--ease)}.product-card:hover .product-image img{transform:scale(1.1) rotate(-3deg)}.color-violet{background:#e5e2e9}.color-peach{background:#f5e5d7}.color-sky{background:#deeced}.color-lime{background:#e8efdb}.color-sand{background:#eae5de}.color-orange{background:#efdfce}.color-purple{background:#e6e1e9}.color-blue{background:#dde6ee}.card-badge{position:absolute;top:15px;left:15px;z-index:3;color:#29352b;background:rgba(255,255,255,.79);border:1px solid rgba(255,255,255,.5);font-size:8px;font-weight:900;padding:8px 10px;border-radius:30px;letter-spacing:.07em}.save-button{position:absolute;top:12px;right:12px;z-index:3;border:0;background:rgba(255,255,255,.85);height:33px;width:33px;display:grid;place-items:center;border-radius:50%;transition:transform .2s}.save-button:hover{transform:scale(1.12)}.save-button svg{height:18px;width:18px;fill:none;stroke:#25312a;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.save-button.is-saved svg{fill:#293629;stroke:#293629}.card-body{padding:21px 18px 17px;flex:1;display:flex;flex-direction:column}.card-meta{font-size:10px;letter-spacing:.12em;font-weight:800;color:#8b968c;display:flex;justify-content:space-between}.card-meta span:last-child{color:#7e8e4e}.card-body h3{font-size:21px;letter-spacing:-.055em;line-height:1.15;margin:10px 0 4px}.card-description{font-size:11px;color:#8b958d;line-height:1.5;margin:0}.card-divider{height:1px;background:#eff0e9;margin:21px 0 13px}.card-price-row{display:flex;align-items:flex-end;justify-content:space-between;gap:6px}.card-price-row strong{font-size:24px;letter-spacing:-.07em}.old-price{font-size:10px;color:#969f96;text-decoration:line-through;margin-left:7px}.drop-pill{background:#eff8df;color:#59842b;border-radius:50px;padding:7px 9px;font-size:10px;font-weight:800;white-space:nowrap}.card-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:16px}.store-count{font-size:10px;color:#768176}.compare-btn{border:1px solid #242d26;background:#222d27;color:#fff;border-radius:50px;padding:10px 14px;font-size:10px;font-weight:800;transition:background .2s}.compare-btn:hover{background:#465644}.empty-state{padding:70px 20px;text-align:center;border:1px dashed #ccd1c4;border-radius:18px}.empty-state[hidden]{display:none}.empty-state span{font-size:55px}.empty-state h3{font-size:28px;margin:10px}.empty-state p{color:#707c70}.empty-state button{border:0;background:#263329;border-radius:30px;color:#fff;padding:12px 23px;font-weight:800;font-size:12px}
+/* Insights */
+.insights-section{padding:150px 0;background:#121719;overflow:hidden}.insights-grid{display:grid;grid-template-columns:.76fr 1.24fr;align-items:center;gap:clamp(50px,8vw,150px)}.insights-copy h2{margin-top:25px}.insights-copy h2 .serif-word{color:var(--lime)}.insights-copy>p{font-size:16px;line-height:1.8;color:#a2adaa;max-width:355px;margin:32px 0 42px}.insights-stat{display:flex;align-items:center;gap:17px;padding:23px 0;border-block:1px solid #384240;max-width:350px}.stat-star{display:grid;place-items:center;width:53px;height:53px;color:var(--black);background:var(--lime);border-radius:14px;font-size:32px;flex-shrink:0}.insights-stat strong,.insights-stat small{display:block}.insights-stat strong{font-size:15px;margin-bottom:4px}.insights-stat small{font-size:11px;line-height:1.5;color:#9fa9a5}.underlined-link{display:inline-flex;align-items:center;gap:38px;font-size:12px;font-weight:800;color:var(--lime);padding-bottom:8px;border-bottom:1px solid var(--lime);margin-top:30px}.underlined-link span{font-size:20px}.chart-card{border:1px solid #3c4947;background:#1a2324;border-radius:22px;padding:32px 32px 29px;box-shadow:0 35px 80px rgba(0,0,0,.21);min-width:0}.chart-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.chart-top span{font-size:9px;letter-spacing:.13em;font-weight:900;color:#9da9a4}.chart-top h3{font-size:18px;letter-spacing:-.04em;margin:7px 0 0}.chart-indicator{white-space:nowrap;border:1px solid #45564a;border-radius:20px;padding:8px 11px;display:flex;align-items:center;gap:7px}.chart-indicator i{width:5px;height:5px}.chart-value{margin:46px 0 10px;display:flex;align-items:center;gap:16px}.chart-value strong{font-size:46px;letter-spacing:-.09em;line-height:1}.chart-value span{font-size:11px;padding:9px 12px;border-radius:50px;background:rgba(210,250,110,.12);color:var(--lime)}.chart-plot{position:relative;padding:19px 0 15px 51px;height:255px}.chart-y-labels{position:absolute;left:0;top:18px;bottom:13px;display:flex;flex-direction:column;justify-content:space-between;font-size:10px;color:#788781}.chart-plot svg{width:100%;height:100%;overflow:visible;cursor:crosshair}.chart-tooltip{position:absolute;z-index:3;pointer-events:none;padding:8px 12px;background:var(--lime);color:#192117;font-size:11px;font-weight:800;border-radius:8px;transform:translate(-50%,-115%);white-space:nowrap}.chart-tooltip[hidden]{display:none}.chart-foot{border-top:1px solid #364440;padding-top:17px;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#8d9a93}.range-buttons{display:flex;gap:5px}.range-buttons button{color:#9fac9f;background:none;border:0;border-radius:8px;padding:10px;font-size:10px;font-weight:800}.range-buttons button.selected{color:#1f2b1d;background:var(--lime)}
+/* Last CTA / footer */
+.closing-section{min-height:610px;background:var(--lime);color:var(--black);position:relative;overflow:hidden;display:grid;place-items:center;text-align:center}.closing-section:before{content:"";pointer-events:none;position:absolute;width:740px;height:740px;border:1px solid rgba(15,30,10,.14);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 130px rgba(15,30,10,.04),0 0 0 260px rgba(15,30,10,.035)}.closing-inner{position:relative;z-index:1;padding:80px 0}.closing-inner .section-kicker{justify-content:center}.closing-inner h2{font-size:clamp(72px,10vw,151px);letter-spacing:-.095em;line-height:.88;margin:40px 0 25px;font-weight:800}.closing-inner .serif-word{font-size:1.1em}.closing-inner p{font-size:15px;color:#42522d;margin:32px 0}.closing-cta{display:inline-flex;align-items:center;gap:48px;padding:18px 24px;background:#171f1a;color:white;border-radius:50px;font-size:12px;font-weight:800;transition:transform .2s,background .2s}.closing-cta:hover{color:#171f1a}.closing-cta span{font-size:20px}.closing-spark{position:absolute;color:#1e2919}.closing-spark-one{font-size:48px;top:27%;left:13%;animation:sparkSpin 14s linear infinite}.closing-spark-two{font-size:49px;bottom:15%;right:16%;animation:sparkSpin 19s linear infinite reverse}.footer{background:#101416;padding:55px 0 65px}.footer-row{display:flex;justify-content:space-between;gap:24px}.footer p{margin:12px 0 0;color:#88948e;font-size:12px}.footer-right{display:flex;flex-direction:column;align-items:flex-end;gap:10px;font-size:10px;color:#88948e}.footer-right a{color:var(--lime);font-weight:900;letter-spacing:.1em;margin-top:3px}
+/* Drawer and modal */
+.drawer-backdrop{position:fixed;inset:0;z-index:110;background:rgba(0,0,0,.62);}.drawer-backdrop[hidden]{display:none}.watch-drawer{position:fixed;right:0;top:0;bottom:0;width:min(440px,100%);background:#f5f4ed;color:#1e2924;z-index:115;box-shadow:-25px 0 80px rgba(0,0,0,.26);transform:translateX(105%);transition:transform .45s var(--ease);display:flex;flex-direction:column}.watch-drawer.open{transform:translateX(0)}.drawer-head{padding:35px 30px 25px;display:flex;justify-content:space-between;border-bottom:1px solid #dddcd1}.drawer-head small{color:#81916f;font-size:9px;letter-spacing:.15em;font-weight:900}.drawer-head h2{font-size:26px;letter-spacing:-.07em;margin:10px 0 0}.drawer-head h2 span{color:#739639}.icon-button{background:#e9ebe0;border:0;border-radius:50%;width:35px;height:35px;display:grid;place-items:center;color:#28332e;font-size:16px}.saved-products{overflow:auto;flex:1;padding:20px 28px}.saved-item{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid #dddcd3}.saved-item img{width:66px;height:66px;object-fit:contain;background:#e5e5da;border-radius:12px}.saved-item>div{flex:1}.saved-item strong{display:block;font-size:14px}.saved-item small{display:block;color:#859087;font-size:11px;margin-top:3px}.saved-item .small-compare{border:0;background:#253025;color:white;font-size:10px;border-radius:20px;margin-top:8px;padding:7px 11px}.saved-item .remove-saved{border:0;background:transparent;color:#60705e;font-size:21px;padding:5px}.saved-empty{padding:55px 8px;text-align:center}.saved-empty>span{font-size:56px;color:#81916e}.saved-empty h3{font-size:21px;margin:8px 0}.saved-empty p{color:#728074;font-size:13px;line-height:1.7}.drawer-bottom{padding:24px 30px;border-top:1px solid #dddcd1}.drawer-bottom p{color:#7d887b;font-size:11px;line-height:1.6}.drawer-bottom a{display:block;text-align:center;border-radius:40px;background:#202d25;color:white;padding:13px;font-size:12px;font-weight:800;margin-top:17px}.compare-dialog{color:#1e2924;background:#f7f7f0;border:0;border-radius:23px;width:min(580px,calc(100% - 28px));max-height:calc(100vh - 42px);padding:0;box-shadow:0 38px 110px rgba(0,0,0,.38)}.compare-dialog::backdrop{background:rgba(5,9,7,.76);}.modal-top{padding:18px 27px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #dce0d8}.modal-top>span{font-size:10px;color:#73866e;letter-spacing:.14em;font-weight:900}.modal-product{display:flex;align-items:center;gap:17px;padding:21px 26px}.modal-product img{height:96px;width:114px;object-fit:contain;border-radius:15px;background:#e7e9de}.modal-product small{color:#838f82;font-size:10px;letter-spacing:.08em;font-weight:800}.modal-product h2{font-size:31px;letter-spacing:-.07em;margin:6px 0}.modal-product p{margin:0;font-size:12px;color:#7c8a7d}.modal-label{margin:9px 26px 12px;display:block;color:#718372;font-size:10px;letter-spacing:.1em;font-weight:900}.modal-list{padding:0 26px}.modal-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;border:1px solid #dedfd5;border-radius:11px;padding:14px 15px;margin-bottom:9px}.modal-row.best{border-color:#8aad49;background:#edf5df}.modal-row>div:first-child strong{font-size:14px}.modal-row>div:first-child small{display:block;font-size:10px;color:#869186;margin-top:4px}.modal-row .modal-price{text-align:right}.modal-row .modal-price b{display:block;font-size:16px;letter-spacing:-.04em}.modal-row .modal-price small{color:#7c897b;font-size:10px}.modal-note{color:#79877a;font-size:11px;line-height:1.6;margin:18px 26px}.modal-actions{padding:18px 26px 26px;border-top:1px solid #dde0d6;display:flex;gap:10px}.modal-actions button{flex:1;border-radius:40px;padding:13px 15px;border:1px solid #29382b;font-size:11px;font-weight:800}.modal-actions .modal-primary{background:#28372b;color:#fff}.modal-actions .modal-secondary{background:none;color:#28372b}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);z-index:130;background:#d8ff74;color:#182319;box-shadow:0 13px 42px rgba(0,0,0,.25);border-radius:50px;padding:13px 23px;font-size:12px;font-weight:800;opacity:0;pointer-events:none;transition:transform .35s var(--ease),opacity .35s}.toast.show{transform:translate(-50%,0);opacity:1}
+/* Reveals */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .45s var(--ease),transform .45s var(--ease)}.reveal.is-visible{opacity:1;transform:translateY(0)}@keyframes heroFloat{0%,100%{transform:translateY(0) rotate(-7deg)}50%{transform:translateY(-15px) rotate(-5deg)}}@keyframes floatRight{0%,100%{transform:rotate(7deg) translateY(0)}50%{transform:rotate(5deg) translateY(8px)}}@keyframes floatLeft{0%,100%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(-4deg) translateY(-11px)}}@keyframes arrowBob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}@keyframes marqueeMove{to{transform:translateX(-50%)}}@keyframes sparkSpin{to{transform:rotate(360deg)}}@keyframes drawLine{from{stroke-dashoffset:700}to{stroke-dashoffset:0}}
+@media(max-width:1200px){.shell{width:min(1120px,calc(100% - 60px))}.nav-links{gap:20px}.hero h1{font-size:clamp(62px,6vw,91px)}.hero-art{height:545px}.hero-product img{height:445px}.hero-ghost{font-size:120px}.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.story-heading h2,.section-header h2{font-size:66px}.demo-content{padding:22px 19px 4px}.demo-row{gap:5px}.demo-row small{display:none}.demo-titlebar{font-size:8px;padding:0 13px}.demo-bottom{padding-inline:19px}}
+@media(max-width:900px){.nav-links{display:none;position:absolute;top:79px;left:20px;right:20px;padding:26px;background:#242b29;border:1px solid #3b4540;border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.3);flex-direction:column;text-align:center;gap:20px}.nav-links.menu-open{display:flex}.nav{min-height:78px}.mobile-toggle{display:block}.hero{padding-top:90px;min-height:auto}.hero-inner{grid-template-columns:1fr;gap:0}.hero-copy{padding:52px 0 0}.hero h1{font-size:clamp(75px,11vw,112px)}.hero-sub{max-width:660px}.hero-art{height:520px;width:min(620px,100%);margin:auto}.hero-product{left:11%;top:1%}.hero-product img{height:450px}.float-card-price{right:3%}.float-card-store{left:2%;bottom:18%}.hero-bottom{margin-top:18px}.story-heading{align-items:flex-start}.story-heading h2{font-size:58px}.story-heading>p{max-width:270px}.story-layout{grid-template-columns:1fr;gap:15px}.story-sticky{height:auto;position:sticky;top:85px;z-index:1}.demo-window{position:relative;top:auto;min-height:430px;max-width:680px;margin:0 auto}.story-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.story-step{min-height:250px;padding:26px 6px;transform:none}.story-step h3{font-size:25px;line-height:1.1}.story-step p{font-size:11px;line-height:1.5}.step-icon{font-size:25px;margin-top:16px}.step-index{font-size:9px}.story-section{padding-bottom:110px}.insights-grid{grid-template-columns:1fr;gap:60px}.insights-copy h2{font-size:65px}.insights-copy>p{max-width:600px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.explore-toolbar{flex-direction:column;align-items:stretch}.toolbar-right{align-self:flex-end}.section-header h2{font-size:68px}}
+@media(max-width:600px){html{scroll-padding-top:72px}.shell{width:calc(100% - 36px)}.nav{min-height:71px}.nav-cta{display:none}.brand{font-size:21px}.brand-mark{font-size:29px;margin-right:6px}.watchlist-nav span:not(.saved-number){display:none}.nav-actions{gap:3px}.nav-links{top:71px;left:12px;right:12px}.hero{padding-top:75px}.hero-copy{padding-top:38px}.eyebrow{font-size:9px;letter-spacing:.13em}.hero h1{font-size:clamp(57px,12vw,79px);margin:26px 0 22px;white-space:normal}.hero-sub{font-size:14px;line-height:1.75;margin-bottom:27px}.hero-search{padding:5px 5px 5px 13px}.hero-search input{font-size:11px;padding:9px 8px}.hero-search button{font-size:10px;padding:13px 11px;gap:8px}.hero-search button span{font-size:14px}.hero-small{font-size:10px;margin-top:20px}.hero-art{height:402px;margin-top:10px}.hero-product{width:93%;left:0;top:6%}.hero-product img{height:345px}.hero-ghost{font-size:94px;left:1%;top:6%}.hero-ring{inset:14% 0 12%}.float-card-price{right:-2%;top:12%;padding:9px 10px 10px;gap:7px}.float-card small{font-size:6px}.float-card strong{font-size:17px}.float-card-icon{height:31px;width:31px;font-size:20px}.float-card-store{left:0;bottom:17%;padding:10px 12px;gap:6px}.store-dot{height:25px;width:25px;font-size:16px}.float-card-arrow{margin-left:7px;font-size:18px}.float-sticker{height:79px;width:79px;font-size:14px;right:0;bottom:13%}.float-sticker em{font-size:14px}.float-sticker span{font-size:10px;margin-top:1px}.hero-art-foot{bottom:2%;left:6%;font-size:7px;gap:8px}.hero-bottom{height:59px;font-size:8px}.hero-bottom>span:last-child{display:none}.marquee{min-height:65px}.marquee-track>span{font-size:20px}.marquee-track b{padding-inline:24px;font-size:20px}.story-section{padding:87px 0 70px}.story-heading{flex-direction:column;gap:20px;margin-bottom:35px}.story-heading h2,.section-header h2,.insights-copy h2{font-size:clamp(47px,11vw,65px)}.story-heading>p{max-width:100%;font-size:13px}.story-sticky{top:72px}.demo-window{min-height:auto;border-radius:13px}.demo-titlebar{height:36px;font-size:6px;padding:0 11px}.demo-titlebar>span:last-child{display:none}.demo-titlebar i{height:6px;width:6px}.demo-content{padding:17px 12px 2px}.demo-tag{font-size:7px}.demo-topline{min-height:100px}.demo-topline h3{font-size:25px;margin:4px 0}.demo-topline p{font-size:9px;margin:3px 0}.demo-mini-product{width:94px;height:90px}.demo-mini-product img{height:94px;width:94px}.demo-row{grid-template-columns:1fr auto 49px;gap:5px;padding:9px 8px}.demo-row>span{font-size:10px;gap:5px}.demo-row b{font-size:11px}.demo-row i{font-size:7px}.store-bubble{height:16px;width:16px;font-size:11px}.demo-history{padding:9px 10px 0;margin-top:9px}.demo-history svg{height:52px}.demo-history b{font-size:13px}.demo-history span{font-size:7px}.demo-bottom{padding:9px 12px 11px;font-size:7px}.story-steps{grid-template-columns:1fr;gap:0;margin-top:25px}.story-step{min-height:auto;opacity:1;padding:29px 6px 30px}.story-step h3{font-size:34px;margin:11px 0}.story-step p{font-size:12px;max-width:350px}.step-icon{margin:5px 0 0;font-size:29px}.explore-section{padding:85px 0 90px}.section-header{margin-bottom:28px;align-items:flex-start}.section-header p{font-size:13px}.outline-stamp{display:none}.explore-toolbar{margin-top:20px;gap:15px;padding:17px 0}.filter-chips{gap:6px}.filter-chips button{font-size:10px;padding:8px 12px}.toolbar-right{width:100%}.inline-search{flex:1}.inline-search input{width:100%}.toolbar-right select{flex-shrink:0}.results-heading{font-size:8px}.product-grid{gap:11px}.product-card{min-height:331px;border-radius:13px}.product-image{height:145px}.product-image:after{height:155px;width:155px;top:0}.product-image img{width:94%;height:141px}.card-badge{font-size:7px;top:8px;left:8px;padding:6px}.save-button{top:6px;right:6px;height:29px;width:29px}.save-button svg{height:16px;width:16px}.card-body{padding:13px 10px 11px}.card-meta{font-size:8px}.card-body h3{font-size:17px;margin:7px 0}.card-description{font-size:9px;min-height:29px}.card-divider{margin:12px 0 10px}.card-price-row{flex-direction:column;align-items:flex-start;gap:5px}.card-price-row strong{font-size:20px}.old-price{font-size:8px;margin-left:4px}.drop-pill{font-size:8px;padding:5px 7px}.card-foot{margin-top:auto;padding-top:12px;align-items:flex-end}.store-count{font-size:9px}.compare-btn{font-size:9px;padding:8px 9px}.insights-section{padding:90px 0}.insights-copy h2{font-size:57px}.insights-copy>p{font-size:14px;margin:22px 0}.insights-grid{gap:43px}.chart-card{padding:19px 14px 14px;border-radius:15px}.chart-top span{font-size:7px}.chart-indicator{padding:7px;font-size:7px!important}.chart-top h3{font-size:15px}.chart-value{margin:30px 0 4px;gap:8px;flex-wrap:wrap}.chart-value strong{font-size:39px}.chart-value span{font-size:9px;padding:6px}.chart-plot{height:206px;padding-left:35px}.chart-y-labels{font-size:9px}.closing-section{min-height:480px}.closing-inner{padding-block:80px}.closing-inner h2{font-size:clamp(65px,15vw,110px)}.closing-spark-one{left:-1%;top:17%;font-size:28px}.closing-spark-two{right:3%;bottom:19%;font-size:29px}.footer{padding:40px 0}.footer-row{flex-direction:column}.footer-right{align-items:flex-start}.modal-product{padding:17px;gap:10px}.modal-product img{height:74px;width:80px}.modal-product h2{font-size:25px}.modal-list{padding:0 15px}.modal-label{margin-left:15px}.modal-note{margin-inline:15px}.modal-actions{padding:13px 15px 21px}}
+@media(max-width:380px){.product-grid{grid-template-columns:1fr 1fr;gap:8px}.card-meta span:last-child{display:none}.card-foot{flex-direction:column;align-items:flex-start}.compare-btn{width:100%}.hero h1{font-size:53px}.float-card-store{bottom:15%}.hero-art{height:380px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}.hero-product{transform:rotate(-7deg)}.story-step{opacity:1;transform:none}}
+
+/* Local CSS 3D scene; no canvas or scroll pinning. */
+.spatial-section{height:auto;position:relative;background:#060c0e;color:#f5f7ec;isolation:isolate}
+.spatial-sticky{position:relative;min-height:0;height:auto;overflow:hidden;background:radial-gradient(ellipse at 74% 47%,#254332 0%,#10231d 26%,#0b1315 54%,#060b0d 100%);isolation:isolate}
+.spatial-sticky:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(100deg,rgba(2,7,7,.7),transparent 65%),radial-gradient(circle at 42% 80%,rgba(206,253,106,.055),transparent 38%)}
+.spatial-grid{position:absolute;inset:0;z-index:0;opacity:.19;pointer-events:none;background-image:linear-gradient(rgba(198,235,194,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(198,235,194,.16) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(90deg,transparent 4%,black 55%)}
+.spatial-noise{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.1;background-image:radial-gradient(rgba(255,255,255,.66) .7px,transparent .7px);background-size:7px 7px}
+.spatial-inner{position:relative;z-index:2;min-height:0;height:auto;display:grid;grid-template-columns:minmax(0,.93fr) minmax(0,1.07fr);align-items:center;gap:10px;padding-top:35px;padding-bottom:45px}
+.spatial-copy{position:relative;z-index:4;padding-top:22px;max-width:610px;pointer-events:auto}
+.spatial-eyebrow{font-size:10px;font-weight:800;color:#d9f5aa;letter-spacing:.20em;display:flex;align-items:center;gap:12px;margin-bottom:25px}
+.spatial-beacon{display:inline-block;width:8px;height:8px;border-radius:50%;background:#d3fd67;box-shadow:0 0 0 5px rgba(211,253,103,.12),0 0 24px rgba(211,253,103,.55)}
+.spatial-counter{display:flex;align-items:center;gap:12px;font-size:10px;font-weight:800;color:#a7afa8;letter-spacing:.15em;margin-bottom:15px}
+.spatial-counter span:first-child{font-size:17px;color:#d3fd67}
+.spatial-counter i{width:34px;height:1px;background:#61766a}
+.spatial-copy h2{font-size:clamp(48px,5.5vw,82px);line-height:.98;letter-spacing:-.082em;font-weight:700;margin:0 0 33px;max-width:680px}
+.spatial-copy h2 em{display:block;color:var(--lime);font-family:'Instrument Serif',Georgia,serif;font-weight:400;letter-spacing:-.055em;line-height:.95}
+.spatial-copy>p{color:#b7c3bd;font-size:clamp(15px,1.25vw,18px);line-height:1.75;max-width:465px;margin:0 0 29px}
+.spatial-link{display:inline-flex;align-items:center;justify-content:space-between;gap:45px;padding:14px 21px;border:1px solid rgba(211,253,103,.65);border-radius:100px;color:var(--lime);font-size:13px;font-weight:800;transition:background .25s,color .25s,transform .25s}
+.spatial-link:hover{color:#0a1111;background:var(--lime);transform:translateY(-3px)}
+.spatial-counts{display:flex;flex-wrap:wrap;gap:17px;color:#728b7e;font-size:9px;font-weight:700;letter-spacing:.12em;margin-top:67px}
+.spatial-visual{--visual-rot:0deg;--visual-shift:0px;--glow-intensity:.64;position:relative;height:min(72vh,670px);min-height:475px;display:grid;place-items:center;isolation:isolate}
+.spatial-visual:before{content:"";position:absolute;inset:11% 7%;border:1px dashed rgba(198,253,112,.17);border-radius:50%;transform:rotateX(70deg) rotate(-21deg);pointer-events:none}
+.spatial-glow{position:absolute;inset:3%;border-radius:50%;background:radial-gradient(circle,#9367e54d,transparent 68%);pointer-events:none}
+.spatial-orbit{position:absolute;width:min(95%,550px);aspect-ratio:1;border-radius:50%;border:1px solid rgba(207,255,147,.22);pointer-events:none;box-shadow:0 0 36px rgba(187,238,110,.045),inset 0 0 30px rgba(187,238,110,.045)}
+.orbit-outer{transform:rotate(-28deg) rotateY(59deg) rotateX(25deg);animation:none}
+.orbit-inner{width:min(72%,420px);border:2px dashed rgba(214,251,162,.16);transform:rotate(64deg) rotateX(57deg);animation:none}
+.spatial-shadow{position:absolute;width:290px;height:55px;border-radius:50%;background:radial-gradient(ellipse,#0009,transparent 70%);transform:translateY(220px);pointer-events:none}
+.cube-viewport{position:absolute;inset:0;display:grid;place-items:center;perspective:1050px;cursor:grab;z-index:2;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.cube-viewport:active{cursor:grabbing}
+.spatial-cube{--cube-size:316px;--cube-y:-23deg;--cube-x:-13deg;position:relative;width:var(--cube-size);height:var(--cube-size);transform-style:preserve-3d;transform:rotateX(var(--cube-x)) rotateY(var(--cube-y)) rotateZ(-2deg);/* Shadows live on .spatial-shadow. Filters on this element would flatten its 3D children. */}
+.cube-face{position:absolute;inset:0;box-sizing:border-box;backface-visibility:hidden;overflow:hidden;border:1px solid rgba(210,252,178,.53);border-radius:2px;display:flex;flex-direction:column;padding:22px}
+.cube-front{transform:translateZ(calc(var(--cube-size) * .5));background:linear-gradient(150deg,rgba(175,216,135,.24),rgba(44,76,67,.72) 54%,#131f20 100%)}
+.cube-front:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,rgba(255,255,255,.2),transparent 27%,transparent 73%,rgba(255,255,255,.055));pointer-events:none}
+.cube-corner{font-size:9px;font-weight:800;letter-spacing:.17em;line-height:1.6;color:#e2eddf;position:relative;z-index:1}
+.cube-face-star{position:absolute;top:15px;right:22px;color:var(--lime);font-size:30px}
+.cube-product-art{position:absolute;top:18%;left:0;width:100%;height:61%;object-fit:contain;pointer-events:none}
+.cube-front-bottom{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-top:auto;border-top:1px solid rgba(237,255,215,.29);padding-top:11px;position:relative;z-index:1}
+.cube-front-bottom strong{font-size:24px;letter-spacing:-.045em}
+.cube-front-bottom span{font-size:8px;font-weight:800;letter-spacing:.09em;color:#bad7a4}
+.cube-right{transform:rotateY(90deg) translateZ(calc(var(--cube-size) * .5));background:linear-gradient(150deg,#16271f,#223b30 55%,#081b17)}
+.cube-back{transform:rotateY(180deg) translateZ(calc(var(--cube-size) * .5));background:linear-gradient(150deg,#294533,#112c27 65%,#0b1c19)}
+.cube-left{transform:rotateY(-90deg) translateZ(calc(var(--cube-size) * .5));background:linear-gradient(165deg,#273f31,#142423 62%,#0d171a)}
+.cube-top{transform:rotateX(90deg) translateZ(calc(var(--cube-size) * .5));background:#99c65d;color:#102018;justify-content:space-between;flex-direction:row;align-items:center;font-size:10px;font-weight:800;letter-spacing:.08em}
+.cube-bottom{transform:rotateX(-90deg) translateZ(calc(var(--cube-size) * .5));background:#111c17;color:#b2cc94;justify-content:center;align-items:center;font-size:12px;font-weight:800;letter-spacing:.16em}
+.cube-side-kicker{font-size:9px;font-weight:800;color:#b5d68d;letter-spacing:.2em}
+.cube-face h3{font-size:31px;letter-spacing:-.065em;line-height:1.03;margin:35px 0 20px}
+.cube-stores{display:grid;gap:7px;margin-top:auto;margin-bottom:18px}
+.cube-stores>div{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.11);border-radius:9px;padding:10px 11px}
+.cube-stores span{font-size:9px;color:#d4decf;font-weight:700;letter-spacing:.08em}
+.cube-stores b{font-size:14px}
+.cube-right>small{font-size:8px;color:#a3c492;font-weight:800;letter-spacing:.14em}
+.cube-back h3{margin:30px 0 8px}
+.cube-back svg{width:100%;height:105px;margin:22px 0 auto;overflow:visible}
+.cube-back-stat{display:flex;justify-content:space-between;align-items:end;border-top:1px solid rgba(255,255,255,.15);padding-top:13px}
+.cube-back-stat b{font-size:24px;color:var(--lime)}
+.cube-back-stat span{color:#a4c396;font-size:8px;letter-spacing:.12em}
+.cube-heart{font-family:Georgia,serif;font-size:112px;line-height:1.1;text-align:center;color:var(--lime);text-shadow:0 0 40px rgba(209,255,105,.22);margin:20px 0 0}
+.cube-left h3{margin:0;font-size:33px}
+.cube-left p{font-size:12px;line-height:1.7;color:#b8cbb7;max-width:200px}
+.spatial-hud{position:absolute;z-index:3;pointer-events:none;font-size:9px;font-weight:800;letter-spacing:.16em;color:#acbcb3}
+.hud-top{top:5%;right:4%;display:flex;align-items:center;gap:9px}
+.hud-top i{width:7px;height:7px;border-radius:50%;background:#d2fa79;box-shadow:0 0 12px #d2fa79}
+.hud-bottom{bottom:5%;left:4%;right:4%;display:flex;justify-content:space-between;gap:10px}
+.spatial-price-tag{position:absolute;z-index:4;right:1%;bottom:10%;width:153px;display:grid;gap:4px;padding:15px 17px;border:1px solid rgba(220,255,195,.5);border-radius:11px;background:rgba(14,27,24,.7);box-shadow:0 22px 65px rgba(0,0,0,.4);transform:rotate(5deg)}
+.spatial-price-tag span,.spatial-price-tag small{font-size:8px;letter-spacing:.13em;color:#b6c9aa;font-weight:800}
+.spatial-price-tag strong{font-size:24px;letter-spacing:-.06em;color:#f1ffdc}
+
+
+/* Layout boundaries and a quieter motion system. */
+[hidden]{display:none!important}
+html{scrollbar-gutter:stable;overflow-x:clip}
+.hero-art{min-width:0}
+.hero-orb{display:none}
+.hero-product,.float-card,.marquee-track,.scroll-indicator{animation-play-state:paused}
+.motion-visible .hero-product,.motion-visible .marquee-track{animation-play-state:running}
+.float-card{animation:none}
+.page-hidden .hero-product,.page-hidden .marquee-track{animation-play-state:paused!important}
+.closing-spark{animation:none}
+.product-card{min-width:0;isolation:isolate;transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 12px 26px #28233414}
+.product-card:hover .product-image img{transform:scale(1.035)}
+.card-meta{gap:8px;line-height:1.5}
+.card-meta>span:first-child{min-width:0;overflow-wrap:anywhere}
+.card-meta>span:last-child{white-space:nowrap}
+.card-price-row>div{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 7px}
+.old-price{margin-left:0}
+.card-foot{flex-wrap:wrap;margin-top:auto;padding-top:16px}
+.card-badge,.save-button{background:#fffffff0}
+.watch-drawer{visibility:hidden;transition:transform .3s var(--ease),visibility 0s .3s}
+.watch-drawer.open{visibility:visible;transition-delay:0s}
+body:has(dialog[open]){overflow:hidden}
+.demo-window{top:max(100px,calc(50vh - 258px))}
+.demo-topline h3{min-height:2.1em}
+.spatial-copy{min-width:0}
+.spatial-copy h2{font-size:clamp(44px,5.2vw,76px);margin-bottom:24px}
+.spatial-visual{height:550px;min-height:475px}
+.cube-viewport{touch-action:pan-y;outline-offset:-5px}
+.cube-viewport.is-rotating .spatial-cube,.cube-viewport.is-dragging .spatial-cube{will-change:transform}
+.spatial-orbit{animation:none;box-shadow:none}
+.spatial-price-tag{box-shadow:0 12px 24px #0003}
+.cube-face h3{font-size:28px;line-height:1.06;margin:22px 0 14px;flex-shrink:0}
+.cube-stores{gap:6px;margin-bottom:12px}
+.cube-stores>div{padding:8px 9px}
+.cube-back h3{margin:22px 0 8px}
+.cube-back svg{height:85px;min-height:35px;margin:12px 0 auto}
+.cube-heart{font-size:88px;line-height:1.02;margin:12px 0 6px}
+.cube-left h3{font-size:28px;margin:0}
+.cube-left p{font-size:11px;line-height:1.5;margin:10px 0 0}
+.cube-right{display:grid;grid-template-rows:auto minmax(0,1fr) auto auto;gap:8px}
+.cube-face.cube-right h3{margin:0;align-self:center}
+.cube-right .cube-stores{margin:0;gap:5px}
+.cube-right .cube-stores>div{padding:6px 8px}
+
+/* Feature cards stay in the page flow; compact screens use native swiping. */
+.rail-section{height:auto;background:#f4edf6;color:#252236}
+.rail-sticky{position:relative;height:auto;min-height:0;padding:80px 0 48px}
+.rail-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:36px}
+.rail-kicker{font-size:10px;letter-spacing:.15em;font-weight:800}
+.rail-head h2{font-size:clamp(48px,6vw,80px);letter-spacing:-.075em;line-height:1.03;margin:15px 0 0}
+.rail-head h2 em{font-family:'Instrument Serif',Georgia,serif;font-weight:400}
+.rail-instruction{font-size:10px;line-height:1.5;font-weight:700;text-align:right}
+.rail-instruction b{display:none}
+.rail-viewport{width:100%}
+.rail-track{width:min(1320px,calc(100% - 88px));margin:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.rail-panel{position:relative;min-width:0;min-height:530px;border:1px solid #29203c1a;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;padding:26px;isolation:isolate}
+.rail-panel-heading{display:flex;justify-content:space-between;font-size:9px;font-weight:800;letter-spacing:.1em;gap:8px}
+.rail-panel-heading>span:last-child{font-size:20px}
+.rail-panel-body{position:relative;margin-top:26px;z-index:2}
+.rail-panel-body h3{font-size:clamp(38px,3.5vw,52px);line-height:1;letter-spacing:-.07em;margin:0 0 14px}
+.rail-panel-body p{font-size:13px;line-height:1.65;max-width:32ch;margin:0}
+.rail-panel-foot{margin-top:auto;padding-top:22px;font-size:8px;letter-spacing:.1em;font-weight:800;z-index:2}
+.rail-graphic{position:relative;inset:auto;align-self:center;width:100%;height:170px;margin:26px 0 10px;pointer-events:none;flex-shrink:0}
+.stores-graphic{display:flex;flex-direction:column;justify-content:center;gap:10px;transform:rotate(-3deg);width:94%}
+.stores-graphic>div{padding:12px 14px;border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid #ffffff3d;color:#f7f1ff}
+.stores-graphic>div:first-child{transform:translateX(-5px)}
+.stores-graphic span{font-size:9px;font-weight:800;letter-spacing:.04em}
+.stores-graphic strong{font-size:21px;letter-spacing:-.05em}
+.stores-graphic i{position:absolute;right:0;top:-14px;padding:5px 8px;border-radius:18px;font-size:8px;font-weight:800;font-style:normal}
+.graph-graphic{border:1px solid #ffffff26;border-radius:14px;padding:16px;background:#ffffff08}
+.graph-top{display:flex;justify-content:space-between;align-items:center;font-size:9px;font-weight:700;letter-spacing:.04em}
+.graph-top b{font-size:20px}
+.graph-graphic svg{width:100%;height:115px;margin-top:10px}
+.watch-graphic{height:174px}
+.watch-icon-3d{position:absolute;left:7%;top:4px;width:125px;height:125px;border-radius:27px;display:grid;place-items:center;font-size:82px;line-height:1;transform:rotate(-13deg);box-shadow:8px 12px 18px #6134511f}
+.watch-demo{position:absolute;bottom:0;right:0;width:min(190px,75%);padding:14px;border-radius:12px;display:grid;gap:6px;transform:rotate(4deg);box-shadow:6px 9px 20px #6134511a;color:#fff5ff}
+.watch-demo small{font-size:8px;letter-spacing:.08em}
+.watch-demo strong{font-size:21px;letter-spacing:-.05em}
+.watch-demo span{font-size:10px}
+.rail-footer{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:26px;font-size:8px;font-weight:800;letter-spacing:.12em}
+
+@media(max-width:1150px){
+  .spatial-cube{--cube-size:275px}
+  .cube-face{padding:18px}
+  .cube-face h3{font-size:28px}
+  .cube-stores>div{padding:8px}
+  .spatial-visual{height:480px;min-height:450px}
+  .spatial-copy h2{font-size:clamp(44px,5.2vw,65px)}
+}
+@media(max-width:1050px){
+  .rail-viewport{overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scroll-padding-inline:30px;scrollbar-width:thin;padding-bottom:12px}
+  .rail-track{display:flex;width:max-content;margin:0;padding-inline:30px;gap:18px}
+  .rail-panel{flex:0 0 auto;width:min(72vw,400px);scroll-snap-align:start;min-height:510px}
+  .rail-instruction{max-width:100px}
+  .rail-panel-body h3{font-size:46px}
+}
+@media(max-width:900px){
+  .spatial-inner{grid-template-columns:1fr;gap:12px;padding-top:50px;padding-bottom:24px}
+  .spatial-copy{max-width:700px;padding-top:0}
+  .spatial-copy h2{font-size:clamp(46px,7.5vw,70px);max-width:650px}
+  .spatial-copy h2 em{display:inline}
+  .spatial-copy>p{max-width:550px;font-size:14px;line-height:1.7;margin-bottom:24px}
+  .spatial-visual{height:425px;min-height:360px}
+  .spatial-cube{--cube-size:245px}
+  .spatial-shadow{transform:translateY(170px)}
+  .spatial-price-tag{right:5%;bottom:6%;width:130px;padding:11px}
+  .spatial-price-tag strong{font-size:19px}
+  .spatial-hud{font-size:8px}
+  .story-sticky{position:relative;top:auto;height:auto}
+  .story-step{opacity:1;transform:none}
+}
+@media(max-width:600px){
+  .spatial-inner{padding-top:45px}
+  .spatial-eyebrow{font-size:8px;letter-spacing:.1em;margin-bottom:20px}
+  .spatial-counter{font-size:8px}
+  .spatial-copy h2{font-size:clamp(39px,10vw,58px);line-height:1.04;letter-spacing:-.065em;margin-bottom:18px}
+  .spatial-copy h2 em{display:block}
+  .spatial-copy>p{font-size:13px;line-height:1.65}
+  .spatial-link{font-size:11px;padding:10px 16px}
+  .spatial-visual{height:350px;min-height:320px}
+  .spatial-cube{--cube-size:205px}
+  .cube-face{padding:13px}
+  .cube-corner{font-size:6px}
+  .cube-face-star{font-size:23px;top:9px;right:12px}
+  .cube-front-bottom strong{font-size:17px}
+  .cube-front-bottom span,.cube-side-kicker{font-size:7px}
+  .cube-face h3{font-size:21px;margin:12px 0}
+  .cube-stores{gap:4px;margin-bottom:8px}
+  .cube-stores>div{padding:6px 7px}
+  .cube-stores span{font-size:7px}
+  .cube-stores b{font-size:10px}
+  .cube-right>small{font-size:6px}
+  .cube-back svg{height:65px;margin:8px 0 auto}
+  .cube-back-stat b{font-size:17px}
+  .cube-back-stat span{font-size:6px}
+  .cube-heart{font-size:64px;margin-top:9px}
+  .cube-left h3{font-size:22px;margin:0}
+  .cube-left p{font-size:10px}
+  .cube-top,.cube-bottom{font-size:7px}
+  .spatial-shadow{width:190px;transform:translateY(135px)}
+  .spatial-hud{font-size:7px;letter-spacing:.06em}
+  .hud-top{top:2%;right:1%}
+  .hud-bottom{bottom:0;left:0;right:0}
+  .spatial-price-tag{right:0;bottom:9%;width:104px;padding:9px}
+  .spatial-price-tag span,.spatial-price-tag small{font-size:6px}
+  .spatial-price-tag strong{font-size:16px}
+  .card-foot{gap:9px;align-items:stretch;flex-direction:column}
+  .toolbar-right .inline-search{min-width:0}
+  .compare-btn{width:100%;min-height:35px}
+  .card-body h3{min-height:2.3em}
+  .card-meta{font-size:8px;letter-spacing:.06em;align-items:start}
+  .card-meta>span:last-child{font-size:8px}
+  .demo-row small{display:none}
+  .demo-topline p{max-width:190px}
+  .rail-sticky{padding:60px 0 35px}
+  .rail-head{align-items:start;gap:14px;margin-bottom:26px}
+  .rail-head h2{font-size:clamp(43px,11vw,58px)}
+  .rail-kicker{font-size:8px}
+  .rail-instruction{font-size:9px;max-width:65px;margin-top:3px}
+  .rail-track{gap:14px;padding-inline:18px}
+  .rail-viewport{scroll-padding-inline:18px}
+  .rail-panel{width:84vw;padding:23px;min-height:515px}
+  .rail-panel-body h3{font-size:43px}
+  .rail-panel-body p{font-size:12px}
+}
+@media(hover:none){.product-card:hover{transform:none}.product-card:hover .product-image img{transform:none}}
+@media(max-width:380px){
+  .spatial-cube{--cube-size:185px}
+  .cube-face{padding:10px}
+  .cube-face h3{font-size:19px}
+  .cube-stores>div{padding:5px 6px}
+  .cube-right .cube-stores>div{padding:5px 6px}
+  .cube-heart{font-size:52px}
+  .cube-left h3{font-size:20px}
+}
+@media(max-height:740px) and (min-width:901px){.demo-window{position:relative;top:auto}.story-step{min-height:360px}}
+@media(prefers-reduced-motion:reduce){
+  .reveal,.story-step{opacity:1;transform:none}
+  .hero-product,.marquee-track{animation:none!important}
+  .spatial-cube{transition:none!important}
+  .product-card:hover,.product-card:hover .product-image img{transform:none}
+}
+
+</style>
+  <style>
+/* PriceSense colour system: bright accents, quiet surfaces, readable content. */
+:root {
+  --black: #10111f;
+  --cream: #faf7f4;
+  --text: #252236;
+  --violet: #beacff;
+  --cyan: #78e5f1;
+  --coral: #ffab9b;
+  --lime: #d9fa7a;
+  --pink: #f5afe0;
+  --colour-ribbon: linear-gradient(100deg, #beacff, #78e5f1 34%, #d9fa7a 65%, #ffab9b);
+}
+::selection { background: var(--violet); color: #19142d; }
+:focus-visible { outline-color: #a985ff; }
+.reading-progress { background: var(--colour-ribbon); }
+.topbar.is-scrolled { background: rgba(16,17,31,.94); }
+.brand-mark { color: var(--violet); }
+.brand-period { color: var(--coral); }
+.nav-links a:hover { color: var(--cyan); }
+.nav-cta { background: linear-gradient(110deg, #c6b6ff, #9deaf4); color: #221b39; }
+.nav-cta:hover { background: #d4c8ff; }
+.saved-number { background: #3a294b; color: #f5afe0; }
+
+/* The opening scene mixes soft violet lighting with cool and warm accents. */
+.hero {
+  background: radial-gradient(ellipse at 80% 28%, rgba(125,91,211,.28), transparent 44%),
+              radial-gradient(ellipse at 58% 90%, rgba(51,171,195,.12), transparent 40%), #10111f;
+}
+.hero:before { background-image: radial-gradient(#b9a4f4 .55px, transparent .55px); }
+.hero-orb-one { background: rgba(132,84,241,.18); }
+.hero-orb-two { background: rgba(255,139,127,.12); }
+.eyebrow { color: var(--violet); }
+.eyebrow-line { background: var(--coral); }
+.eyebrow-star { color: var(--cyan); }
+.hero h1 .serif-word {
+  color: var(--violet);
+  background: linear-gradient(105deg, #c5b2ff 7%, #9ae7f4 55%, #ddfa9c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-sub { color: #b8b7c8; }
+.hero-search { border: 1px solid #d6c8ef; box-shadow: 0 16px 65px #08081966, 0 0 0 5px #b59af908; }
+.hero-search button { background: #c5b2ff; color: #2b1d45; }
+.hero-search button:hover { background: #d5c7ff; }
+.hero-small { color: #b4afc1; }
+.hero-visual-grid { background: repeating-radial-gradient(circle, transparent 0, transparent 65px, #beacff40 66px, transparent 67px); }
+.hero-ring-one { border-color: #78e5f15c; }
+.hero-ring-two { border-color: #ffab9b52; }
+.hero-ghost { color: #c4b0ff1f; }
+.float-card-price { background: linear-gradient(125deg, #ffe6dc, #ffd9e7); border-color: #ffc7c7; }
+.float-card-price .float-card-icon { background: #ffb4a2; color: #512a29; }
+.float-card-store { background: linear-gradient(125deg, #edfcff, #d9f2fb); border-color: #bfeff5; }
+.float-sticker { background: #c4b1ff; color: #251a3d; }
+.hero-art-foot span, .scroll-indicator { color: var(--coral); }
+.hero-bottom { border-color: #c0a7ff26; }
+.marquee { background: var(--colour-ribbon); color: #252139; }
+
+/* Four chapters, four colour atmospheres, with the existing 3D geometry. */
+.spatial-section { --scene-accent: #c6b3ff; --scene-glow: #9367e5; background: #10101f; }
+.spatial-section[data-chapter="1"] { --scene-accent: #78e5f1; --scene-glow: #33b5c6; }
+.spatial-section[data-chapter="2"] { --scene-accent: #ffb19e; --scene-glow: #df796c; }
+.spatial-section[data-chapter="3"] { --scene-accent: #d9fa7a; --scene-glow: #a8cc41; }
+.spatial-sticky {
+  background: radial-gradient(ellipse at 77% 43%, #403061 0%, #1b1b38 31%, #10111f 64%, #0d101c 100%);
+}
+.spatial-sticky:before { background: linear-gradient(100deg,#090c189e,transparent 70%),radial-gradient(circle at 75% 50%,#7047b01a,transparent 42%); }
+.spatial-grid { background-image: linear-gradient(#b5a6f326 1px,transparent 1px),linear-gradient(90deg,#b5a6f326 1px,transparent 1px); }
+.spatial-glow {
+  background: radial-gradient(circle, var(--scene-glow), transparent 68%);
+  opacity: .32;
+  transition: background .6s;
+}
+.spatial-beacon, .spatial-progress>div { background: var(--scene-accent); box-shadow: 0 0 24px #c3b3ff50; }
+.spatial-eyebrow { color: #d7c8f4; }
+.spatial-counter span:first-child, .spatial-copy h2 em { color: var(--scene-accent); transition: color .5s; }
+.spatial-copy>p { color: #bdbbcf; }
+.spatial-link { border-color: var(--scene-accent); color: var(--scene-accent); }
+.spatial-link:hover { background: var(--scene-accent); color: #151223; }
+.spatial-counts { color: #a29ab9; }
+.orbit-outer { border-color: #78e5f14d; }
+.orbit-inner { border-color: #ffab9b4f; }
+.spatial-visual:before { border-color: #c6b3ff40; }
+.cube-face { border-color: #d8cdff8c; box-shadow: inset 0 0 50px #e9d9ff0a; }
+.cube-front { background: linear-gradient(145deg, #6c50a9, #35294f 58%, #201d3a); }
+.cube-right { background: linear-gradient(145deg, #174c5b, #173848 58%, #162235); }
+.cube-back { background: linear-gradient(145deg, #71444b, #442b46 56%, #282037); }
+.cube-left { background: linear-gradient(145deg, #415439, #273c37 60%, #182932); }
+.cube-top { background: #c0acff; color: #251a3c; }
+.cube-bottom { background: #29203e; color: #d8caff; }
+.cube-corner { color: #e8ddff; }
+.cube-face-star { color: #ffbcaa; }
+.cube-side-kicker { color: #b0ebf6; }
+.cube-back .cube-side-kicker, .cube-back-stat b { color: #ffbaa7; }
+.cube-back-stat span { color: #d6bdcb; }
+.cube-left .cube-side-kicker { color: #ddf2a8; }
+.cube-right>small, .cube-front-bottom span { color: #c9c2e4; }
+.cube-stores span { color: #dbf3fa; }
+.cube-stores>div:first-child { border-color: #78e5f177; background: #78e5f11a; }
+.spatial-hud { color: #c2bad7; }
+.hud-top i { background: #78e5f1; box-shadow: 0 0 12px #78e5f1; }
+.spatial-price-tag { background: #211c3ddd; border-color: #d5b8ff88; }
+.spatial-price-tag span, .spatial-price-tag small { color: #cbc0e0; }
+.spatial-price-tag strong { color: #e3d3ff; }
+
+/* The explainer moves from violet to cyan to coral. */
+.story-section { background: #181625; }
+.story-section:before { background: radial-gradient(ellipse at 19% 46%,#9b7ce31a,transparent 50%); }
+.section-kicker, .ink-serif { color: var(--violet); }
+.story-step { --step-accent: #c6b3ff; border-color: #c5b2ff2e; }
+.story-step:nth-child(2) { --step-accent: #78e5f1; }
+.story-step:nth-child(3) { --step-accent: #ffb19e; }
+.story-step .step-index, .story-step .step-icon, .story-step h3 em { color: var(--step-accent); }
+.story-step p { color: #b5b0c2; }
+.demo-window { background: #262239; border-color: #79669266; box-shadow: 0 35px 100px #07061355; }
+.demo-titlebar { background: #211d31; border-color: #64537b55; }
+.demo-titlebar>span, .demo-tag { color: #d0baff; }
+.demo-titlebar span:last-child { color: #a5e8f4; }
+.demo-row { border-color: #77638c55; }
+.demo-row.row-one { background: #95e2e812; border-color: #87dce1; }
+.demo-row.row-one i { color: #a1e7dd; }
+.demo-row.row-two .store-bubble { background: #d2bcff; }
+.demo-row.row-three .store-bubble { background: #ffc2ad; }
+.demo-history { background: #1a2033; border-color: #535c7a88; }
+.demo-history b, #sceneLabel { color: var(--cyan); }
+.demo-window[data-scene="1"] .demo-history { border-color: var(--cyan); box-shadow: 0 0 0 1px #78e5f126; }
+.demo-window[data-scene="2"] .demo-row.row-one { background: #ffab9b15; }
+
+/* A light, colourful catalog gives product information room to breathe. */
+.explore-section {
+  background: radial-gradient(ellipse at 0% 8%, #e4d8fc99,transparent 32%),
+              radial-gradient(ellipse at 100% 92%, #d7f2f68c,transparent 32%), #faf7f4;
+}
+.dark-kicker, .section-header .serif-word { color: #7352ad; }
+.section-header p { color: #6d697b; }
+.outline-stamp { background: #f3ddca; border-color: #aa6744; color: #74472e; }
+.explore-toolbar { border-color: #d8d0e1; }
+.filter-chips button { color: #625771; border-color: #d5cade; background: #ffffff70; }
+.filter-chips button.active, .filter-chips button:hover { background: #674296; color: #fff; border-color: #674296; }
+.inline-search, .toolbar-right select { border-color: #d5cade; background: #ffffff70; }
+.results-heading { color: #6d637a; }
+.product-card { --card-accent: #674296; --card-soft: #ede5fa; border-color: #e6dfed; box-shadow: 0 6px 22px #422e5907; }
+.product-card[data-tone="peach"], .product-card[data-tone="orange"] { --card-accent: #91482e; --card-soft: #ffebdf; }
+.product-card[data-tone="sky"], .product-card[data-tone="blue"] { --card-accent: #16677b; --card-soft: #e0f4f9; }
+.product-card[data-tone="lime"] { --card-accent: #48632a; --card-soft: #edf6df; }
+.product-card[data-tone="sand"] { --card-accent: #8b4264; --card-soft: #fbe5ef; }
+.product-card:hover { border-color: var(--card-accent); }
+.color-violet { background: radial-gradient(circle at 35% 28%, #f4eaff, #d9c6f5); }
+.color-peach { background: radial-gradient(circle at 35% 28%, #fff1d8, #f8c6b2); }
+.color-sky { background: radial-gradient(circle at 35% 28%, #e7fcff, #afe0ee); }
+.color-lime { background: radial-gradient(circle at 35% 28%, #f5ffdc, #d0e7a4); }
+.color-sand { background: radial-gradient(circle at 35% 28%, #fff0f5, #e9bed4); }
+.color-orange { background: radial-gradient(circle at 35% 28%, #fff0db, #f7c297); }
+.color-purple { background: radial-gradient(circle at 35% 28%, #f4eaff, #d7bcf2); }
+.color-blue { background: radial-gradient(circle at 35% 28%, #edf6ff, #b8d2f4); }
+.card-badge { background: #ffffffe6; color: var(--card-accent); }
+.save-button.is-saved { background: #f9d8e8; }
+.save-button.is-saved svg { fill: #93466c; stroke: #93466c; }
+.card-meta { color: var(--card-accent); }
+.card-description { color: #706a7c; }
+.compare-btn { background: var(--card-soft); color: var(--card-accent); }
+.compare-btn:hover { background: var(--card-accent); color: white; }
+.drop-pill { color: #3c6228; background: #ebf6df; }
+
+/* The horizontal cards each own a colour rather than sharing one accent. */
+.rail-section, .rail-sticky { background: #eee8f3; color: #282039; }
+.rail-sticky { background: radial-gradient(ellipse at 90% 12%, #fce0d8, transparent 45%),#eee8f3; }
+.rail-kicker, .rail-head h2 em { color: #7352ad; }
+.rail-panel-one { background: #c8b4f8; color: #2c1e45; }
+.rail-panel-two { background: #193e50; color: #f6fbff; }
+.rail-panel-three { background: #ffc4ad; color: #4b2a27; }
+.stores-graphic>div { background: #352548; }
+.stores-graphic>div:first-child { background: #fcf7ff; color: #352548; }
+.stores-graphic i { background: #352548; color: #e0f69b; }
+.graph-top b { color: var(--cyan); }
+.watch-icon-3d {
+  background: linear-gradient(145deg,#fff0dd,#e7a3a8 72%,#b96d87);
+  color: #753653;
+  box-shadow: 25px 30px 35px #9d4d672b,inset 7px 8px 11px #fff2e6;
+}
+.watch-demo { background: #41283e; }
+.watch-demo small { color: #e8c3d7; }
+.watch-demo span { color: #f9bfb3; }
+.rail-footer { color: #6d5a7a; }
+.rail-progress { background: #d6c6e5; }
+.rail-progress>span { background: linear-gradient(90deg,#8460b7,#d47a6c); }
+
+/* Cool charts, warm closing section, and matching overlays. */
+.insights-section { background: radial-gradient(ellipse at 90% 60%,#19475455,transparent 55%),#111b2a; }
+.insights-copy h2 .serif-word, .insights-copy .section-kicker { color: var(--cyan); }
+.insights-copy>p { color: #b4bdcd; }
+.stat-star { background: #8fe0eb; color: #163443; }
+.underlined-link { color: var(--cyan); border-color: var(--cyan); }
+.chart-card { background: #1b2b3d; border-color: #54839966; }
+.chart-value span { background: #87dfef1c; color: #99e9f1; }
+.chart-indicator { border-color: #54839966; }
+.chart-indicator i { background: var(--cyan); box-shadow: 0 0 0 4px #78e5f112; }
+.chart-y-labels, .chart-foot { color: #adbdd0; }
+.chart-foot { border-color: #617c953d; }
+.chart-tooltip { background: #a0e8f4; color: #1a3442; }
+.range-buttons button { color: #afc1d6; }
+.range-buttons button.selected { background: #f2b6ce; color: #4c2844; }
+.closing-section { background: linear-gradient(125deg,#e1c7f4 0%,#f3bfc8 48%,#ffcfac 100%); color: #34203e; }
+.closing-inner .section-kicker { color: #673e79; }
+.closing-inner p { color: #69415f; }
+.closing-cta { background: #40284f; }
+.closing-cta:hover { background: #563667; color: white; }
+.closing-spark-one { color: #8150a4; }
+.closing-spark-two { color: #a85254; }
+.footer { background: #141323; }
+.footer p, .footer-right { color: #a7a0ba; }
+.footer-right a { color: var(--violet); }
+.watch-drawer, .compare-dialog { background: #faf6ff; color: #2e253d; }
+.drawer-head, .modal-top { background: linear-gradient(110deg,#ede1fb,#f8e5ed); border-color: #ddcce7; }
+.drawer-head small, .modal-top>span, .modal-label { color: #755086; }
+.drawer-head h2 span { color: #a24a7d; }
+.icon-button { background: #e8dcee; color: #513560; }
+.saved-item img, .modal-product img { background: #eadef5; }
+.saved-item { border-color: #e4d6ec; }
+.saved-item .small-compare, .drawer-bottom a, .modal-actions .modal-primary { background: #69448d; color: white; }
+.saved-item small, .modal-product small, .modal-product p { color: #75667f; }
+.saved-empty>span { color: #b36f9a; }
+.drawer-bottom { border-color: #e4d6ec; }
+.modal-row { border-color: #e0d4eb; background: #ffffff80; }
+.modal-row.best { background: #edf6e7; border-color: #829e6d; }
+.modal-row>div:first-child small, .modal-row .modal-price small, .modal-note, .drawer-bottom p { color: #64616e; }
+.modal-actions { border-color: #e4d6ec; }
+.modal-actions button { border-color: #69448d; }
+.modal-actions .modal-secondary { color: #69448d; }
+.toast { background: linear-gradient(110deg,#dfcdf9,#c8eef5); color: #352744; }
+@media(max-width:900px) {
+  .nav-links { background: #211d33; border-color: #66507a; }
+}
+@media(forced-colors:active) {
+  .hero h1 .serif-word { background: none; -webkit-text-fill-color: currentColor; }
+}
+
+/* Visible cube: normal page flow, slow idle rotation, direct manipulation. */
+.spatial-controls { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 0 14px; }
+.spatial-controls button {
+  border: 1px solid #8e7aa566;
+  border-radius: 24px;
+  padding: 10px 14px;
+  background: #ffffff08;
+  color: #e2daec;
+  font-size: 11px;
+  font-weight: 700;
+}
+.spatial-controls button:hover { border-color: #c6b3ff; }
+.spatial-controls button[aria-pressed="true"] { background: var(--scene-accent); color: #211b30; border-color: var(--scene-accent); }
+.cube-playback { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 25px; }
+.cube-playback button { padding: 8px 12px; border: 1px solid #ac98c56e; border-radius: 24px; background: transparent; color: #ddd0ee; font-size: 10px; font-weight: 700; }
+.cube-playback button:hover { background: #beacff17; }
+.cube-playback span { color: #b3aac3; font-size: 10px; }
+.spatial-cube { transition: transform .6s cubic-bezier(.22,1,.36,1); }
+.cube-viewport.is-dragging .spatial-cube, .cube-viewport.is-rotating .spatial-cube { transition: none; }
+@media(max-width:600px) {
+  .spatial-controls { gap: 6px; margin-bottom: 12px; }
+  .spatial-controls button { padding: 9px 11px; font-size: 10px; }
+  .cube-playback { gap: 9px; margin-bottom: 18px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .spatial-cube { transition: none; }
+}
+
+</style>
+  
+  
+  
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar" id="topbar">
+    <nav class="nav shell" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="PriceSense home"><span class="brand-mark" aria-hidden="true">✳</span>pricesense<span class="brand-period">.</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="#explore">Explore deals</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#insights">Price insights</a>
+        <a href="#spatial">3D preview</a>
+      </div>
+      <div class="nav-actions">
+        <button class="watchlist-nav" id="watchlistButton" type="button" aria-label="Open watchlist"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg><span>Saved</span><span class="saved-number" id="savedCount">0</span></button>
+        <a class="nav-cta" href="#explore">Find a deal <span aria-hidden="true">↗</span></a>
+        <button class="mobile-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" type="button"><span></span><span></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-orb hero-orb-one" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-two" aria-hidden="true"></div>
+      <div class="shell hero-inner">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> A BRIGHTER WAY TO BUY <span class="eyebrow-star">✳</span></div>
+          <h1 id="hero-title">Good things.<br>Better <span class="serif-word">prices.</span></h1>
+          <p class="hero-sub">One product. Every store. The whole price story. Find the right deal, know when to buy, and never overpay again.</p>
+          <form class="hero-search" id="heroSearchForm" role="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7"/><path d="m16 16 5 5"/></svg><input id="heroSearch" type="search" name="search" autocomplete="off" placeholder="Search headphones, laptops, phones..." aria-label="Search products"><button type="submit">Search <span aria-hidden="true">↗</span></button></form>
+          <div class="hero-small"><span class="tiny-avatars" aria-hidden="true"><i>◎</i><i>✳</i><i>◉</i></span><span>More clarity. Less checkout regret.</span></div>
+        </div>
+        <div class="hero-art" id="heroArt" aria-label="Featured headphones with illustrative price comparisons">
+          <div class="hero-visual-grid" aria-hidden="true"></div>
+          <div class="hero-ring hero-ring-one" aria-hidden="true"></div><div class="hero-ring hero-ring-two" aria-hidden="true"></div>
+          <div class="hero-ghost">THE<br>GOOD<br>DEAL.</div>
+          <div class="hero-product"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNTIwIiBmaWxsPSJub25lIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Im1ldGFsIiB4MT0iLjEiIHkxPSIuMSIgeDI9Ii45NSIgeTI9Ii44NSI+PHN0b3Agc3RvcC1jb2xvcj0iIzZjNzQ3NCIvPjxzdG9wIG9mZnNldD0iLjI4IiBzdG9wLWNvbG9yPSIjMzAzOTNiIi8+PHN0b3Agb2Zmc2V0PSIuNiIgc3RvcC1jb2xvcj0iIzEwMTgxOSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzZiNzQ3MSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJib2R5IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzQ4NTE1NSIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjMTUxZDIxIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDkwZDExIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNoaW5lIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzljYTNhMyIvPjxzdG9wIG9mZnNldD0iLjM1IiBzdG9wLWNvbG9yPSIjMzQzYjNkIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTQxOTFhIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNjcmVlbiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiMxODM3NDYiLz48c3RvcCBvZmZzZXQ9Ii41NSIgc3RvcC1jb2xvcj0iIzI1NmI3NyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2E2ZDRjOSIvPjwvbGluZWFyR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGlkPSJnbG93Ij48c3RvcCBzdG9wLWNvbG9yPSIjY2NmN2JiIiBzdG9wLW9wYWNpdHk9Ii40NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2NjZjdiYiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii0zMCUiIHk9Ii0zMCUiIHdpZHRoPSIxNjAlIiBoZWlnaHQ9IjE3NSUiPjxmZURyb3BTaGFkb3cgZHg9IjIiIGR5PSIxNyIgc3RkRGV2aWF0aW9uPSIxOSIgZmxvb2QtY29sb3I9IiMxNjE4MTgiIGZsb29kLW9wYWNpdHk9Ii4zIi8+PC9maWx0ZXI+PC9kZWZzPjxlbGxpcHNlIGN4PSIzMTAiIGN5PSI0NTAiIHJ4PSIxNzciIHJ5PSIzNCIgZmlsbD0iIzBiMTExMCIgb3BhY2l0eT0iLjEyIi8+CjxnIGZpbHRlcj0idXJsKCNzaGFkb3cpIiB0cmFuc2Zvcm09InJvdGF0ZSgtMTIgMzAzIDI2MikiPgo8cGF0aCBkPSJNMTYwIDI3N1YyMjBDMTYwIDExMyAyMjAgNjggMzA2IDY4YzkwIDAgMTUwIDUzIDE1MCAxNTh2NjgiIHN0cm9rZT0iIzE4MjAyMyIgc3Ryb2tlLXdpZHRoPSI1NSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGQ9Ik0xNjUgMjY2VjIxNEMxNjUgMTIxIDIxOSA3NCAzMDYgNzRjODYgMCAxNDIgNTAgMTQyIDE0NXY3MiIgc3Ryb2tlPSJ1cmwoI3NoaW5lKSIgc3Ryb2tlLXdpZHRoPSIzNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGQ9Ik0xODggMjA1YzEzLTczIDU3LTEwMiAxMTktMTAyIDY2IDAgMTEwIDM2IDEyMCAxMDUiIHN0cm9rZT0iIzllYTZhNSIgc3Ryb2tlLW9wYWNpdHk9Ii4yNSIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPHBhdGggZD0iTTE0MCAyNjYgMTM1IDMzM000NjUgMjc3bDggNjEiIHN0cm9rZT0iIzY0NzE3NCIgc3Ryb2tlLXdpZHRoPSIyNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxyZWN0IHg9IjEwMyIgeT0iMjYzIiB3aWR0aD0iMTA4IiBoZWlnaHQ9IjE4MCIgcng9IjUxIiBmaWxsPSJ1cmwoI21ldGFsKSIvPgo8cmVjdCB4PSIxMTIiIHk9IjI3MyIgd2lkdGg9IjkxIiBoZWlnaHQ9IjE2NiIgcng9IjQzIiBmaWxsPSJ1cmwoI2JvZHkpIi8+CjxyZWN0IHg9IjEzNCIgeT0iMjg5IiB3aWR0aD0iNDkiIGhlaWdodD0iMTM2IiByeD0iMjQiIGZpbGw9IiMxMTE5MWIiIHN0cm9rZT0iIzdiODI4NCIgc3Ryb2tlLW9wYWNpdHk9Ii40IiBzdHJva2Utd2lkdGg9IjQiLz4KPHJlY3QgeD0iNDA1IiB5PSIyNjMiIHdpZHRoPSIxMDgiIGhlaWdodD0iMTgwIiByeD0iNTEiIGZpbGw9InVybCgjbWV0YWwpIi8+CjxyZWN0IHg9IjQxNiIgeT0iMjczIiB3aWR0aD0iODgiIGhlaWdodD0iMTY2IiByeD0iNDMiIGZpbGw9InVybCgjYm9keSkiLz4KPHJlY3QgeD0iNDM0IiB5PSIyOTAiIHdpZHRoPSI1MSIgaGVpZ2h0PSIxMzIiIHJ4PSIyNCIgZmlsbD0iIzExMTkxYiIgc3Ryb2tlPSIjN2I4Mjg0IiBzdHJva2Utb3BhY2l0eT0iLjM1IiBzdHJva2Utd2lkdGg9IjQiLz4KPHBhdGggZD0iTTE0OSAyODBjMTgtOCAzNi01IDQ1IDEyTTQyMyAyODZjMTItMTIgMzAtMTcgNTAtMTAiIHN0cm9rZT0iIzkxOWE5YSIgc3Ryb2tlLW9wYWNpdHk9Ii40NSIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9nPjwvc3ZnPg==" alt="Illustration of black wireless headphones"></div>
+          <div class="float-card float-card-price"><div class="float-card-icon">↘</div><div><small>PRICE JUST DROPPED</small><strong>₹2,000 <span>less</span></strong></div></div>
+          <div class="float-card float-card-store"><div class="store-dot">a</div><div><small>BEST PRICE FOUND</small><strong>₹24,999</strong><span class="float-caption">Illustrative price</span></div><span class="float-card-arrow">↗</span></div>
+          <div class="float-sticker">BUY<br><em>SMART.</em><span>✳</span></div>
+          <div class="hero-art-foot">THE PRICE DOESN'T TELL THE WHOLE STORY. <span>↗</span></div>
+        </div>
+      </div>
+      <div class="hero-bottom shell"><span>SCROLL TO EXPLORE <span class="scroll-indicator">↓</span></span><span>01 — 04 &nbsp; / &nbsp; DISCOVER BETTER</span></div>
+    </section>
+
+    <div class="marquee" aria-label="Compare prices. Track drops. Shop smarter."><div class="marquee-track" aria-hidden="true"><span>LESS GUESSWORK <b>✳</b> MORE GOOD DEALS <b>✳</b> KNOW BEFORE YOU BUY <b>✳</b> LESS GUESSWORK <b>✳</b> MORE GOOD DEALS <b>✳</b> KNOW BEFORE YOU BUY <b>✳</b></span><span>LESS GUESSWORK <b>✳</b> MORE GOOD DEALS <b>✳</b> KNOW BEFORE YOU BUY <b>✳</b> LESS GUESSWORK <b>✳</b> MORE GOOD DEALS <b>✳</b> KNOW BEFORE YOU BUY <b>✳</b></span></div></div>
+
+
+    <section class="explore-section" id="explore" aria-labelledby="explore-heading">
+      <div class="shell">
+        <div class="section-header"><div><span class="section-kicker dark-kicker">01 / THE GOOD STUFF</span><h2 id="explore-heading">Find something <span class="serif-word">worth it.</span></h2><p>See how PriceSense could surface better buys. Prices below are sample data for the frontend preview.</p></div><div class="outline-stamp"><span>BETTER</span><b>↗</b><span>EVERYDAY</span></div></div>
+        <div class="explore-toolbar"><div class="filter-chips" id="categoryFilters" role="group" aria-label="Filter product categories"></div><div class="toolbar-right"><label class="inline-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="productSearch" type="search" placeholder="Find a product..." aria-label="Filter products"></label><select id="sortSelect" aria-label="Sort products"><option value="featured">Featured</option><option value="lowest">Lowest price</option><option value="discount">Biggest drop</option><option value="name">Name A–Z</option></select></div></div>
+        <div class="results-heading"><span id="resultsCount">0 products</span><span>✳ HANDPICKED FOR THE DEMO</span></div>
+        <div class="product-grid" id="productGrid" aria-live="polite"></div>
+        <div class="empty-state" id="emptyState" hidden><span>⌕</span><h3>No matches found.</h3><p>Try a different product or category.</p><button id="resetFilters" type="button">Clear filters ↗</button></div>
+      </div>
+    </section>
+
+    <!-- Visible, freely rotating 3D preview in normal document flow. -->
+    <section class="spatial-section" id="spatial" aria-labelledby="spatialTitle">
+      <div class="spatial-sticky">
+        <div class="spatial-grid" aria-hidden="true"></div>
+        <div class="spatial-noise" aria-hidden="true"></div>
+        <div class="shell spatial-inner">
+          <div class="spatial-copy">
+            <div class="spatial-eyebrow"><span class="spatial-beacon"></span> THE EXPERIENCE / 3D PRICE INTELLIGENCE</div>
+            <div class="spatial-counter"><span id="spatialChapter">01</span> <span>/ 04</span><i></i> INTERACTIVE CONCEPT</div>
+            <h2 id="spatialTitle">The price has <em>another dimension.</em></h2>
+            <p id="spatialDescription">It turns slowly on its own. Click and drag to explore the product, stores, history and watchlist.</p>
+            <div class="spatial-controls" role="group" aria-label="Choose a 3D preview view">
+              <button type="button" data-cube-face="0" aria-pressed="true">Product</button>
+              <button type="button" data-cube-face="1" aria-pressed="false">Stores</button>
+              <button type="button" data-cube-face="2" aria-pressed="false">History</button>
+              <button type="button" data-cube-face="3" aria-pressed="false">Watchlist</button>
+            </div>
+            <div class="cube-playback"><button type="button" id="cubeAutoRotate" aria-label="Automatic cube rotation" aria-pressed="true">Pause rotation</button><span id="cubeInteractionHint">Click + drag, or focus the cube and use arrow keys.</span></div>
+            <a class="spatial-link" href="#explore">Back to products <span aria-hidden="true">↑</span></a>
+          </div>
+          <div class="spatial-visual" id="spatialVisual">
+            <div class="spatial-glow" aria-hidden="true"></div>
+            <div class="spatial-orbit orbit-outer" aria-hidden="true"></div>
+            <div class="spatial-orbit orbit-inner" aria-hidden="true"></div>
+            <div class="spatial-shadow" aria-hidden="true"></div>
+            <div class="cube-viewport" id="cubeViewport" aria-label="Slowly rotating three-dimensional product preview. Click and drag to rotate it, or use the view and pause buttons." role="group" tabindex="0" aria-describedby="cubeInteractionHint">
+              <div class="spatial-cube" id="spatialCube">
+                <div class="cube-face cube-front">
+                  <div class="cube-corner">PRICESENSE<br>PRODUCT / 001</div>
+                  <span class="cube-face-star">✳</span>
+                  <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNTIwIiBmaWxsPSJub25lIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Im1ldGFsIiB4MT0iLjEiIHkxPSIuMSIgeDI9Ii45NSIgeTI9Ii44NSI+PHN0b3Agc3RvcC1jb2xvcj0iIzZjNzQ3NCIvPjxzdG9wIG9mZnNldD0iLjI4IiBzdG9wLWNvbG9yPSIjMzAzOTNiIi8+PHN0b3Agb2Zmc2V0PSIuNiIgc3RvcC1jb2xvcj0iIzEwMTgxOSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzZiNzQ3MSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJib2R5IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzQ4NTE1NSIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjMTUxZDIxIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDkwZDExIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNoaW5lIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzljYTNhMyIvPjxzdG9wIG9mZnNldD0iLjM1IiBzdG9wLWNvbG9yPSIjMzQzYjNkIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTQxOTFhIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNjcmVlbiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiMxODM3NDYiLz48c3RvcCBvZmZzZXQ9Ii41NSIgc3RvcC1jb2xvcj0iIzI1NmI3NyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2E2ZDRjOSIvPjwvbGluZWFyR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGlkPSJnbG93Ij48c3RvcCBzdG9wLWNvbG9yPSIjY2NmN2JiIiBzdG9wLW9wYWNpdHk9Ii40NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2NjZjdiYiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii0zMCUiIHk9Ii0zMCUiIHdpZHRoPSIxNjAlIiBoZWlnaHQ9IjE3NSUiPjxmZURyb3BTaGFkb3cgZHg9IjIiIGR5PSIxNyIgc3RkRGV2aWF0aW9uPSIxOSIgZmxvb2QtY29sb3I9IiMxNjE4MTgiIGZsb29kLW9wYWNpdHk9Ii4zIi8+PC9maWx0ZXI+PC9kZWZzPjxlbGxpcHNlIGN4PSIzMTAiIGN5PSI0NTAiIHJ4PSIxNzciIHJ5PSIzNCIgZmlsbD0iIzBiMTExMCIgb3BhY2l0eT0iLjEyIi8+CjxnIGZpbHRlcj0idXJsKCNzaGFkb3cpIiB0cmFuc2Zvcm09InJvdGF0ZSgtMTIgMzAzIDI2MikiPgo8cGF0aCBkPSJNMTYwIDI3N1YyMjBDMTYwIDExMyAyMjAgNjggMzA2IDY4YzkwIDAgMTUwIDUzIDE1MCAxNTh2NjgiIHN0cm9rZT0iIzE4MjAyMyIgc3Ryb2tlLXdpZHRoPSI1NSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGQ9Ik0xNjUgMjY2VjIxNEMxNjUgMTIxIDIxOSA3NCAzMDYgNzRjODYgMCAxNDIgNTAgMTQyIDE0NXY3MiIgc3Ryb2tlPSJ1cmwoI3NoaW5lKSIgc3Ryb2tlLXdpZHRoPSIzNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGQ9Ik0xODggMjA1YzEzLTczIDU3LTEwMiAxMTktMTAyIDY2IDAgMTEwIDM2IDEyMCAxMDUiIHN0cm9rZT0iIzllYTZhNSIgc3Ryb2tlLW9wYWNpdHk9Ii4yNSIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPHBhdGggZD0iTTE0MCAyNjYgMTM1IDMzM000NjUgMjc3bDggNjEiIHN0cm9rZT0iIzY0NzE3NCIgc3Ryb2tlLXdpZHRoPSIyNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxyZWN0IHg9IjEwMyIgeT0iMjYzIiB3aWR0aD0iMTA4IiBoZWlnaHQ9IjE4MCIgcng9IjUxIiBmaWxsPSJ1cmwoI21ldGFsKSIvPgo8cmVjdCB4PSIxMTIiIHk9IjI3MyIgd2lkdGg9IjkxIiBoZWlnaHQ9IjE2NiIgcng9IjQzIiBmaWxsPSJ1cmwoI2JvZHkpIi8+CjxyZWN0IHg9IjEzNCIgeT0iMjg5IiB3aWR0aD0iNDkiIGhlaWdodD0iMTM2IiByeD0iMjQiIGZpbGw9IiMxMTE5MWIiIHN0cm9rZT0iIzdiODI4NCIgc3Ryb2tlLW9wYWNpdHk9Ii40IiBzdHJva2Utd2lkdGg9IjQiLz4KPHJlY3QgeD0iNDA1IiB5PSIyNjMiIHdpZHRoPSIxMDgiIGhlaWdodD0iMTgwIiByeD0iNTEiIGZpbGw9InVybCgjbWV0YWwpIi8+CjxyZWN0IHg9IjQxNiIgeT0iMjczIiB3aWR0aD0iODgiIGhlaWdodD0iMTY2IiByeD0iNDMiIGZpbGw9InVybCgjYm9keSkiLz4KPHJlY3QgeD0iNDM0IiB5PSIyOTAiIHdpZHRoPSI1MSIgaGVpZ2h0PSIxMzIiIHJ4PSIyNCIgZmlsbD0iIzExMTkxYiIgc3Ryb2tlPSIjN2I4Mjg0IiBzdHJva2Utb3BhY2l0eT0iLjM1IiBzdHJva2Utd2lkdGg9IjQiLz4KPHBhdGggZD0iTTE0OSAyODBjMTgtOCAzNi01IDQ1IDEyTTQyMyAyODZjMTItMTIgMzAtMTcgNTAtMTAiIHN0cm9rZT0iIzkxOWE5YSIgc3Ryb2tlLW9wYWNpdHk9Ii40NSIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9nPjwvc3ZnPg==" alt="" class="cube-product-art">
+                  <div class="cube-front-bottom"><strong>SONY XM5</strong><span>THE PRODUCT</span></div>
+                </div>
+                <div class="cube-face cube-right">
+                  <div class="cube-side-kicker">01 / ALL STORES</div>
+                  <h3>The better<br>number.</h3>
+                  <div class="cube-stores"><div><span>AMAZON</span><b>₹24,999</b></div><div><span>FLIPKART</span><b>₹25,499</b></div><div><span>CROMA</span><b>₹26,199</b></div></div>
+                  <small>ILLUSTRATIVE PRICES</small>
+                </div>
+                <div class="cube-face cube-back">
+                  <div class="cube-side-kicker">02 / THE HISTORY</div>
+                  <h3>Past prices.<br>Future clarity.</h3>
+                  <svg viewBox="0 0 220 100" aria-hidden="true"><path d="M0 22 L25 37 L48 25 L74 48 L96 42 L124 70 L146 59 L172 76 L197 69 L220 89" fill="none" stroke="#ffb49e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <div class="cube-back-stat"><b>↘ 7.4%</b><span>ILLUSTRATIVE TREND</span></div>
+                </div>
+                <div class="cube-face cube-left">
+                  <div class="cube-side-kicker">03 / STAY IN THE LOOP</div>
+                  <div class="cube-heart">♡</div>
+                  <h3>Worth<br>watching.</h3>
+                  <p>Keep an eye on your next favorite thing.</p>
+                </div>
+                <div class="cube-face cube-top"><span>PRICESENSE ✳</span><span>BUY BETTER / 2026</span></div>
+                <div class="cube-face cube-bottom"><span>THE DEAL UNIVERSE</span></div>
+              </div>
+            </div>
+            <div class="spatial-hud hud-top" aria-hidden="true"><i></i> 3D SCENE / INTERACTIVE</div>
+            <div class="spatial-hud hud-bottom" aria-hidden="true"><span>↔ CLICK + DRAG</span><span id="cubeMotionLabel">SLOW AUTO ROTATION</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section" id="how-it-works" aria-labelledby="story-heading">
+      <div class="shell story-heading"><div><span class="section-kicker">02 / HOW IT WORKS</span><h2 id="story-heading">Your next good deal<br>is <span class="serif-word ink-serif">a scroll away.</span></h2></div><p>No 27 open tabs. No guessing if a discount is real. Just the right information, beautifully put together.</p></div>
+      <div class="story-layout shell">
+        <div class="story-sticky">
+          <div class="demo-window" id="storyStage" data-scene="0">
+            <div class="demo-titlebar"><span><i></i><i></i><i></i></span><span>PRICESENSE / DEAL INTELLIGENCE</span><span>✳ LIVE PREVIEW</span></div>
+            <div class="demo-content">
+              <div class="demo-tag">YOUR PRODUCT, DECODED <span>↗</span></div>
+              <div class="demo-topline"><div><h3 id="storyScreenTitle">All stores.<br>One clear winner.</h3><p id="storyScreenText">Compare prices without the tab-juggling.</p></div><div class="demo-mini-product"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNTIwIiBmaWxsPSJub25lIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Im1ldGFsIiB4MT0iLjEiIHkxPSIuMSIgeDI9Ii45NSIgeTI9Ii44NSI+PHN0b3Agc3RvcC1jb2xvcj0iIzZjNzQ3NCIvPjxzdG9wIG9mZnNldD0iLjI4IiBzdG9wLWNvbG9yPSIjMzAzOTNiIi8+PHN0b3Agb2Zmc2V0PSIuNiIgc3RvcC1jb2xvcj0iIzEwMTgxOSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzZiNzQ3MSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJib2R5IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzQ4NTE1NSIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjMTUxZDIxIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDkwZDExIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNoaW5lIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzljYTNhMyIvPjxzdG9wIG9mZnNldD0iLjM1IiBzdG9wLWNvbG9yPSIjMzQzYjNkIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTQxOTFhIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNjcmVlbiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiMxODM3NDYiLz48c3RvcCBvZmZzZXQ9Ii41NSIgc3RvcC1jb2xvcj0iIzI1NmI3NyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2E2ZDRjOSIvPjwvbGluZWFyR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGlkPSJnbG93Ij48c3RvcCBzdG9wLWNvbG9yPSIjY2NmN2JiIiBzdG9wLW9wYWNpdHk9Ii40NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2NjZjdiYiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii0zMCUiIHk9Ii0zMCUiIHdpZHRoPSIxNjAlIiBoZWlnaHQ9IjE3NSUiPjxmZURyb3BTaGFkb3cgZHg9IjIiIGR5PSIxNyIgc3RkRGV2aWF0aW9uPSIxOSIgZmxvb2QtY29sb3I9IiMxNjE4MTgiIGZsb29kLW9wYWNpdHk9Ii4zIi8+PC9maWx0ZXI+PC9kZWZzPjxlbGxpcHNlIGN4PSIzMTAiIGN5PSI0NTAiIHJ4PSIxNzciIHJ5PSIzNCIgZmlsbD0iIzBiMTExMCIgb3BhY2l0eT0iLjEyIi8+CjxnIGZpbHRlcj0idXJsKCNzaGFkb3cpIiB0cmFuc2Zvcm09InJvdGF0ZSgtMTIgMzAzIDI2MikiPgo8cGF0aCBkPSJNMTYwIDI3N1YyMjBDMTYwIDExMyAyMjAgNjggMzA2IDY4YzkwIDAgMTUwIDUzIDE1MCAxNTh2NjgiIHN0cm9rZT0iIzE4MjAyMyIgc3Ryb2tlLXdpZHRoPSI1NSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGQ9Ik0xNjUgMjY2VjIxNEMxNjUgMTIxIDIxOSA3NCAzMDYgNzRjODYgMCAxNDIgNTAgMTQyIDE0NXY3MiIgc3Ryb2tlPSJ1cmwoI3NoaW5lKSIgc3Ryb2tlLXdpZHRoPSIzNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGQ9Ik0xODggMjA1YzEzLTczIDU3LTEwMiAxMTktMTAyIDY2IDAgMTEwIDM2IDEyMCAxMDUiIHN0cm9rZT0iIzllYTZhNSIgc3Ryb2tlLW9wYWNpdHk9Ii4yNSIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPHBhdGggZD0iTTE0MCAyNjYgMTM1IDMzM000NjUgMjc3bDggNjEiIHN0cm9rZT0iIzY0NzE3NCIgc3Ryb2tlLXdpZHRoPSIyNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxyZWN0IHg9IjEwMyIgeT0iMjYzIiB3aWR0aD0iMTA4IiBoZWlnaHQ9IjE4MCIgcng9IjUxIiBmaWxsPSJ1cmwoI21ldGFsKSIvPgo8cmVjdCB4PSIxMTIiIHk9IjI3MyIgd2lkdGg9IjkxIiBoZWlnaHQ9IjE2NiIgcng9IjQzIiBmaWxsPSJ1cmwoI2JvZHkpIi8+CjxyZWN0IHg9IjEzNCIgeT0iMjg5IiB3aWR0aD0iNDkiIGhlaWdodD0iMTM2IiByeD0iMjQiIGZpbGw9IiMxMTE5MWIiIHN0cm9rZT0iIzdiODI4NCIgc3Ryb2tlLW9wYWNpdHk9Ii40IiBzdHJva2Utd2lkdGg9IjQiLz4KPHJlY3QgeD0iNDA1IiB5PSIyNjMiIHdpZHRoPSIxMDgiIGhlaWdodD0iMTgwIiByeD0iNTEiIGZpbGw9InVybCgjbWV0YWwpIi8+CjxyZWN0IHg9IjQxNiIgeT0iMjczIiB3aWR0aD0iODgiIGhlaWdodD0iMTY2IiByeD0iNDMiIGZpbGw9InVybCgjYm9keSkiLz4KPHJlY3QgeD0iNDM0IiB5PSIyOTAiIHdpZHRoPSI1MSIgaGVpZ2h0PSIxMzIiIHJ4PSIyNCIgZmlsbD0iIzExMTkxYiIgc3Ryb2tlPSIjN2I4Mjg0IiBzdHJva2Utb3BhY2l0eT0iLjM1IiBzdHJva2Utd2lkdGg9IjQiLz4KPHBhdGggZD0iTTE0OSAyODBjMTgtOCAzNi01IDQ1IDEyTTQyMyAyODZjMTItMTIgMzAtMTcgNTAtMTAiIHN0cm9rZT0iIzkxOWE5YSIgc3Ryb2tlLW9wYWNpdHk9Ii40NSIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9nPjwvc3ZnPg==" alt="Wireless headphones"></div></div>
+              <div class="demo-list"><div class="demo-row row-one"><span><span class="store-bubble">a</span> Amazon <small>Best overall price</small></span><b>₹24,999</b><i>BEST</i></div><div class="demo-row row-two"><span><span class="store-bubble flip">F</span> Flipkart <small>Free delivery</small></span><b>₹25,499</b><i>+ ₹500</i></div><div class="demo-row row-three"><span><span class="store-bubble croma">C</span> Croma <small>In stock</small></span><b>₹26,199</b><i>+ ₹1,200</i></div></div>
+              <div class="demo-history"><div><span>PRICE MOVEMENT</span><b id="storyMetric">−7.4%</b></div><svg viewBox="0 0 440 96" role="img" aria-label="Illustrative falling price trend"><defs><linearGradient id="demoFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86e2f2" stop-opacity=".35"/><stop offset="1" stop-color="#86e2f2" stop-opacity="0"/></linearGradient></defs><path class="demo-area" d="M0 30 L48 41 L92 24 L136 49 L183 42 L231 59 L275 38 L322 63 L362 62 L402 75 L440 86 V96 H0Z" fill="url(#demoFill)"/><path class="demo-line" d="M0 30 L48 41 L92 24 L136 49 L183 42 L231 59 L275 38 L322 63 L362 62 L402 75 L440 86" fill="none" stroke="#86e2f2" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="440" cy="86" r="5" fill="#86e2f2"/></svg></div>
+            </div>
+            <div class="demo-bottom"><span><span class="live-pulse"></span> Illustrative data — not live prices</span><span id="sceneLabel">01 / COMPARE</span></div>
+          </div>
+        </div>
+        <div class="story-steps">
+          <article class="story-step active" data-step="0"><span class="step-index">01 / COMPARE</span><div class="step-icon">↗</div><h3>See every price.<br><em>Pick the best.</em></h3><p>Side-by-side listings across stores show the actual cost and availability. No more bouncing between shopping sites.</p></article>
+          <article class="story-step" data-step="1"><span class="step-index">02 / UNDERSTAND</span><div class="step-icon">⌁</div><h3>Know the history.<br><em>Skip the hype.</em></h3><p>See whether today's deal is genuinely special by comparing current prices with earlier price observations.</p></article>
+          <article class="story-step" data-step="2"><span class="step-index">03 / WATCH</span><div class="step-icon">♡</div><h3>Set your target.<br><em>We keep watch.</em></h3><p>Save products and prepare price alerts for the moment they hit your budget. Backend alerts come in the next phase.</p></article>
+        </div>
+      </div>
+    </section>
+
+
+
+
+    <!-- Feature cards in normal flow; native swiping on compact screens. -->
+    <section class="rail-section" id="features" aria-labelledby="railTitle">
+      <div class="rail-sticky">
+        <div class="shell rail-head"><div><span class="rail-kicker">THE PRODUCT IS THE EXPERIENCE / 02</span><h2 id="railTitle">Shopping, <em>reimagined.</em></h2></div><span class="rail-instruction">COMPARE. TRACK. SAVE.</span></div>
+        <div class="rail-viewport" id="railViewport" tabindex="0" role="region" aria-label="Shopping features. On compact screens, swipe or use left and right arrow keys.">
+          <div class="rail-track" id="railTrack">
+            <article class="rail-panel rail-panel-one"><div class="rail-panel-heading"><span>01 / ALL THE OPTIONS</span><span>↗</span></div><div class="rail-panel-body"><h3>One tab.<br>Every store.</h3><p>The same product, across marketplaces, organized around what you'll actually pay.</p></div><div class="rail-graphic stores-graphic" aria-hidden="true"><div><span>AMAZON</span><strong>₹24,999</strong><i>BEST DEAL</i></div><div><span>FLIPKART</span><strong>₹25,499</strong></div><div><span>CROMA</span><strong>₹26,199</strong></div></div><span class="rail-panel-foot">NO MORE TAB-HOPPING ✳</span></article>
+            <article class="rail-panel rail-panel-two"><div class="rail-panel-heading"><span>02 / REAL CONTEXT</span><span>↗</span></div><div class="rail-panel-body"><h3>Time tells<br>the truth.</h3><p>Go beyond promotional stickers with the price history behind the product.</p></div><div class="rail-graphic graph-graphic" aria-hidden="true"><div class="graph-top"><span>PRICE TREND</span><b>↘ 7.4%</b></div><svg viewBox="0 0 520 230" preserveAspectRatio="none"><defs><linearGradient id="railGradient" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#86e2f2" stop-opacity=".25"/><stop offset="1" stop-color="#86e2f2" stop-opacity="0"/></linearGradient></defs><path d="M0 42 L65 68 L125 50 L190 90 L252 107 L315 112 L365 154 L410 149 L465 192 L520 185 L520 230 L0 230Z" fill="url(#railGradient)"/><path d="M0 42 L65 68 L125 50 L190 90 L252 107 L315 112 L365 154 L410 149 L465 192 L520 185" fill="none" stroke="#86e2f2" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/></svg></div><span class="rail-panel-foot">THE NUMBERS DON'T LIE ✳</span></article>
+            <article class="rail-panel rail-panel-three"><div class="rail-panel-heading"><span>03 / NEVER MISS OUT</span><span>↗</span></div><div class="rail-panel-body"><h3>Save it now.<br>Smile later.</h3><p>Create a shortlist. Price-drop notifications will join when the database and backend are ready.</p></div><div class="rail-graphic watch-graphic" aria-hidden="true"><div class="watch-icon-3d">♡</div><div class="watch-demo"><small>WATCHLIST / PREVIEW</small><strong>Sony XM5</strong><span>Saved for later ✳</span></div></div><span class="rail-panel-foot">YOUR WISHLIST, ELEVATED ✳</span></article>
+          </div>
+        </div>
+        <div class="shell rail-footer"><span>THREE WAYS TO SHOP SMARTER</span><span>01 — 03</span></div>
+      </div>
+    </section>
+
+    <section class="insights-section" id="insights" aria-labelledby="insights-heading">
+      <div class="shell insights-grid">
+        <div class="insights-copy"><span class="section-kicker">03 / THE BIG PICTURE</span><h2 id="insights-heading">A discount isn't<br>always <span class="serif-word">a deal.</span></h2><p>Price history changes the question from “Is it on sale?” to “Is this actually a good time to buy?”</p><div class="insights-stat"><span class="stat-star">✳</span><div><strong>Know the trend.</strong><small>Track the price journey instead of trusting the sticker.</small></div></div><a href="#explore" class="underlined-link">Explore sample products <span>↗</span></a></div>
+        <div class="chart-card"><div class="chart-top"><div><span>PRICE HISTORY / PREVIEW</span><h3>Sony WH-1000XM5</h3></div><span class="chart-indicator"><i></i> DEMO DATA</span></div><div class="chart-value"><strong id="chartCurrent">₹24,999</strong><span id="chartChange">↓ 7.4% over period</span></div><div class="chart-plot" id="chartPlot"><div class="chart-y-labels" aria-hidden="true"><span id="chartHigh">₹29k</span><span id="chartMid">₹27k</span><span id="chartLow">₹24k</span></div><svg id="historyChart" viewBox="0 0 600 205" preserveAspectRatio="none" role="img" aria-label="Illustrative product price history chart"></svg><div class="chart-tooltip" id="chartTooltip" hidden></div></div><div class="chart-foot"><span id="chartPeriodLabel">Past 30 days</span><div class="range-buttons" role="group" aria-label="History period"><button type="button" data-range="30" class="selected" aria-pressed="true">30D</button><button type="button" data-range="90" aria-pressed="false">90D</button><button type="button" data-range="365" aria-pressed="false">1Y</button></div></div></div>
+      </div>
+    </section>
+
+    <section class="closing-section"><div class="closing-glow" aria-hidden="true"></div><div class="shell closing-inner"><span class="section-kicker dark-kicker">04 / BETTER STARTS HERE</span><h2>Better deals.<br><span class="serif-word">Zero drama.</span></h2><p>Your new favorite way to decide what to buy.</p><a class="closing-cta" href="#explore">Explore the good stuff <span>↗</span></a><span class="closing-spark closing-spark-one">✳</span><span class="closing-spark closing-spark-two">✦</span></div></section>
+  </main>
+  <footer class="footer"><div class="shell footer-row"><div><a class="brand" href="#top"><span class="brand-mark">✳</span>pricesense<span class="brand-period">.</span></a><p>Smarter decisions. Better prices.</p></div><div class="footer-right"><span>Built as a DBIS project frontend concept</span><span>All prices and trends are illustrative.</span><a href="#top">BACK TO TOP ↑</a></div></div></footer>
+
+  <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+  <aside class="watch-drawer" id="watchDrawer" role="dialog" aria-modal="true" aria-label="Saved products" aria-hidden="true" inert tabindex="-1"><div class="drawer-head"><div><small>YOUR SHORTLIST</small><h2>Saved products <span>♡</span></h2></div><button type="button" id="closeDrawer" class="icon-button" aria-label="Close watchlist">✕</button></div><div id="savedProducts" class="saved-products"></div><div class="drawer-bottom"><p>Saved items stay in this browser. Price alert notifications will work when the backend is connected.</p><a href="#explore" id="drawerExplore">Discover more ↗</a></div></aside>
+
+  <dialog id="compareDialog" class="compare-dialog" aria-labelledby="compareTitle"><div class="modal-top"><span>PRICESENSE / COMPARE STORES</span><button type="button" id="closeCompare" class="icon-button" aria-label="Close comparison">✕</button></div><div id="compareContent"></div></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+window.PRICESENSE_ASSET_MAP={"camera.svg":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNTIwIiBmaWxsPSJub25lIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Im1ldGFsIiB4MT0iLjEiIHkxPSIuMSIgeDI9Ii45NSIgeTI9Ii44NSI+PHN0b3Agc3RvcC1jb2xvcj0iIzZjNzQ3NCIvPjxzdG9wIG9mZnNldD0iLjI4IiBzdG9wLWNvbG9yPSIjMzAzOTNiIi8+PHN0b3Agb2Zmc2V0PSIuNiIgc3RvcC1jb2xvcj0iIzEwMTgxOSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzZiNzQ3MSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJib2R5IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzQ4NTE1NSIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjMTUxZDIxIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDkwZDExIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNoaW5lIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzljYTNhMyIvPjxzdG9wIG9mZnNldD0iLjM1IiBzdG9wLWNvbG9yPSIjMzQzYjNkIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTQxOTFhIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNjcmVlbiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiMxODM3NDYiLz48c3RvcCBvZmZzZXQ9Ii41NSIgc3RvcC1jb2xvcj0iIzI1NmI3NyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2E2ZDRjOSIvPjwvbGluZWFyR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGlkPSJnbG93Ij48c3RvcCBzdG9wLWNvbG9yPSIjY2NmN2JiIiBzdG9wLW9wYWNpdHk9Ii40NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2NjZjdiYiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii0zMCUiIHk9Ii0zMCUiIHdpZHRoPSIxNjAlIiBoZWlnaHQ9IjE3NSUiPjxmZURyb3BTaGFkb3cgZHg9IjIiIGR5PSIxNyIgc3RkRGV2aWF0aW9uPSIxOSIgZmxvb2QtY29sb3I9IiMxNjE4MTgiIGZsb29kLW9wYWNpdHk9Ii4zIi8+PC9maWx0ZXI+PC9kZWZzPjxnIGZpbHRlcj0idXJsKCNzaGFkb3cpIiB0cmFuc2Zvcm09InJvdGF0ZSgtNSAzMDAgMjcwKSI+PHBhdGggZD0iTTk2IDE4NHEwLTIzIDIzLTIzaDM2MHEyNiAwIDI2IDI2djE5OXEwIDI0LTI2IDI0SDExOXEtMjMgMC0yMy0yNFoiIGZpbGw9InVybCgjYm9keSkiIHN0cm9rZT0iIzQ1NGI0YiIgc3Ryb2tlLXdpZHRoPSI1Ii8+PHBhdGggZD0iTTEyOCAxNjZ2LTQwcTAtNyA4LTdoMTAwcTcgMCA4IDh2MzlNMzY1IDE2MHYtMzNxMC05IDEwLTloNjNxOSAwIDkgOXYzMyIgZmlsbD0iIzIyMmIyZSIvPjxwYXRoIGQ9Ik0xMDAgMjE0aDQwMSIgc3Ryb2tlPSIjODY5MDhiIiBzdHJva2Utd2lkdGg9IjUiIG9wYWNpdHk9Ii43Ii8+PGNpcmNsZSBjeD0iMzEwIiBjeT0iMjg0IiByPSIxMTgiIGZpbGw9IiMxNjFkMjAiIHN0cm9rZT0iIzk1OWQ5NiIgc3Ryb2tlLXdpZHRoPSIxOSIvPjxjaXJjbGUgY3g9IjMxMCIgY3k9IjI4NCIgcj0iOTYiIGZpbGw9IiMzNjQ4NGIiIHN0cm9rZT0iIzE5MjMyNyIgc3Ryb2tlLXdpZHRoPSIxOCIvPjxjaXJjbGUgY3g9IjMxMCIgY3k9IjI4NCIgcj0iNzQiIGZpbGw9IiMxMzJmMzkiIHN0cm9rZT0iIzZmODg4OSIgc3Ryb2tlLXdpZHRoPSIxMiIvPjxjaXJjbGUgY3g9IjMxMCIgY3k9IjI4NCIgcj0iNTEiIGZpbGw9IiMxMjIzMmYiIHN0cm9rZT0iIzUwNmU3YiIgc3Ryb2tlLXdpZHRoPSIxMyIvPjxjaXJjbGUgY3g9IjMxMCIgY3k9IjI4NCIgcj0iMjYiIGZpbGw9IiMzYjY0NzciLz48ZWxsaXBzZSBjeD0iMjg3IiBjeT0iMjYxIiByeD0iMTkiIHJ5PSIxMyIgZmlsbD0iI2Q4ZjBlNiIgb3BhY2l0eT0iLjQiIHRyYW5zZm9ybT0icm90YXRlKC00MCAyODcgMjYxKSIvPjxwYXRoIGQ9Ik0xNTkgMjQzaDI3TTE1OCAyNTFoMTgiIHN0cm9rZT0iI2JlYzhiZiIgb3BhY2l0eT0iLjciIHN0cm9rZS13aWR0aD0iMyIvPjxjaXJjbGUgY3g9IjQ2MSIgY3k9IjIzNSIgcj0iMTIiIGZpbGw9IiNhM2FlYjEiLz48L2c+PC9zdmc+","headphones.svg":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNTIwIiBmaWxsPSJub25lIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Im1ldGFsIiB4MT0iLjEiIHkxPSIuMSIgeDI9Ii45NSIgeTI9Ii44NSI+PHN0b3Agc3RvcC1jb2xvcj0iIzZjNzQ3NCIvPjxzdG9wIG9mZnNldD0iLjI4IiBzdG9wLWNvbG9yPSIjMzAzOTNiIi8+PHN0b3Agb2Zmc2V0PSIuNiIgc3RvcC1jb2xvcj0iIzEwMTgxOSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzZiNzQ3MSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJib2R5IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzQ4NTE1NSIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjMTUxZDIxIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDkwZDExIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNoaW5lIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzljYTNhMyIvPjxzdG9wIG9mZnNldD0iLjM1IiBzdG9wLWNvbG9yPSIjMzQzYjNkIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTQxOTFhIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNjcmVlbiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiMxODM3NDYiLz48c3RvcCBvZmZzZXQ9Ii41NSIgc3RvcC1jb2xvcj0iIzI1NmI3NyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2E2ZDRjOSIvPjwvbGluZWFyR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGlkPSJnbG93Ij48c3RvcCBzdG9wLWNvbG9yPSIjY2NmN2JiIiBzdG9wLW9wYWNpdHk9Ii40NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2NjZjdiYiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii0zMCUiIHk9Ii0zMCUiIHdpZHRoPSIxNjAlIiBoZWlnaHQ9IjE3NSUiPjxmZURyb3BTaGFkb3cgZHg9IjIiIGR5PSIxNyIgc3RkRGV2aWF0aW9uPSIxOSIgZmxvb2QtY29sb3I9IiMxNjE4MTgiIGZsb29kLW9wYWNpdHk9Ii4zIi8+PC9maWx0ZXI+PC9kZWZzPjxlbGxpcHNlIGN4PSIzMTAiIGN5PSI0NTAiIHJ4PSIxNzciIHJ5PSIzNCIgZmlsbD0iIzBiMTExMCIgb3BhY2l0eT0iLjEyIi8+CjxnIGZpbHRlcj0idXJsKCNzaGFkb3cpIiB0cmFuc2Zvcm09InJvdGF0ZSgtMTIgMzAzIDI2MikiPgo8cGF0aCBkPSJNMTYwIDI3N1YyMjBDMTYwIDExMyAyMjAgNjggMzA2IDY4YzkwIDAgMTUwIDUzIDE1MCAxNTh2NjgiIHN0cm9rZT0iIzE4MjAyMyIgc3Ryb2tlLXdpZHRoPSI1NSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGQ9Ik0xNjUgMjY2VjIxNEMxNjUgMTIxIDIxOSA3NCAzMDYgNzRjODYgMCAxNDIgNTAgMTQyIDE0NXY3MiIgc3Ryb2tlPSJ1cmwoI3NoaW5lKSIgc3Ryb2tlLXdpZHRoPSIzNiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxwYXRoIGQ9Ik0xODggMjA1YzEzLTczIDU3LTEwMiAxMTktMTAyIDY2IDAgMTEwIDM2IDEyMCAxMDUiIHN0cm9rZT0iIzllYTZhNSIgc3Ryb2tlLW9wYWNpdHk9Ii4yNSIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPHBhdGggZD0iTTE0MCAyNjYgMTM1IDMzM000NjUgMjc3bDggNjEiIHN0cm9rZT0iIzY0NzE3NCIgc3Ryb2tlLXdpZHRoPSIyNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxyZWN0IHg9IjEwMyIgeT0iMjYzIiB3aWR0aD0iMTA4IiBoZWlnaHQ9IjE4MCIgcng9IjUxIiBmaWxsPSJ1cmwoI21ldGFsKSIvPgo8cmVjdCB4PSIxMTIiIHk9IjI3MyIgd2lkdGg9IjkxIiBoZWlnaHQ9IjE2NiIgcng9IjQzIiBmaWxsPSJ1cmwoI2JvZHkpIi8+CjxyZWN0IHg9IjEzNCIgeT0iMjg5IiB3aWR0aD0iNDkiIGhlaWdodD0iMTM2IiByeD0iMjQiIGZpbGw9IiMxMTE5MWIiIHN0cm9rZT0iIzdiODI4NCIgc3Ryb2tlLW9wYWNpdHk9Ii40IiBzdHJva2Utd2lkdGg9IjQiLz4KPHJlY3QgeD0iNDA1IiB5PSIyNjMiIHdpZHRoPSIxMDgiIGhlaWdodD0iMTgwIiByeD0iNTEiIGZpbGw9InVybCgjbWV0YWwpIi8+CjxyZWN0IHg9IjQxNiIgeT0iMjczIiB3aWR0aD0iODgiIGhlaWdodD0iMTY2IiByeD0iNDMiIGZpbGw9InVybCgjYm9keSkiLz4KPHJlY3QgeD0iNDM0IiB5PSIyOTAiIHdpZHRoPSI1MSIgaGVpZ2h0PSIxMzIiIHJ4PSIyNCIgZmlsbD0iIzExMTkxYiIgc3Ryb2tlPSIjN2I4Mjg0IiBzdHJva2Utb3BhY2l0eT0iLjM1IiBzdHJva2Utd2lkdGg9IjQiLz4KPHBhdGggZD0iTTE0OSAyODBjMTgtOCAzNi01IDQ1IDEyTTQyMyAyODZjMTItMTIgMzAtMTcgNTAtMTAiIHN0cm9rZT0iIzkxOWE5YSIgc3Ryb2tlLW9wYWNpdHk9Ii40NSIgc3Ryb2tlLXdpZHRoPSI0IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9nPjwvc3ZnPg==","laptop.svg":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNTIwIiBmaWxsPSJub25lIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Im1ldGFsIiB4MT0iLjEiIHkxPSIuMSIgeDI9Ii45NSIgeTI9Ii44NSI+PHN0b3Agc3RvcC1jb2xvcj0iIzZjNzQ3NCIvPjxzdG9wIG9mZnNldD0iLjI4IiBzdG9wLWNvbG9yPSIjMzAzOTNiIi8+PHN0b3Agb2Zmc2V0PSIuNiIgc3RvcC1jb2xvcj0iIzEwMTgxOSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzZiNzQ3MSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJib2R5IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzQ4NTE1NSIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjMTUxZDIxIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDkwZDExIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNoaW5lIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzljYTNhMyIvPjxzdG9wIG9mZnNldD0iLjM1IiBzdG9wLWNvbG9yPSIjMzQzYjNkIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTQxOTFhIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNjcmVlbiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiMxODM3NDYiLz48c3RvcCBvZmZzZXQ9Ii41NSIgc3RvcC1jb2xvcj0iIzI1NmI3NyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2E2ZDRjOSIvPjwvbGluZWFyR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGlkPSJnbG93Ij48c3RvcCBzdG9wLWNvbG9yPSIjY2NmN2JiIiBzdG9wLW9wYWNpdHk9Ii40NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2NjZjdiYiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii0zMCUiIHk9Ii0zMCUiIHdpZHRoPSIxNjAlIiBoZWlnaHQ9IjE3NSUiPjxmZURyb3BTaGFkb3cgZHg9IjIiIGR5PSIxNyIgc3RkRGV2aWF0aW9uPSIxOSIgZmxvb2QtY29sb3I9IiMxNjE4MTgiIGZsb29kLW9wYWNpdHk9Ii4zIi8+PC9maWx0ZXI+PC9kZWZzPjxnIGZpbHRlcj0idXJsKCNzaGFkb3cpIj48cGF0aCBkPSJNMTE0IDExMXEwLTE1IDE1LTE1aDMzOXExNSAwIDE1IDE1djI0NUgxMTRaIiBmaWxsPSIjMjIyZDM4IiBzdHJva2U9IiM3YTg1OGMiIHN0cm9rZS13aWR0aD0iNSIvPjxyZWN0IHg9IjEzMCIgeT0iMTEyIiB3aWR0aD0iMzM3IiBoZWlnaHQ9IjIyOSIgcng9IjMiIGZpbGw9IiMwNzFmMjYiLz48cGF0aCBkPSJNMTMwIDM0MVYxNzVjNTUgMjIgMTEyIDQgMTY0LTI1IDU2LTMzIDExNC0zNCAxNzMgMTl2MTcyWiIgZmlsbD0iIzI4NDc2MyIvPjxwYXRoIGQ9Ik0xMzAgMzQxVjI5N2M2Ny0zNiAxMjUtMTQ2IDE5My0xNTkgNjYtMTMgMTA5IDU4IDE0NCA4M3YxMjBaIiBmaWxsPSIjM2E3OTdmIi8+PHBhdGggZD0iTTEzMCAzNDFjNzUtNDcgMTI1LTE0NiAyMDEtMTQ3IDQ4IDAgODggNDIgMTM2IDkwdjU3WiIgZmlsbD0iI2EyYTZhYiIgb3BhY2l0eT0iLjQ3Ii8+PHBhdGggZD0iTTk1IDM1Nmg0MTVsNDAgMzRxNCA4LTEwIDE0SDYycS0xMi02LTYtMTRaIiBmaWxsPSJ1cmwoI3NoaW5lKSIvPjxwYXRoIGQ9Ik05MyAzNTZoNDE0bDM0IDM0SDYwWiIgZmlsbD0iIzg3OTM5NCIvPjxwYXRoIGQ9Ik0xNDIgMzY4aDMyMWwyMyAxM0gxMThaIiBmaWxsPSIjMjkzNTM2Ii8+CjxyZWN0IHg9IjE0MyIgeT0iMzY5LjAiIHdpZHRoPSIyMSIgaGVpZ2h0PSIzLjQiIHJ4PSIuOCIgZmlsbD0iIzdjOTE5MiIgb3BhY2l0eT0iLjc0Ii8+PHJlY3QgeD0iMTY5IiB5PSIzNjkuMCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjMuNCIgcng9Ii44IiBmaWxsPSIjN2M5MTkyIiBvcGFjaXR5PSIuNzQiLz48cmVjdCB4PSIxOTUiIHk9IjM2OS4wIiB3aWR0aD0iMjEiIGhlaWdodD0iMy40IiByeD0iLjgiIGZpbGw9IiM3YzkxOTIiIG9wYWNpdHk9Ii43NCIvPjxyZWN0IHg9IjIyMSIgeT0iMzY5LjAiIHdpZHRoPSIyMSIgaGVpZ2h0PSIzLjQiIHJ4PSIuOCIgZmlsbD0iIzdjOTE5MiIgb3BhY2l0eT0iLjc0Ii8+PHJlY3QgeD0iMjQ3IiB5PSIzNjkuMCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjMuNCIgcng9Ii44IiBmaWxsPSIjN2M5MTkyIiBvcGFjaXR5PSIuNzQiLz48cmVjdCB4PSIyNzMiIHk9IjM2OS4wIiB3aWR0aD0iMjEiIGhlaWdodD0iMy40IiByeD0iLjgiIGZpbGw9IiM3YzkxOTIiIG9wYWNpdHk9Ii43NCIvPjxyZWN0IHg9IjI5OSIgeT0iMzY5LjAiIHdpZHRoPSIyMSIgaGVpZ2h0PSIzLjQiIHJ4PSIuOCIgZmlsbD0iIzdjOTE5MiIgb3BhY2l0eT0iLjc0Ii8+PHJlY3QgeD0iMzI1IiB5PSIzNjkuMCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjMuNCIgcng9Ii44IiBmaWxsPSIjN2M5MTkyIiBvcGFjaXR5PSIuNzQiLz48cmVjdCB4PSIzNTEiIHk9IjM2OS4wIiB3aWR0aD0iMjEiIGhlaWdodD0iMy40IiByeD0iLjgiIGZpbGw9IiM3YzkxOTIiIG9wYWNpdHk9Ii43NCIvPjxyZWN0IHg9IjM3NyIgeT0iMzY5LjAiIHdpZHRoPSIyMSIgaGVpZ2h0PSIzLjQiIHJ4PSIuOCIgZmlsbD0iIzdjOTE5MiIgb3BhY2l0eT0iLjc0Ii8+PHJlY3QgeD0iNDAzIiB5PSIzNjkuMCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjMuNCIgcng9Ii44IiBmaWxsPSIjN2M5MTkyIiBvcGFjaXR5PSIuNzQiLz48cmVjdCB4PSI0MjkiIHk9IjM2OS4wIiB3aWR0aD0iMjEiIGhlaWdodD0iMy40IiByeD0iLjgiIGZpbGw9IiM3YzkxOTIiIG9wYWNpdHk9Ii43NCIvPjxyZWN0IHg9IjE0MyIgeT0iMzc0LjQiIHdpZHRoPSIyMSIgaGVpZ2h0PSIzLjQiIHJ4PSIuOCIgZmlsbD0iIzdjOTE5MiIgb3BhY2l0eT0iLjc0Ii8+PHJlY3QgeD0iMTY5IiB5PSIzNzQuNCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjMuNCIgcng9Ii44IiBmaWxsPSIjN2M5MTkyIiBvcGFjaXR5PSIuNzQiLz48cmVjdCB4PSIxOTUiIHk9IjM3NC40IiB3aWR0aD0iMjEiIGhlaWdodD0iMy40IiByeD0iLjgiIGZpbGw9IiM3YzkxOTIiIG9wYWNpdHk9Ii43NCIvPjxyZWN0IHg9IjIyMSIgeT0iMzc0LjQiIHdpZHRoPSIyMSIgaGVpZ2h0PSIzLjQiIHJ4PSIuOCIgZmlsbD0iIzdjOTE5MiIgb3BhY2l0eT0iLjc0Ii8+PHJlY3QgeD0iMjQ3IiB5PSIzNzQuNCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjMuNCIgcng9Ii44IiBmaWxsPSIjN2M5MTkyIiBvcGFjaXR5PSIuNzQiLz48cmVjdCB4PSIyNzMiIHk9IjM3NC40IiB3aWR0aD0iMjEiIGhlaWdodD0iMy40IiByeD0iLjgiIGZpbGw9IiM3YzkxOTIiIG9wYWNpdHk9Ii43NCIvPjxyZWN0IHg9IjI5OSIgeT0iMzc0LjQiIHdpZHRoPSIyMSIgaGVpZ2h0PSIzLjQiIHJ4PSIuOCIgZmlsbD0iIzdjOTE5MiIgb3BhY2l0eT0iLjc0Ii8+PHJlY3QgeD0iMzI1IiB5PSIzNzQuNCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjMuNCIgcng9Ii44IiBmaWxsPSIjN2M5MTkyIiBvcGFjaXR5PSIuNzQiLz48cmVjdCB4PSIzNTEiIHk9IjM3NC40IiB3aWR0aD0iMjEiIGhlaWdodD0iMy40IiByeD0iLjgiIGZpbGw9IiM3YzkxOTIiIG9wYWNpdHk9Ii43NCIvPjxyZWN0IHg9IjM3NyIgeT0iMzc0LjQiIHdpZHRoPSIyMSIgaGVpZ2h0PSIzLjQiIHJ4PSIuOCIgZmlsbD0iIzdjOTE5MiIgb3BhY2l0eT0iLjc0Ii8+PHJlY3QgeD0iNDAzIiB5PSIzNzQuNCIgd2lkdGg9IjIxIiBoZWlnaHQ9IjMuNCIgcng9Ii44IiBmaWxsPSIjN2M5MTkyIiBvcGFjaXR5PSIuNzQiLz48cmVjdCB4PSI0MjkiIHk9IjM3NC40IiB3aWR0aD0iMjEiIGhlaWdodD0iMy40IiByeD0iLjgiIGZpbGw9IiM3YzkxOTIiIG9wYWNpdHk9Ii43NCIvPjxwYXRoIGQ9Ik0yNzMgMzg5aDYxbC02IDdoLTQ5WiIgZmlsbD0iI2NhZDBjZSIvPjwvZz48L3N2Zz4=","mouse.svg":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNTIwIiBmaWxsPSJub25lIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Im1ldGFsIiB4MT0iLjEiIHkxPSIuMSIgeDI9Ii45NSIgeTI9Ii44NSI+PHN0b3Agc3RvcC1jb2xvcj0iIzZjNzQ3NCIvPjxzdG9wIG9mZnNldD0iLjI4IiBzdG9wLWNvbG9yPSIjMzAzOTNiIi8+PHN0b3Agb2Zmc2V0PSIuNiIgc3RvcC1jb2xvcj0iIzEwMTgxOSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzZiNzQ3MSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJib2R5IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzQ4NTE1NSIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjMTUxZDIxIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDkwZDExIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNoaW5lIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzljYTNhMyIvPjxzdG9wIG9mZnNldD0iLjM1IiBzdG9wLWNvbG9yPSIjMzQzYjNkIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTQxOTFhIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNjcmVlbiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiMxODM3NDYiLz48c3RvcCBvZmZzZXQ9Ii41NSIgc3RvcC1jb2xvcj0iIzI1NmI3NyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2E2ZDRjOSIvPjwvbGluZWFyR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGlkPSJnbG93Ij48c3RvcCBzdG9wLWNvbG9yPSIjY2NmN2JiIiBzdG9wLW9wYWNpdHk9Ii40NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2NjZjdiYiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii0zMCUiIHk9Ii0zMCUiIHdpZHRoPSIxNjAlIiBoZWlnaHQ9IjE3NSUiPjxmZURyb3BTaGFkb3cgZHg9IjIiIGR5PSIxNyIgc3RkRGV2aWF0aW9uPSIxOSIgZmxvb2QtY29sb3I9IiMxNjE4MTgiIGZsb29kLW9wYWNpdHk9Ii4zIi8+PC9maWx0ZXI+PC9kZWZzPjxnIGZpbHRlcj0idXJsKCNzaGFkb3cpIiB0cmFuc2Zvcm09InJvdGF0ZSgtMTMgMzAwIDI2MCkiPjxwYXRoIGQ9Ik0yOTIgNzdjLTg2IDAtMTQ0IDc5LTE0NCAxOTUgMCAxMDggNTIgMTcyIDE1NCAxNzIgMTAyIDAgMTUzLTY0IDE1My0xNzEgMC0xMTctNjYtMTk2LTE2My0xOTZaIiBmaWxsPSJ1cmwoI2JvZHkpIiBzdHJva2U9IiM3NDdlN2QiIHN0cm9rZS13aWR0aD0iNyIvPjxwYXRoIGQ9Ik0zMDEgODF2MTc1IiBzdHJva2U9IiM4Yzk3OTYiIHN0cm9rZS13aWR0aD0iNCIgb3BhY2l0eT0iLjQ4Ii8+PHBhdGggZD0iTTE3NCAxOThjMjAtNjYgNTQtMTAyIDExNi0xMTFsLTQgMTYzYy0zOSAyNi02OCAyMy0xMTItNTJaIiBmaWxsPSIjM2I0NzQ3Ii8+PHBhdGggZD0iTTMwOSA5MGM1OCA2IDkxIDQ4IDEwOSAxMDYtMzkgNTktNzcgNjktMTA5IDU1WiIgZmlsbD0iIzMwM2IzZSIvPjxyZWN0IHg9IjI5MiIgeT0iMTUyIiB3aWR0aD0iMTkiIGhlaWdodD0iNDgiIHJ4PSI5IiBmaWxsPSIjYWNiOGIxIi8+PHBhdGggZD0iTTE3OSAzMzFjNDggODEgMTg0IDg0IDIzOSAxIiBzdHJva2U9IiNhNGFkYWEiIHN0cm9rZS13aWR0aD0iMyIgb3BhY2l0eT0iLjQiLz48L2c+PC9zdmc+","phone.svg":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNTIwIiBmaWxsPSJub25lIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Im1ldGFsIiB4MT0iLjEiIHkxPSIuMSIgeDI9Ii45NSIgeTI9Ii44NSI+PHN0b3Agc3RvcC1jb2xvcj0iIzZjNzQ3NCIvPjxzdG9wIG9mZnNldD0iLjI4IiBzdG9wLWNvbG9yPSIjMzAzOTNiIi8+PHN0b3Agb2Zmc2V0PSIuNiIgc3RvcC1jb2xvcj0iIzEwMTgxOSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzZiNzQ3MSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJib2R5IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzQ4NTE1NSIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjMTUxZDIxIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDkwZDExIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNoaW5lIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzljYTNhMyIvPjxzdG9wIG9mZnNldD0iLjM1IiBzdG9wLWNvbG9yPSIjMzQzYjNkIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTQxOTFhIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNjcmVlbiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiMxODM3NDYiLz48c3RvcCBvZmZzZXQ9Ii41NSIgc3RvcC1jb2xvcj0iIzI1NmI3NyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2E2ZDRjOSIvPjwvbGluZWFyR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGlkPSJnbG93Ij48c3RvcCBzdG9wLWNvbG9yPSIjY2NmN2JiIiBzdG9wLW9wYWNpdHk9Ii40NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2NjZjdiYiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii0zMCUiIHk9Ii0zMCUiIHdpZHRoPSIxNjAlIiBoZWlnaHQ9IjE3NSUiPjxmZURyb3BTaGFkb3cgZHg9IjIiIGR5PSIxNyIgc3RkRGV2aWF0aW9uPSIxOSIgZmxvb2QtY29sb3I9IiMxNjE4MTgiIGZsb29kLW9wYWNpdHk9Ii4zIi8+PC9maWx0ZXI+PC9kZWZzPjxnIGZpbHRlcj0idXJsKCNzaGFkb3cpIiB0cmFuc2Zvcm09InJvdGF0ZSgtMTEgMzEwIDI2MCkiPjxyZWN0IHg9IjIwNiIgeT0iNTAiIHdpZHRoPSIyMDAiIGhlaWdodD0iNDIwIiByeD0iNDMiIGZpbGw9IiMyNDJmM2EiIHN0cm9rZT0iIzhmOWRhYiIgc3Ryb2tlLXdpZHRoPSI2Ii8+PHJlY3QgeD0iMjE1IiB5PSI2MCIgd2lkdGg9IjE4MiIgaGVpZ2h0PSI0MDIiIHJ4PSIzNiIgZmlsbD0idXJsKCNzY3JlZW4pIi8+PHBhdGggZD0iTTIxNSAyODJDMjcwIDE5MCAzNTQgMjAzIDM5OCAxMDZ2MzU0SDIxNVoiIGZpbGw9IiM3YWM1YmYiLz48cGF0aCBkPSJNMjE1IDQzM2M0OC0xMDUgMTEyLTEzOCAxODItMTU4djE4N0gyMTVaIiBmaWxsPSIjMjQzZjZiIi8+PHBhdGggZD0iTTIxNSAzODFjNjctODAgMTI4LTEyNyAxODItMTMyIiBzdHJva2U9IiNjN2VjZTAiIHN0cm9rZS13aWR0aD0iMzAiIG9wYWNpdHk9Ii42Ii8+PHJlY3QgeD0iMjc2IiB5PSI2OCIgd2lkdGg9IjYxIiBoZWlnaHQ9IjE3IiByeD0iOCIgZmlsbD0iIzFiMjczMiIvPjxjaXJjbGUgY3g9IjMwMyIgY3k9IjQ0NSIgcj0iNCIgZmlsbD0iI2Q4ZTllYyIgb3BhY2l0eT0iLjc1Ii8+PHJlY3QgeD0iNDA2IiB5PSIxNjkiIHdpZHRoPSI1IiBoZWlnaHQ9IjU3IiByeD0iMiIgZmlsbD0iIzhiOTM5YyIvPjwvZz48L3N2Zz4=","speaker.svg":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNTIwIiBmaWxsPSJub25lIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Im1ldGFsIiB4MT0iLjEiIHkxPSIuMSIgeDI9Ii45NSIgeTI9Ii44NSI+PHN0b3Agc3RvcC1jb2xvcj0iIzZjNzQ3NCIvPjxzdG9wIG9mZnNldD0iLjI4IiBzdG9wLWNvbG9yPSIjMzAzOTNiIi8+PHN0b3Agb2Zmc2V0PSIuNiIgc3RvcC1jb2xvcj0iIzEwMTgxOSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzZiNzQ3MSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJib2R5IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzQ4NTE1NSIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjMTUxZDIxIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDkwZDExIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNoaW5lIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzljYTNhMyIvPjxzdG9wIG9mZnNldD0iLjM1IiBzdG9wLWNvbG9yPSIjMzQzYjNkIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTQxOTFhIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNjcmVlbiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiMxODM3NDYiLz48c3RvcCBvZmZzZXQ9Ii41NSIgc3RvcC1jb2xvcj0iIzI1NmI3NyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2E2ZDRjOSIvPjwvbGluZWFyR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGlkPSJnbG93Ij48c3RvcCBzdG9wLWNvbG9yPSIjY2NmN2JiIiBzdG9wLW9wYWNpdHk9Ii40NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2NjZjdiYiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii0zMCUiIHk9Ii0zMCUiIHdpZHRoPSIxNjAlIiBoZWlnaHQ9IjE3NSUiPjxmZURyb3BTaGFkb3cgZHg9IjIiIGR5PSIxNyIgc3RkRGV2aWF0aW9uPSIxOSIgZmxvb2QtY29sb3I9IiMxNjE4MTgiIGZsb29kLW9wYWNpdHk9Ii4zIi8+PC9maWx0ZXI+PC9kZWZzPjxnIGZpbHRlcj0idXJsKCNzaGFkb3cpIiB0cmFuc2Zvcm09InJvdGF0ZSgtMTEgMzAwIDI4MCkiPjxyZWN0IHg9IjE3OSIgeT0iODEiIHdpZHRoPSIyNDAiIGhlaWdodD0iMzU5IiByeD0iNzkiIGZpbGw9IiMyMjJiMmMiLz48cmVjdCB4PSIxODkiIHk9Ijg5IiB3aWR0aD0iMjIwIiBoZWlnaHQ9IjM0MiIgcng9IjczIiBmaWxsPSIjNDQ0ZTUwIi8+PHJlY3QgeD0iMTk3IiB5PSI5NSIgd2lkdGg9IjIwNCIgaGVpZ2h0PSIzMzAiIHJ4PSI2OSIgZmlsbD0iIzMxM2UzZiIvPjxnIG9wYWNpdHk9Ii4zMSI+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMTE1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMTE1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMTE1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMTE1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMTE1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMTE1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMTE1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMTE1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMTE1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMTI4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMTI4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMTI4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMTI4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMTI4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMTI4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMTI4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMTI4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMTI4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMTI4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMTQxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMTQxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMTQxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMTQxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMTQxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMTQxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMTQxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMTQxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMTQxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMTQxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMTQxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMTU0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMTU0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMTU0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMTU0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMTU0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMTU0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMTU0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMTU0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMTU0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMTU0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMTU0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMTU0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMTU0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMTY3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMTY3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMTY3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMTY3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMTY3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMTY3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMTY3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMTY3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMTY3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMTY3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMTY3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMTY3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMTY3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjEwIiBjeT0iMTgwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMTgwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMTgwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMTgwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMTgwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMTgwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMTgwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMTgwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMTgwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMTgwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMTgwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMTgwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMTgwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMTgwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjEwIiBjeT0iMTkzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMTkzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMTkzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMTkzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMTkzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMTkzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMTkzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMTkzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMTkzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMTkzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMTkzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMTkzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMTkzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMTkzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjEwIiBjeT0iMjA2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMjA2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMjA2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMjA2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMjA2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMjA2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMjA2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMjA2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMjA2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMjA2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMjA2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMjA2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMjA2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMjA2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjEwIiBjeT0iMjE5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMjE5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMjE5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMjE5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMjE5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMjE5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMjE5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMjE5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMjE5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMjE5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMjE5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMjE5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMjE5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMjE5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjEwIiBjeT0iMjMyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMjMyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMjMyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMjMyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMjMyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMjMyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMjMyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMjMyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMjMyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMjMyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMjMyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMjMyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMjMyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMjMyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjEwIiBjeT0iMjQ1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMjQ1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMjQ1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMjQ1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMjQ1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMjQ1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMjQ1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMjQ1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMjQ1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMjQ1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMjQ1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMjQ1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMjQ1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMjQ1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjEwIiBjeT0iMjU4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMjU4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMjU4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMjU4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMjU4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMjU4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMjU4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMjU4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMjU4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMjU4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMjU4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMjU4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMjU4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMjU4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjEwIiBjeT0iMjcxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMjcxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMjcxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMjcxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMjcxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMjcxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMjcxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMjcxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMjcxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMjcxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMjcxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMjcxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMjcxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMjcxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjEwIiBjeT0iMjg0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMjg0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMjg0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMjg0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMjg0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMjg0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMjg0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMjg0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMjg0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMjg0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMjg0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMjg0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMjg0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMjg0IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjEwIiBjeT0iMjk3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMjk3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMjk3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMjk3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMjk3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMjk3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMjk3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMjk3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMjk3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMjk3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMjk3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMjk3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMjk3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMjk3IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjEwIiBjeT0iMzEwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMzEwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMzEwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMzEwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMzEwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMzEwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMzEwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMzEwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMzEwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMzEwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMzEwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMzEwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMzEwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMzEwIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjEwIiBjeT0iMzIzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMzIzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMzIzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMzIzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMzIzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMzIzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMzIzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMzIzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMzIzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMzIzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMzIzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMzIzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMzIzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMzIzIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjEwIiBjeT0iMzM2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMzM2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMzM2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMzM2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMzM2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMzM2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMzM2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMzM2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMzM2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMzM2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMzM2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMzM2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMzM2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMzM2IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMzQ5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMzQ5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMzQ5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMzQ5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMzQ5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMzQ5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMzQ5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMzQ5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMzQ5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMzQ5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMzQ5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMzQ5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMzQ5IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjIzIiBjeT0iMzYyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMzYyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMzYyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMzYyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMzYyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMzYyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMzYyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMzYyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMzYyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMzYyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMzYyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMzYyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzc5IiBjeT0iMzYyIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMzc1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMzc1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMzc1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMzc1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMzc1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMzc1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMzc1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMzc1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMzc1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMzc1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzY2IiBjeT0iMzc1IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjM2IiBjeT0iMzg4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iMzg4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iMzg4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iMzg4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iMzg4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iMzg4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iMzg4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iMzg4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iMzg4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iMzg4IiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjQ5IiBjeT0iNDAxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjYyIiBjeT0iNDAxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjc1IiBjeT0iNDAxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMjg4IiBjeT0iNDAxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzAxIiBjeT0iNDAxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzE0IiBjeT0iNDAxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzI3IiBjeT0iNDAxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzQwIiBjeT0iNDAxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PGNpcmNsZSBjeD0iMzUzIiBjeT0iNDAxIiByPSIyIiBmaWxsPSIjYWNiOGFkIi8+PC9nPjxwYXRoIGQ9Ik0yODEgMTI1aDMwbS0xNS0xNXYzMCIgc3Ryb2tlPSIjYjJiZmFkIiBzdHJva2Utd2lkdGg9IjkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0yODYgMzg2aDI3IiBzdHJva2U9IiNiM2JmYWUiIHN0cm9rZS13aWR0aD0iOCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHJlY3QgeD0iMTg1IiB5PSIyNTEiIHdpZHRoPSIyOSIgaGVpZ2h0PSI1OCIgcng9IjUiIGZpbGw9IiNmMjdiNGQiLz48dGV4dCB4PSIxOTkiIHk9IjI5NCIgZm9udC1zaXplPSIyOSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXdlaWdodD0iOTAwIiBmaWxsPSIjZmZmIiB0cmFuc2Zvcm09InJvdGF0ZSgtOTAgMTk5IDI5NCkiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkpCTDwvdGV4dD48L2c+PC9zdmc+","tablet.svg":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNTIwIiBmaWxsPSJub25lIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Im1ldGFsIiB4MT0iLjEiIHkxPSIuMSIgeDI9Ii45NSIgeTI9Ii44NSI+PHN0b3Agc3RvcC1jb2xvcj0iIzZjNzQ3NCIvPjxzdG9wIG9mZnNldD0iLjI4IiBzdG9wLWNvbG9yPSIjMzAzOTNiIi8+PHN0b3Agb2Zmc2V0PSIuNiIgc3RvcC1jb2xvcj0iIzEwMTgxOSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzZiNzQ3MSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJib2R5IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzQ4NTE1NSIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjMTUxZDIxIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDkwZDExIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNoaW5lIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzljYTNhMyIvPjxzdG9wIG9mZnNldD0iLjM1IiBzdG9wLWNvbG9yPSIjMzQzYjNkIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTQxOTFhIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNjcmVlbiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiMxODM3NDYiLz48c3RvcCBvZmZzZXQ9Ii41NSIgc3RvcC1jb2xvcj0iIzI1NmI3NyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2E2ZDRjOSIvPjwvbGluZWFyR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGlkPSJnbG93Ij48c3RvcCBzdG9wLWNvbG9yPSIjY2NmN2JiIiBzdG9wLW9wYWNpdHk9Ii40NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2NjZjdiYiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii0zMCUiIHk9Ii0zMCUiIHdpZHRoPSIxNjAlIiBoZWlnaHQ9IjE3NSUiPjxmZURyb3BTaGFkb3cgZHg9IjIiIGR5PSIxNyIgc3RkRGV2aWF0aW9uPSIxOSIgZmxvb2QtY29sb3I9IiMxNjE4MTgiIGZsb29kLW9wYWNpdHk9Ii4zIi8+PC9maWx0ZXI+PC9kZWZzPjxnIGZpbHRlcj0idXJsKCNzaGFkb3cpIiB0cmFuc2Zvcm09InJvdGF0ZSgtMTAgMjk5IDI2MSkiPjxyZWN0IHg9IjEzMSIgeT0iODAiIHdpZHRoPSIzNDQiIGhlaWdodD0iMzcxIiByeD0iMjUiIGZpbGw9IiM2MzZkNzAiIHN0cm9rZT0iI2QyZDdkNyIgc3Ryb2tlLXdpZHRoPSI2Ii8+PHJlY3QgeD0iMTQwIiB5PSI5MCIgd2lkdGg9IjMyNiIgaGVpZ2h0PSIzNTMiIHJ4PSIxOCIgZmlsbD0iIzE4MmQ0NiIvPjxwYXRoIGQ9Ik0xNDAgMjUyYzY0LTg2IDEwMC0xMjUgMTY3LTE0OSA1Ni0yMCAxMDEgMiAxNTkgNjF2Mjc5SDE0MFoiIGZpbGw9IiM0MzZhOTkiLz48cGF0aCBkPSJNMTQwIDM4OGM3OS05NyAxMzAtMTg1IDIxNi0yMDMgNDMtOSA4MCA0IDExMCAxNXYyNDNIMTQwWiIgZmlsbD0iI2E3YzFkNSIvPjxwYXRoIGQ9Ik0xNDAgNDI4Yzc0LTExOSAyMDEtMTUwIDMyNi0xNTV2MTcwSDE0MFoiIGZpbGw9IiNjMmQ4ZGEiLz48Y2lyY2xlIGN4PSIzMDMiIGN5PSI4NiIgcj0iMyIgZmlsbD0iI2FlYmJjMiIvPjxyZWN0IHg9IjQ3MCIgeT0iOTQiIHdpZHRoPSI4IiBoZWlnaHQ9IjIzMSIgcng9IjQiIGZpbGw9IiNhZGI0YjEiLz48L2c+PC9zdmc+","watch.svg":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MDAgNTIwIiBmaWxsPSJub25lIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Im1ldGFsIiB4MT0iLjEiIHkxPSIuMSIgeDI9Ii45NSIgeTI9Ii44NSI+PHN0b3Agc3RvcC1jb2xvcj0iIzZjNzQ3NCIvPjxzdG9wIG9mZnNldD0iLjI4IiBzdG9wLWNvbG9yPSIjMzAzOTNiIi8+PHN0b3Agb2Zmc2V0PSIuNiIgc3RvcC1jb2xvcj0iIzEwMTgxOSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzZiNzQ3MSIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJib2R5IiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzQ4NTE1NSIvPjxzdG9wIG9mZnNldD0iLjU1IiBzdG9wLWNvbG9yPSIjMTUxZDIxIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMDkwZDExIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNoaW5lIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+PHN0b3Agc3RvcC1jb2xvcj0iIzljYTNhMyIvPjxzdG9wIG9mZnNldD0iLjM1IiBzdG9wLWNvbG9yPSIjMzQzYjNkIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMTQxOTFhIi8+PC9saW5lYXJHcmFkaWVudD48bGluZWFyR3JhZGllbnQgaWQ9InNjcmVlbiIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPjxzdG9wIHN0b3AtY29sb3I9IiMxODM3NDYiLz48c3RvcCBvZmZzZXQ9Ii41NSIgc3RvcC1jb2xvcj0iIzI1NmI3NyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2E2ZDRjOSIvPjwvbGluZWFyR3JhZGllbnQ+PHJhZGlhbEdyYWRpZW50IGlkPSJnbG93Ij48c3RvcCBzdG9wLWNvbG9yPSIjY2NmN2JiIiBzdG9wLW9wYWNpdHk9Ii40NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2NjZjdiYiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48ZmlsdGVyIGlkPSJzaGFkb3ciIHg9Ii0zMCUiIHk9Ii0zMCUiIHdpZHRoPSIxNjAlIiBoZWlnaHQ9IjE3NSUiPjxmZURyb3BTaGFkb3cgZHg9IjIiIGR5PSIxNyIgc3RkRGV2aWF0aW9uPSIxOSIgZmxvb2QtY29sb3I9IiMxNjE4MTgiIGZsb29kLW9wYWNpdHk9Ii4zIi8+PC9maWx0ZXI+PC9kZWZzPjxnIGZpbHRlcj0idXJsKCNzaGFkb3cpIiB0cmFuc2Zvcm09InJvdGF0ZSgtMTQgMzAwIDI3MCkiPjxwYXRoIGQ9Ik0yNTIgNjFoMTAzbC0xMiAxMzZoLTgwWk0yNjYgMzM1aDc2bDIyIDEzMkgyNDJaIiBmaWxsPSIjMzUzZjNkIi8+PHBhdGggZD0iTTI2MSA3MWg4NmwtMTEgMTIyaC02NVpNMjY5IDMzN2g2M2wxNyAxMTloLTk1WiIgZmlsbD0iIzY2NmY2NiIvPjxyZWN0IHg9IjIwNCIgeT0iMTY5IiB3aWR0aD0iMTk2IiBoZWlnaHQ9IjE4OCIgcng9IjU1IiBmaWxsPSIjMzIzYjM5IiBzdHJva2U9IiM4Yjk0OGIiIHN0cm9rZS13aWR0aD0iMTAiLz48cmVjdCB4PSIyMjAiIHk9IjE4NiIgd2lkdGg9IjE2NCIgaGVpZ2h0PSIxNTYiIHJ4PSI0MCIgZmlsbD0iIzBkMTgxYiIvPjxjaXJjbGUgY3g9IjMwMiIgY3k9IjI2NCIgcj0iNjAiIHN0cm9rZT0iI2I2ZTk3YSIgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLWRhc2hhcnJheT0iMjI1IDE0MCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiB0cmFuc2Zvcm09InJvdGF0ZSgtODAgMzAyIDI2NCkiLz48Y2lyY2xlIGN4PSIzMDIiIGN5PSIyNjQiIHI9IjQyIiBzdHJva2U9IiM3OWJhYmEiIHN0cm9rZS13aWR0aD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IjE2NCAxMTAiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgdHJhbnNmb3JtPSJyb3RhdGUoMjUgMzAyIDI2NCkiLz48Y2lyY2xlIGN4PSIzMDIiIGN5PSIyNjQiIHI9IjIyIiBzdHJva2U9IiNkY2I5YmQiIHN0cm9rZS13aWR0aD0iNyIvPjxyZWN0IHg9IjM5OSIgeT0iMjM2IiB3aWR0aD0iMTIiIGhlaWdodD0iNDgiIHJ4PSI1IiBmaWxsPSIjODc5Mzg0Ii8+PC9nPjwvc3ZnPg=="};
+/**
+ * Frontend sample data only. These are NOT live marketplace prices.
+ * Mirrors the DBIS model: PRODUCT → STORE_LISTING → PRICE_HISTORY / OFFER.
+ * Replace products and listings with backend API responses in Phase 2.
+ */
+window.PRICESENSE_PRODUCTS = [
+  {id:1,name:'WH-1000XM5',brand:'Sony',category:'Audio',tag:'POPULAR PICK',color:'violet',art:'headphones.svg',price:24999,oldPrice:27999,rating:4.8,stores:[{name:'Amazon',base:24999,delivery:0,available:true},{name:'Flipkart',base:25499,delivery:0,available:true},{name:'Croma',base:26199,delivery:0,available:true}],description:'Wireless noise-cancelling headphones',model:'Black · Wireless',history:{30:[27000,26800,27250,26300,26000,26600,25900,25200,25600,24999],90:[28900,27800,28300,27000,27900,26100,26900,25700,25499,24999],365:[30500,29800,28400,28900,27400,27900,26700,26200,25900,24999]}},
+  {id:2,name:'LOQ 15',brand:'Lenovo',category:'Laptops',tag:'SOLID VALUE',color:'peach',art:'laptop.svg',price:68990,oldPrice:75990,rating:4.6,stores:[{name:'Amazon',base:69990,delivery:0,available:true},{name:'Flipkart',base:68990,delivery:0,available:true},{name:'Croma',base:72990,delivery:299,available:true}],description:'15-inch performance gaming laptop',model:'16GB RAM · 512GB SSD',history:{30:[75000,74500,74000,73700,72000,71500,70900,70500,69990,68990],90:[79900,79000,78100,76900,75100,73900,74000,71800,69990,68990],365:[84900,83500,82100,80900,79900,76800,74800,72900,70900,68990]}},
+  {id:3,name:'Neo 10',brand:'iQOO',category:'Phones',tag:'HOT RIGHT NOW',color:'sky',art:'phone.svg',price:31999,oldPrice:35999,rating:4.7,stores:[{name:'Amazon',base:32999,delivery:0,available:true},{name:'Flipkart',base:31999,delivery:0,available:true},{name:'Croma',base:33999,delivery:99,available:true}],description:'High-performance 5G smartphone',model:'8GB RAM · 256GB',history:{30:[34999,34299,33999,33799,33299,32999,32999,32299,31999,31999],90:[36899,36599,35999,35399,34999,34000,33500,33000,32500,31999],365:[39999,38999,37999,37599,36999,35999,34899,33999,33000,31999]}},
+  {id:4,name:'Watch SE',brand:'Apple',category:'Wearables',tag:'EVERYDAY FAVORITE',color:'lime',art:'watch.svg',price:27900,oldPrice:29900,rating:4.6,stores:[{name:'Amazon',base:28490,delivery:0,available:true},{name:'Flipkart',base:27900,delivery:0,available:true},{name:'Croma',base:28900,delivery:0,available:true}],description:'Smartwatch with activity tracking',model:'GPS · Midnight',history:{30:[29900,29800,29500,29100,29300,28800,28700,28300,28000,27900],90:[31900,31400,30900,31000,30100,29600,29300,28700,28100,27900],365:[34900,34100,33300,32400,31900,30700,29900,29000,28500,27900]}},
+  {id:5,name:'X-S20',brand:'Fujifilm',category:'Cameras',tag:'CREATOR PICK',color:'sand',art:'camera.svg',price:109999,oldPrice:119999,rating:4.8,stores:[{name:'Amazon',base:110999,delivery:0,available:true},{name:'Flipkart',base:109999,delivery:149,available:true},{name:'Croma',base:113999,delivery:0,available:false}],description:'Mirrorless hybrid camera body',model:'Body only · Black',history:{30:[119999,117999,116999,115999,114999,115999,111999,112999,110999,109999],90:[124999,122999,123499,120999,117999,115999,116999,113999,111999,109999],365:[131999,129999,127999,128999,124999,120999,117999,115999,112999,109999]}},
+  {id:6,name:'Charge 5',brand:'JBL',category:'Audio',tag:'UNDER ₹15K',color:'orange',art:'speaker.svg',price:11999,oldPrice:14999,rating:4.5,stores:[{name:'Amazon',base:11999,delivery:0,available:true},{name:'Flipkart',base:12499,delivery:0,available:true},{name:'Croma',base:12990,delivery:0,available:true}],description:'Portable waterproof Bluetooth speaker',model:'Black · Portable',history:{30:[13999,13699,13499,13399,12999,12599,12699,12299,11999,11999],90:[15500,15199,14999,14499,14099,13799,13299,12999,12499,11999],365:[17999,17299,16799,15899,15499,14899,14099,13499,12699,11999]}},
+  {id:7,name:'MX Master 3S',brand:'Logitech',category:'Accessories',tag:'WORKSPACE UPGRADE',color:'purple',art:'mouse.svg',price:8999,oldPrice:10995,rating:4.7,stores:[{name:'Amazon',base:8999,delivery:0,available:true},{name:'Flipkart',base:9499,delivery:0,available:true},{name:'Croma',base:9999,delivery:99,available:true}],description:'Ergonomic wireless performance mouse',model:'Graphite · Wireless',history:{30:[9999,9850,9799,9650,9499,9350,9300,9200,8999,8999],90:[11999,11650,11299,10950,10599,10200,9999,9499,9199,8999],365:[12999,12599,12199,11999,11199,10799,10299,9899,9299,8999]}},
+  {id:8,name:'Tab S10 FE',brand:'Samsung',category:'Tablets',tag:'NEW FAVORITE',color:'blue',art:'tablet.svg',price:42999,oldPrice:46999,rating:4.6,stores:[{name:'Amazon',base:43999,delivery:0,available:true},{name:'Flipkart',base:42999,delivery:0,available:true},{name:'Croma',base:44999,delivery:0,available:true}],description:'Everyday creative tablet',model:'Wi-Fi · 128GB',history:{30:[46999,46499,45999,44999,45199,44399,43999,43999,43499,42999],90:[49999,49299,48999,47999,47399,46599,45999,44999,43999,42999],365:[52999,51999,50999,49999,48999,47499,45999,44899,43999,42999]}}
+];
+
+(() => {
+  'use strict';
+  let products = window.PRICESENSE_PRODUCTS || [];
+  const money = n => '₹' + Number(n).toLocaleString('en-IN', {maximumFractionDigits:0});
+  const artSrc = name => window.PRICESENSE_ASSET_MAP?.[name] || `assets/${name}`;
+  const escapeHTML = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const $ = selector => document.querySelector(selector);
+  const $$ = selector => Array.from(document.querySelectorAll(selector));
+  const heartIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>';
+  const LS_KEY = 'pricesense-demo-watchlist-v1';
+  let saved = new Set();
+  let category = 'All';
+  let search = '';
+  let sortBy = 'featured';
+  let chartRange = 30;
+  let toastTimeout;
+  let lastFocus = null;
+  try { saved = new Set(JSON.parse(localStorage.getItem(LS_KEY) || '[]').map(Number).filter(Number.isFinite)); } catch(e) { saved = new Set(); }
+  let categories = ['All',...new Set(products.map(p=>p.category))];
+
+  const API_BASE = 'http://localhost:8000/api';
+
+  function assignColor(cat) {
+    const c = (cat || '').toLowerCase();
+    if (c.includes('phone') || c.includes('mobile')) return 'sky';
+    if (c.includes('laptop') || c.includes('comp')) return 'peach';
+    if (c.includes('audio') || c.includes('head')) return 'violet';
+    if (c.includes('watch') || c.includes('wear')) return 'lime';
+    if (c.includes('cam')) return 'sand';
+    if (c.includes('tab')) return 'blue';
+    return 'purple';
+  }
+
+  function assignArt(cat) {
+    const c = (cat || '').toLowerCase();
+    if (c.includes('phone') || c.includes('mobile')) return 'phone.svg';
+    if (c.includes('laptop') || c.includes('comp')) return 'laptop.svg';
+    if (c.includes('audio') || c.includes('head') || c.includes('sound')) return 'headphones.svg';
+    if (c.includes('watch') || c.includes('wear')) return 'watch.svg';
+    if (c.includes('cam')) return 'camera.svg';
+    if (c.includes('tab')) return 'tablet.svg';
+    return 'mouse.svg';
+  }
+
+  async function loadBackendData() {
+    try {
+      const res = await fetch(`${API_BASE}/products`, { signal: AbortSignal.timeout(2000) });
+      if (!res.ok) return;
+      const json = await res.json();
+      const dbProducts = json.data || [];
+      if (!Array.isArray(dbProducts) || dbProducts.length === 0) return;
+
+      const loaded = [];
+      for (const item of dbProducts) {
+        const pid = item.product_id;
+        let detailStores = [];
+        let detailHistory = { 30: [], 90: [], 365: [] };
+
+        try {
+          const detailRes = await fetch(`${API_BASE}/products/${pid}`);
+          if (detailRes.ok) {
+            const detailJson = await detailRes.json();
+            const d = detailJson.data || {};
+            detailStores = (d.stores || []).map(s => ({
+              name: s.store_name,
+              base: Number(s.current_price),
+              delivery: Number(s.delivery_charge || 0),
+              available: s.availability === 'IN_STOCK'
+            }));
+          }
+        } catch (_) {}
+
+        try {
+          const histRes = await fetch(`${API_BASE}/products/${pid}/price-history?days=90`);
+          if (histRes.ok) {
+            const histJson = await histRes.json();
+            const hData = histJson.data || {};
+            const storeKeys = Object.keys(hData);
+            if (storeKeys.length > 0) {
+              const primaryPoints = (hData[storeKeys[0]] || []).map(pt => Number(pt.price));
+              if (primaryPoints.length > 0) {
+                detailHistory[30] = primaryPoints.slice(-10);
+                detailHistory[90] = primaryPoints;
+                detailHistory[365] = primaryPoints;
+              }
+            }
+          }
+        } catch (_) {}
+
+        const minP = Number(item.min_price || item.current_price || 0);
+        const maxP = Number(item.max_price || minP * 1.15);
+
+        loaded.push({
+          id: pid,
+          name: item.product_name,
+          brand: item.brand,
+          category: item.category_name || 'Electronics',
+          tag: detailStores.length > 2 ? 'MULTI-STORE PICK' : 'TOP DEAL',
+          color: assignColor(item.category_name),
+          art: assignArt(item.category_name),
+          price: minP,
+          oldPrice: maxP > minP ? maxP : Math.round(minP * 1.12),
+          rating: 4.7,
+          stores: detailStores.length > 0 ? detailStores : [
+            { name: 'Amazon', base: minP, delivery: 0, available: true },
+            { name: 'Flipkart', base: Math.round(minP * 1.03), delivery: 0, available: true }
+          ],
+          description: item.description || `${item.brand} ${item.product_name}`,
+          model: `${item.brand} Official`,
+          history: detailHistory[30].length > 0 ? detailHistory : {
+            30: [minP * 1.1, minP * 1.08, minP * 1.05, minP],
+            90: [minP * 1.15, minP * 1.12, minP * 1.08, minP],
+            365: [minP * 1.25, minP * 1.18, minP * 1.12, minP]
+          }
+        });
+      }
+
+      if (loaded.length > 0) {
+        products = loaded;
+        categories = ['All', ...new Set(products.map(p => p.category))];
+        renderCategories();
+        renderProducts();
+        renderChart();
+        notify(`Connected to MySQL DB! Loaded ${products.length} live products.`);
+      }
+    } catch (_) {
+      // Backend not running or offline: fallback to sample data in data.js
+    }
+  }
+
+  function notify(message) {
+    const node = $('#toast');
+    if (!node) return;
+    node.textContent = message;
+    node.classList.add('show');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(()=>node.classList.remove('show'),2900);
+  }
+  function saveStorage() {
+    try { localStorage.setItem(LS_KEY,JSON.stringify([...saved])); } catch(e) {}
+  }
+  function renderCategories() {
+    $('#categoryFilters').innerHTML=categories.map(c=>`<button type="button" data-category="${escapeHTML(c)}" class="${c===category?'active':''}" aria-pressed="${c===category}">${escapeHTML(c)}</button>`).join('');
+  }
+  function filteredProducts(){
+    let matches=products.filter(p=>(category==='All'||p.category===category)&&`${p.brand} ${p.name} ${p.description} ${p.category} ${p.model}`.toLowerCase().includes(search.toLowerCase()));
+    if(sortBy==='lowest') matches.sort((a,b)=>a.price-b.price);
+    else if(sortBy==='discount') matches.sort((a,b)=>((b.oldPrice-b.price)/b.oldPrice)-((a.oldPrice-a.price)/a.oldPrice));
+    else if(sortBy==='name') matches.sort((a,b)=>`${a.brand} ${a.name}`.localeCompare(`${b.brand} ${b.name}`));
+    return matches;
+  }
+  function productCard(p){
+    const percent=Math.round((1-p.price/p.oldPrice)*100);
+    return `<article class="product-card" data-product-id="${p.id}" data-tone="${escapeHTML(p.color)}">
+      <div class="product-image color-${escapeHTML(p.color)}"><span class="card-badge">${escapeHTML(p.tag)}</span>
+      <button type="button" class="save-button ${saved.has(p.id)?'is-saved':''}" data-save="${p.id}" aria-label="${saved.has(p.id)?'Remove from':'Save to'} watchlist: ${escapeHTML(p.brand+' '+p.name)}" aria-pressed="${saved.has(p.id)}">${heartIcon}</button>
+      <img src="${escapeHTML(artSrc(p.art))}" alt="Illustration of ${escapeHTML(p.brand+' '+p.name)}" loading="lazy"></div>
+      <div class="card-body"><div class="card-meta"><span>${escapeHTML(p.brand.toUpperCase())} / ${escapeHTML(p.category.toUpperCase())}</span><span>★ ${p.rating.toFixed(1)}</span></div>
+      <h3>${escapeHTML(p.name)}</h3><p class="card-description">${escapeHTML(p.description)}</p>
+      <div class="card-divider"></div><div class="card-price-row"><div><strong>${money(p.price)}</strong><span class="old-price">${money(p.oldPrice)}</span></div><span class="drop-pill">↘ ${percent}%</span></div>
+      <div class="card-foot"><span class="store-count">${p.stores.length} stores compared*</span><button class="compare-btn" type="button" data-compare="${p.id}">Compare prices ↗</button></div></div>
+    </article>`;
+  }
+  function renderProducts(){
+    const matches=filteredProducts();
+    $('#productGrid').innerHTML=matches.map(productCard).join('');
+    $('#resultsCount').textContent=`${matches.length} ${matches.length===1?'product':'products'} found`;
+    $('#emptyState').hidden=matches.length!==0;
+    $('#productGrid').hidden=matches.length===0;
+  }
+  function updateSaved(){
+    $('#savedCount').textContent=saved.size;
+    const chosen=products.filter(p=>saved.has(p.id));
+    $('#savedProducts').innerHTML=chosen.length ? chosen.map(p=>`<div class="saved-item"><img src="${escapeHTML(artSrc(p.art))}" alt="" loading="lazy"><div><strong>${escapeHTML(p.brand+' '+p.name)}</strong><small>From ${money(p.price)} · Sample price</small><button type="button" class="small-compare" data-drawer-compare="${p.id}">Compare ↗</button></div><button type="button" class="remove-saved" data-remove="${p.id}" aria-label="Remove ${escapeHTML(p.name)}">×</button></div>`).join('') : '<div class="saved-empty"><span>♡</span><h3>Your shortlist is empty.</h3><p>Tap the heart on a product to keep it here. No account required for this preview.</p></div>';
+  }
+  function toggleSaved(id){
+    const p=products.find(p=>p.id===id); if(!p)return;
+    if(saved.has(id)){saved.delete(id);notify(`${p.name} removed from your watchlist`);}else{saved.add(id);notify(`${p.name} saved to your watchlist`);}
+    saveStorage(); updateSaved();
+    const control = $(`#productGrid [data-save="${id}"]`);
+    if (control) {
+      control.classList.toggle('is-saved', saved.has(id));
+      control.setAttribute('aria-pressed', String(saved.has(id)));
+      control.setAttribute('aria-label', `${saved.has(id)?'Remove from':'Save to'} watchlist: ${p.brand} ${p.name}`);
+    }
+  }
+  function openDrawer(){
+    lastFocus=document.activeElement;
+    $('#drawerBackdrop').hidden=false;
+    $('#watchDrawer').classList.add('open');
+    $('#watchDrawer').setAttribute('aria-hidden','false');
+    $('#watchDrawer').inert=false;
+    $('#topbar').inert=true;
+    $('#main').inert=true;
+    $('.footer').inert=true;
+    document.body.style.overflow='hidden';
+    $('#closeDrawer').focus();
+  }
+  function closeDrawer(){
+    $('#watchDrawer').classList.remove('open');
+    $('#watchDrawer').setAttribute('aria-hidden','true');
+    $('#watchDrawer').inert=true;
+    $('#topbar').inert=false;
+    $('#main').inert=false;
+    $('.footer').inert=false;
+    $('#drawerBackdrop').hidden=true;
+    document.body.style.overflow='';
+    lastFocus?.focus?.();
+  }
+  function openCompare(id){
+    const p=products.find(p=>p.id===id); if(!p)return;
+    if($('#watchDrawer').classList.contains('open'))closeDrawer();
+    const offers=p.stores.map(s=>({...s,total:s.base+s.delivery})).sort((a,b)=>Number(b.available)-Number(a.available)||a.total-b.total);
+    const best=offers.find(s=>s.available)?.total;
+    $('#compareContent').innerHTML=`<div class="modal-product"><img src="${escapeHTML(artSrc(p.art))}" alt=""><div><small>${escapeHTML(p.brand.toUpperCase())} / ${escapeHTML(p.category.toUpperCase())}</small><h2 id="compareTitle">${escapeHTML(p.name)}</h2><p>${escapeHTML(p.model)}</p></div></div><span class="modal-label">LIVE STORE COMPARISON · SORTED BY TOTAL COST</span><div class="modal-list">${offers.map(s=>`<div class="modal-row ${s.available&&s.total===best?'best':''}"><div><strong>${escapeHTML(s.name)}</strong><small>${s.available? (s.total===best?'✳ Lowest total cost':'In stock'):'Out of stock'} · Delivery ${s.delivery===0?'free':money(s.delivery)}</small></div><div class="modal-price"><b>${money(s.total)}</b><small>Base: ${money(s.base)}</small></div></div>`).join('')}</div><p class="modal-note">* Stores retrieved from database. Total cost includes store item price + delivery charge.</p><div class="modal-actions"><button type="button" class="modal-secondary" id="modalSave">${saved.has(id)?'♡ Remove from saved':'♡ Save this product'}</button><button type="button" class="modal-primary" id="modalDone">Done ↗</button></div>`;
+    $('#modalSave').addEventListener('click',()=>{toggleSaved(id);$('#modalSave').textContent=saved.has(id)?'♡ Remove from saved':'♡ Save this product';});
+    $('#modalDone').addEventListener('click',()=>$('#compareDialog').close());
+    $('#compareDialog').showModal();
+  }
+  function renderChart(){
+    if(!products || products.length === 0) return;
+    const prod = products[0];
+    const data = prod.history ? prod.history[chartRange] : null; 
+    if(!data || data.length === 0) return;
+    const min=Math.min(...data), max=Math.max(...data), padding=Math.max((max-min)*.13,450), ymin=min-padding, ymax=max+padding;
+    const toX=i=>20+(i/(data.length-1))*560;
+    const toY=v=>196-((v-ymin)/(ymax-ymin))*178;
+    const poly=data.map((v,i)=>`${toX(i).toFixed(1)},${toY(v).toFixed(1)}`).join(' ');
+    const path=data.map((v,i)=>`${i?'L':'M'}${toX(i).toFixed(1)} ${toY(v).toFixed(1)}`).join(' ');
+    const area=`${path} L580 205 L20 205 Z`;
+    const grid=[15,72,130,188].map(y=>`<line x1="20" y1="${y}" x2="580" y2="${y}" stroke="#5a7690" stroke-dasharray="3 6" stroke-width="1"/>`).join('');
+    $('#historyChart').innerHTML=`<defs><linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86e2f2" stop-opacity=".30"/><stop offset="1" stop-color="#86e2f2" stop-opacity="0"/></linearGradient></defs>${grid}<path d="${area}" fill="url(#priceGradient)"/><path d="${path}" fill="none" stroke="#86e2f2" stroke-width="3.7" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><circle cx="580" cy="${toY(data.at(-1))}" r="6" fill="#86e2f2" stroke="#1b2b3d" stroke-width="3"/><polyline points="${poly}" fill="none" stroke="transparent" stroke-width="18" data-hoverline="true"/>`;
+    $('#historyChart').setAttribute('aria-label',`${chartRange}-day price observations for ${prod.brand} ${prod.name}, from ${money(data[0])} to ${money(data.at(-1))}`);
+    const pct=((data.at(-1)-data[0])/data[0]*100).toFixed(1);
+    $('#chartChange').textContent=`${Number(pct)<=0?'↓':'↑'} ${Math.abs(Number(pct)).toFixed(1)}% over period`;
+    $('#chartCurrent').textContent=money(data.at(-1));
+    $('#chartHigh').textContent=money(Math.ceil(ymax/1000)*1000);
+    $('#chartMid').textContent=money(Math.round((ymax+ymin)/2000)*1000);
+    $('#chartLow').textContent=money(Math.floor(ymin/1000)*1000);
+    $('#chartPeriodLabel').textContent=`Past ${chartRange===365?'year':chartRange+' days'}`;
+    $$('.range-buttons button').forEach(b=>{const isOn=Number(b.dataset.range)===chartRange;b.classList.toggle('selected',isOn);b.setAttribute('aria-pressed',String(isOn));});
+  }
+  function setupChartHover(){
+    const svg=$('#historyChart'), tip=$('#chartTooltip');
+    svg.addEventListener('pointermove',e=>{
+      if(!products || products.length === 0) return;
+      const data=products[0].history ? products[0].history[chartRange] : null;
+      if(!data || data.length === 0) return;
+      const rect=svg.getBoundingClientRect(), rel=(e.clientX-rect.left)/rect.width;
+      const index=Math.max(0,Math.min(data.length-1,Math.round((rel*600-20)/560*(data.length-1))));
+      tip.hidden=false;tip.textContent=`Observation ${index+1}: ${money(data[index])}`;
+      const xp=(20+(index/(data.length-1))*560)/600*rect.width;
+      const plotRect=$('#chartPlot').getBoundingClientRect();
+      tip.style.left=`${rect.left-plotRect.left+xp}px`;
+      tip.style.top=`${rect.top-plotRect.top+40}px`;
+    });
+    svg.addEventListener('pointerleave',()=>tip.hidden=true);
+  }
+  const storyScenes=[
+    {title:'All stores.<br>One clear winner.',text:'Compare prices without the tab-juggling.',metric:'−7.4%',label:'01 / COMPARE'},
+    {title:'The real price.<br>Over time.',text:'See the full trend behind the price tag.',metric:'30D TREND',label:'02 / UNDERSTAND'},
+    {title:'One less thing.<br>To remember.',text:'Keep your favorites ready to track.',metric:'♡ SAVED',label:'03 / WATCH'}
+  ];
+  function setStoryScene(index){
+    const s=storyScenes[index]; if(!s)return;
+    $('#storyStage').dataset.scene=String(index);
+    $('#storyScreenTitle').innerHTML=s.title;
+    $('#storyScreenText').textContent=s.text;
+    $('#storyMetric').textContent=s.metric;
+    $('#sceneLabel').textContent=s.label;
+    $$('.story-step').forEach((node,i)=>node.classList.toggle('active',i===index));
+  }
+  function setupStoryObserver(){
+    const nodes=$$('.story-step');
+    const observer=new IntersectionObserver(entries=>{
+      for(const entry of entries){if(entry.isIntersecting)setStoryScene(Number(entry.target.dataset.step));}
+    },{rootMargin:'-38% 0px -39% 0px',threshold:0});
+    nodes.forEach(node=>observer.observe(node));
+  }
+  function setupReveal(){
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target);}});
+    },{threshold:.09,rootMargin:'0px 0px 60px 0px'});
+    $$('.section-header, .story-heading, .insights-copy, .chart-card, .closing-inner').forEach(el=>{el.classList.add('reveal');observer.observe(el);});
+  }
+  function setupScroll(){
+    let pending=false;
+    let scrollRange=1;
+    const progress=$('#readingProgress');
+    const topbar=$('#topbar');
+    function measure(){scrollRange=Math.max(1,document.documentElement.scrollHeight-innerHeight);schedule();}
+    function frame(){
+      progress.style.transform=`scaleX(${Math.max(0,Math.min(1,window.scrollY/scrollRange))})`;
+      topbar.classList.toggle('is-scrolled',window.scrollY>30);
+      pending=false;
+    }
+    function schedule(){if(!pending){requestAnimationFrame(frame);pending=true;}}
+    addEventListener('scroll',schedule,{passive:true});
+    addEventListener('resize',measure,{passive:true});
+    new ResizeObserver(measure).observe(document.body);
+    measure();
+  }
+  function setupEvents(){
+    $('#categoryFilters').addEventListener('click',e=>{const button=e.target.closest('[data-category]');if(!button)return;category=button.dataset.category;renderCategories();renderProducts();});
+    $('#productSearch').addEventListener('input',e=>{search=e.target.value.trim();renderProducts();});
+    $('#sortSelect').addEventListener('change',e=>{sortBy=e.target.value;renderProducts();});
+    $('#productGrid').addEventListener('click',e=>{const saveBtn=e.target.closest('[data-save]'),compareBtn=e.target.closest('[data-compare]');if(saveBtn)toggleSaved(Number(saveBtn.dataset.save));else if(compareBtn)openCompare(Number(compareBtn.dataset.compare));});
+    $('#heroSearchForm').addEventListener('submit',e=>{e.preventDefault();const q=$('#heroSearch').value.trim();$('#productSearch').value=q;search=q;category='All';renderCategories();renderProducts();$('#explore').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});$('#productSearch').focus({preventScroll:true});});
+    $('#resetFilters').addEventListener('click',()=>{search='';category='All';sortBy='featured';$('#productSearch').value='';$('#heroSearch').value='';$('#sortSelect').value='featured';renderCategories();renderProducts();});
+    $('#watchlistButton').addEventListener('click',openDrawer);
+    $('#closeDrawer').addEventListener('click',closeDrawer);
+    $('#drawerBackdrop').addEventListener('click',closeDrawer);
+    $('#drawerExplore').addEventListener('click',closeDrawer);
+    $('#savedProducts').addEventListener('click',e=>{const rem=e.target.closest('[data-remove]'),cmp=e.target.closest('[data-drawer-compare]');if(rem)toggleSaved(Number(rem.dataset.remove));else if(cmp)openCompare(Number(cmp.dataset.drawerCompare));});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#watchDrawer').classList.contains('open'))closeDrawer();});
+    $('#closeCompare').addEventListener('click',()=>$('#compareDialog').close());
+    $('#compareDialog').addEventListener('click',e=>{if(e.target===$('#compareDialog'))$('#compareDialog').close();});
+    $$('.range-buttons button').forEach(button=>button.addEventListener('click',()=>{chartRange=Number(button.dataset.range);renderChart();}));
+    $('#menuToggle').addEventListener('click',()=>{const opened=$('#navLinks').classList.toggle('menu-open');$('#menuToggle').setAttribute('aria-expanded',String(opened));});
+    $$('#navLinks a').forEach(link=>link.addEventListener('click',()=>{$('#navLinks').classList.remove('menu-open');$('#menuToggle').setAttribute('aria-expanded','false');}));
+  }
+  function init(){
+    renderCategories();
+    renderProducts();
+    updateSaved();
+    renderChart();
+    setupChartHover();
+    setupEvents();
+    setupStoryObserver();
+    setupReveal();
+    setupScroll();
+    loadBackendData();
+  }
+  init();
+})();
+
+/* One local 3D scene. Native page scrolling and visibility-gated animation. */
+(() => {
+  'use strict';
+  const cube = document.querySelector('#spatialCube');
+  const viewport = document.querySelector('#cubeViewport');
+  if (!cube || !viewport) return;
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const spatial = document.querySelector('#spatial');
+  const button = document.querySelector('#cubeAutoRotate');
+  const label = document.querySelector('#cubeMotionLabel');
+  const controls = [...document.querySelectorAll('[data-cube-face]')];
+  let angle = -23, tilt = -13, face = -1;
+  let visible = false, automatic = !reducedMotion.matches;
+  let drag = null, frame = 0, lastTime = null, resumeAt = 0, resumeTimer = 0;
+
+  function paint() {
+    // Set the transform directly: no inherited custom-property updates per frame.
+    cube.style.transform = 'rotateX(' + tilt.toFixed(2) + 'deg) rotateY(' + angle.toFixed(2) + 'deg) rotateZ(-2deg)';
+    const next = ((Math.round((-angle - 23) / 90) % 4) + 4) % 4;
+    if (next === face) return;
+    face = next;
+    // Keep the heading and description stable while the object rotates.
+    spatial.dataset.chapter = String(face);
+    document.querySelector('#spatialChapter').textContent = String(face + 1).padStart(2, '0');
+    controls.forEach(control => control.setAttribute('aria-pressed', String(Number(control.dataset.cubeFace) === face)));
+  }
+  function stopFrame() {
+    cancelAnimationFrame(frame);
+    frame = 0;
+    lastTime = null;
+  }
+  function tick(time) {
+    frame = 0;
+    if (!automatic || !visible || document.hidden || drag) return;
+    const elapsed = lastTime === null ? 0 : Math.min((time - lastTime) / 1000, .05);
+    lastTime = time;
+    angle -= 6 * elapsed;
+    viewport.classList.add('is-rotating');
+    paint();
+    frame = requestAnimationFrame(tick);
+  }
+  function refresh() {
+    clearTimeout(resumeTimer);
+    resumeTimer = 0;
+    button.setAttribute('aria-pressed', String(automatic));
+    button.textContent = automatic ? 'Pause rotation' : 'Resume rotation';
+    label.textContent = automatic ? 'SLOW AUTO ROTATION' : 'ROTATION PAUSED';
+    const running = automatic && visible && !document.hidden && !drag;
+    if (!running) {
+      stopFrame();
+      viewport.classList.remove('is-rotating');
+      return;
+    }
+    const delay = resumeAt - performance.now();
+    if (delay > 0) {
+      stopFrame();
+      viewport.classList.remove('is-rotating');
+      resumeTimer = setTimeout(refresh, delay);
+    } else if (!frame) {
+      lastTime = null;
+      frame = requestAnimationFrame(tick);
+    }
+  }
+  function selectFace(index) {
+    stopFrame();
+    viewport.classList.remove('is-rotating');
+    let turn = ((-23 - index * 90 - angle) % 360 + 360) % 360;
+    if (turn > 180) turn -= 360;
+    angle += turn;
+    tilt = -13;
+    paint();
+    resumeAt = performance.now() + 5000;
+    refresh();
+  }
+  controls.forEach(control => control.addEventListener('click', () => selectFace(Number(control.dataset.cubeFace))));
+  button.addEventListener('click', () => { automatic = !automatic; resumeAt = 0; refresh(); });
+
+  viewport.addEventListener('pointerdown', event => {
+    if (event.isPrimary === false || event.button !== 0 || drag) return;
+    stopFrame();
+    drag = { id:event.pointerId, x:event.clientX, y:event.clientY, angle, tilt, touch:event.pointerType === 'touch' };
+    viewport.classList.add('is-dragging');
+    viewport.setPointerCapture(event.pointerId);
+    refresh();
+  });
+  function moveDrag(event) {
+    if (!drag || drag.id !== event.pointerId) return;
+    angle = drag.angle + (event.clientX - drag.x) * .55;
+    if (!drag.touch) tilt = Math.max(-55, Math.min(55, drag.tilt - (event.clientY - drag.y) * .35));
+  }
+  viewport.addEventListener('pointermove', event => {
+    if (!drag || drag.id !== event.pointerId) return;
+    moveDrag(event);
+    if (!frame) frame = requestAnimationFrame(() => { frame = 0; paint(); });
+  }, { passive:true });
+  function finishDrag(event) {
+    if (!drag || (event?.pointerId !== undefined && event.pointerId !== drag.id)) return;
+    const id = drag.id;
+    if (event?.type === 'pointercancel') { angle = drag.angle; tilt = drag.tilt; }
+    else if (event?.type === 'pointerup') moveDrag(event);
+    stopFrame();
+    paint();
+    drag = null;
+    viewport.classList.remove('is-dragging');
+    if (viewport.hasPointerCapture(id)) viewport.releasePointerCapture(id);
+    resumeAt = performance.now() + 2000;
+    refresh();
+  }
+  ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(type => viewport.addEventListener(type, finishDrag));
+  viewport.addEventListener('keydown', event => {
+    if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home'].includes(event.key)) return;
+    event.preventDefault();
+    stopFrame();
+    viewport.classList.remove('is-rotating');
+    if (event.key === 'Home') { angle = -23; tilt = -13; }
+    if (event.key === 'ArrowLeft') angle -= 15;
+    if (event.key === 'ArrowRight') angle += 15;
+    if (event.key === 'ArrowUp') tilt = Math.max(-55, tilt - 10);
+    if (event.key === 'ArrowDown') tilt = Math.min(55, tilt + 10);
+    paint();
+    resumeAt = performance.now() + 5000;
+    refresh();
+  });
+
+  const sceneObserver = new IntersectionObserver(entries => {
+    visible = entries[0].isIntersecting;
+    refresh();
+  }, { threshold:.05 });
+  sceneObserver.observe(document.querySelector('#spatialVisual'));
+
+  // Decorative CSS animations sleep when their section leaves the viewport.
+  const decorationObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => entry.target.classList.toggle('motion-visible', entry.isIntersecting));
+  });
+  document.querySelectorAll('.hero, .marquee').forEach(section => decorationObserver.observe(section));
+  document.addEventListener('visibilitychange', () => {
+    document.documentElement.classList.toggle('page-hidden', document.hidden);
+    if (document.hidden) finishDrag();
+    refresh();
+  });
+  reducedMotion.addEventListener('change', () => {
+    if (reducedMotion.matches) automatic = false;
+    refresh();
+  });
+  paint();
+  refresh();
+})();
+
+
+</script>
+</body>
+</html>

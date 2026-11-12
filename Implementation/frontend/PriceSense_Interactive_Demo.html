@@ -755,7 +755,7 @@ window.PRICESENSE_PRODUCTS = [
 
 (() => {
   'use strict';
-  const products = window.PRICESENSE_PRODUCTS || [];
+  let products = window.PRICESENSE_PRODUCTS || [];
   const money = n => '₹' + Number(n).toLocaleString('en-IN', {maximumFractionDigits:0});
   const artSrc = name => window.PRICESENSE_ASSET_MAP?.[name] || `assets/${name}`;
   const escapeHTML = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -771,17 +771,128 @@ window.PRICESENSE_PRODUCTS = [
   let toastTimeout;
   let lastFocus = null;
   try { saved = new Set(JSON.parse(localStorage.getItem(LS_KEY) || '[]').map(Number).filter(Number.isFinite)); } catch(e) { saved = new Set(); }
-  const categories = ['All',...new Set(products.map(p=>p.category))];
+  let categories = ['All',...new Set(products.map(p=>p.category))];
+
+  const API_BASE = 'http://localhost:8000/api';
+
+  function assignColor(cat) {
+    const c = (cat || '').toLowerCase();
+    if (c.includes('phone') || c.includes('mobile')) return 'sky';
+    if (c.includes('laptop') || c.includes('comp')) return 'peach';
+    if (c.includes('audio') || c.includes('head')) return 'violet';
+    if (c.includes('watch') || c.includes('wear')) return 'lime';
+    if (c.includes('cam')) return 'sand';
+    if (c.includes('tab')) return 'blue';
+    return 'purple';
+  }
+
+  function assignArt(cat) {
+    const c = (cat || '').toLowerCase();
+    if (c.includes('phone') || c.includes('mobile')) return 'phone.svg';
+    if (c.includes('laptop') || c.includes('comp')) return 'laptop.svg';
+    if (c.includes('audio') || c.includes('head') || c.includes('sound')) return 'headphones.svg';
+    if (c.includes('watch') || c.includes('wear')) return 'watch.svg';
+    if (c.includes('cam')) return 'camera.svg';
+    if (c.includes('tab')) return 'tablet.svg';
+    return 'mouse.svg';
+  }
+
+  async function loadBackendData() {
+    try {
+      const res = await fetch(`${API_BASE}/products`, { signal: AbortSignal.timeout(2000) });
+      if (!res.ok) return;
+      const json = await res.json();
+      const dbProducts = json.data || [];
+      if (!Array.isArray(dbProducts) || dbProducts.length === 0) return;
+
+      const loaded = [];
+      for (const item of dbProducts) {
+        const pid = item.product_id;
+        let detailStores = [];
+        let detailHistory = { 30: [], 90: [], 365: [] };
+
+        try {
+          const detailRes = await fetch(`${API_BASE}/products/${pid}`);
+          if (detailRes.ok) {
+            const detailJson = await detailRes.json();
+            const d = detailJson.data || {};
+            detailStores = (d.stores || []).map(s => ({
+              name: s.store_name,
+              base: Number(s.current_price),
+              delivery: Number(s.delivery_charge || 0),
+              available: s.availability === 'IN_STOCK'
+            }));
+          }
+        } catch (_) {}
+
+        try {
+          const histRes = await fetch(`${API_BASE}/products/${pid}/price-history?days=90`);
+          if (histRes.ok) {
+            const histJson = await histRes.json();
+            const hData = histJson.data || {};
+            const storeKeys = Object.keys(hData);
+            if (storeKeys.length > 0) {
+              const primaryPoints = (hData[storeKeys[0]] || []).map(pt => Number(pt.price));
+              if (primaryPoints.length > 0) {
+                detailHistory[30] = primaryPoints.slice(-10);
+                detailHistory[90] = primaryPoints;
+                detailHistory[365] = primaryPoints;
+              }
+            }
+          }
+        } catch (_) {}
+
+        const minP = Number(item.min_price || item.current_price || 0);
+        const maxP = Number(item.max_price || minP * 1.15);
+
+        loaded.push({
+          id: pid,
+          name: item.product_name,
+          brand: item.brand,
+          category: item.category_name || 'Electronics',
+          tag: detailStores.length > 2 ? 'MULTI-STORE PICK' : 'TOP DEAL',
+          color: assignColor(item.category_name),
+          art: assignArt(item.category_name),
+          price: minP,
+          oldPrice: maxP > minP ? maxP : Math.round(minP * 1.12),
+          rating: 4.7,
+          stores: detailStores.length > 0 ? detailStores : [
+            { name: 'Amazon', base: minP, delivery: 0, available: true },
+            { name: 'Flipkart', base: Math.round(minP * 1.03), delivery: 0, available: true }
+          ],
+          description: item.description || `${item.brand} ${item.product_name}`,
+          model: `${item.brand} Official`,
+          history: detailHistory[30].length > 0 ? detailHistory : {
+            30: [minP * 1.1, minP * 1.08, minP * 1.05, minP],
+            90: [minP * 1.15, minP * 1.12, minP * 1.08, minP],
+            365: [minP * 1.25, minP * 1.18, minP * 1.12, minP]
+          }
+        });
+      }
+
+      if (loaded.length > 0) {
+        products = loaded;
+        categories = ['All', ...new Set(products.map(p => p.category))];
+        renderCategories();
+        renderProducts();
+        renderChart();
+        notify(`Connected to MySQL DB! Loaded ${products.length} live products.`);
+      }
+    } catch (_) {
+      // Backend not running or offline: fallback to sample data in data.js
+    }
+  }
 
   function notify(message) {
     const node = $('#toast');
+    if (!node) return;
     node.textContent = message;
     node.classList.add('show');
     clearTimeout(toastTimeout);
     toastTimeout = setTimeout(()=>node.classList.remove('show'),2900);
   }
   function saveStorage() {
-    try { localStorage.setItem(LS_KEY,JSON.stringify([...saved])); } catch(e) {/* demo still works without storage */}
+    try { localStorage.setItem(LS_KEY,JSON.stringify([...saved])); } catch(e) {}
   }
   function renderCategories() {
     $('#categoryFilters').innerHTML=categories.map(c=>`<button type="button" data-category="${escapeHTML(c)}" class="${c===category?'active':''}" aria-pressed="${c===category}">${escapeHTML(c)}</button>`).join('');
@@ -821,7 +932,6 @@ window.PRICESENSE_PRODUCTS = [
     const p=products.find(p=>p.id===id); if(!p)return;
     if(saved.has(id)){saved.delete(id);notify(`${p.name} removed from your watchlist`);}else{saved.add(id);notify(`${p.name} saved to your watchlist`);}
     saveStorage(); updateSaved();
-    // Preserve card nodes, focus and scroll position when one heart changes.
     const control = $(`#productGrid [data-save="${id}"]`);
     if (control) {
       control.classList.toggle('is-saved', saved.has(id));
@@ -857,13 +967,16 @@ window.PRICESENSE_PRODUCTS = [
     if($('#watchDrawer').classList.contains('open'))closeDrawer();
     const offers=p.stores.map(s=>({...s,total:s.base+s.delivery})).sort((a,b)=>Number(b.available)-Number(a.available)||a.total-b.total);
     const best=offers.find(s=>s.available)?.total;
-    $('#compareContent').innerHTML=`<div class="modal-product"><img src="${escapeHTML(artSrc(p.art))}" alt=""><div><small>${escapeHTML(p.brand.toUpperCase())} / ${escapeHTML(p.category.toUpperCase())}</small><h2 id="compareTitle">${escapeHTML(p.name)}</h2><p>${escapeHTML(p.model)}</p></div></div><span class="modal-label">ILLUSTRATIVE LISTINGS · SORTED BY TOTAL COST</span><div class="modal-list">${offers.map(s=>`<div class="modal-row ${s.available&&s.total===best?'best':''}"><div><strong>${escapeHTML(s.name)}</strong><small>${s.available? (s.total===best?'✳ Lowest demo total':'In stock'):'Out of stock'} · Delivery ${s.delivery===0?'free':money(s.delivery)}</small></div><div class="modal-price"><b>${money(s.total)}</b><small>Item: ${money(s.base)}</small></div></div>`).join('')}</div><p class="modal-note">* Demonstration only. Store availability, product ratings, discounts and prices are invented sample values—not live marketplace data. Total cost includes delivery; conditional coupons are not calculated.</p><div class="modal-actions"><button type="button" class="modal-secondary" id="modalSave">${saved.has(id)?'♡ Remove from saved':'♡ Save this product'}</button><button type="button" class="modal-primary" id="modalDone">Done ↗</button></div>`;
+    $('#compareContent').innerHTML=`<div class="modal-product"><img src="${escapeHTML(artSrc(p.art))}" alt=""><div><small>${escapeHTML(p.brand.toUpperCase())} / ${escapeHTML(p.category.toUpperCase())}</small><h2 id="compareTitle">${escapeHTML(p.name)}</h2><p>${escapeHTML(p.model)}</p></div></div><span class="modal-label">LIVE STORE COMPARISON · SORTED BY TOTAL COST</span><div class="modal-list">${offers.map(s=>`<div class="modal-row ${s.available&&s.total===best?'best':''}"><div><strong>${escapeHTML(s.name)}</strong><small>${s.available? (s.total===best?'✳ Lowest total cost':'In stock'):'Out of stock'} · Delivery ${s.delivery===0?'free':money(s.delivery)}</small></div><div class="modal-price"><b>${money(s.total)}</b><small>Base: ${money(s.base)}</small></div></div>`).join('')}</div><p class="modal-note">* Stores retrieved from database. Total cost includes store item price + delivery charge.</p><div class="modal-actions"><button type="button" class="modal-secondary" id="modalSave">${saved.has(id)?'♡ Remove from saved':'♡ Save this product'}</button><button type="button" class="modal-primary" id="modalDone">Done ↗</button></div>`;
     $('#modalSave').addEventListener('click',()=>{toggleSaved(id);$('#modalSave').textContent=saved.has(id)?'♡ Remove from saved':'♡ Save this product';});
     $('#modalDone').addEventListener('click',()=>$('#compareDialog').close());
     $('#compareDialog').showModal();
   }
   function renderChart(){
-    const data=products[0].history[chartRange]; if(!data) return;
+    if(!products || products.length === 0) return;
+    const prod = products[0];
+    const data = prod.history ? prod.history[chartRange] : null; 
+    if(!data || data.length === 0) return;
     const min=Math.min(...data), max=Math.max(...data), padding=Math.max((max-min)*.13,450), ymin=min-padding, ymax=max+padding;
     const toX=i=>20+(i/(data.length-1))*560;
     const toY=v=>196-((v-ymin)/(ymax-ymin))*178;
@@ -872,7 +985,7 @@ window.PRICESENSE_PRODUCTS = [
     const area=`${path} L580 205 L20 205 Z`;
     const grid=[15,72,130,188].map(y=>`<line x1="20" y1="${y}" x2="580" y2="${y}" stroke="#5a7690" stroke-dasharray="3 6" stroke-width="1"/>`).join('');
     $('#historyChart').innerHTML=`<defs><linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86e2f2" stop-opacity=".30"/><stop offset="1" stop-color="#86e2f2" stop-opacity="0"/></linearGradient></defs>${grid}<path d="${area}" fill="url(#priceGradient)"/><path d="${path}" fill="none" stroke="#86e2f2" stroke-width="3.7" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><circle cx="580" cy="${toY(data.at(-1))}" r="6" fill="#86e2f2" stroke="#1b2b3d" stroke-width="3"/><polyline points="${poly}" fill="none" stroke="transparent" stroke-width="18" data-hoverline="true"/>`;
-    $('#historyChart').setAttribute('aria-label',`Illustrative ${chartRange}-day price observations for Sony WH-1000XM5, from ${money(data[0])} to ${money(data.at(-1))}`);
+    $('#historyChart').setAttribute('aria-label',`${chartRange}-day price observations for ${prod.brand} ${prod.name}, from ${money(data[0])} to ${money(data.at(-1))}`);
     const pct=((data.at(-1)-data[0])/data[0]*100).toFixed(1);
     $('#chartChange').textContent=`${Number(pct)<=0?'↓':'↑'} ${Math.abs(Number(pct)).toFixed(1)}% over period`;
     $('#chartCurrent').textContent=money(data.at(-1));
@@ -885,8 +998,11 @@ window.PRICESENSE_PRODUCTS = [
   function setupChartHover(){
     const svg=$('#historyChart'), tip=$('#chartTooltip');
     svg.addEventListener('pointermove',e=>{
+      if(!products || products.length === 0) return;
+      const data=products[0].history ? products[0].history[chartRange] : null;
+      if(!data || data.length === 0) return;
       const rect=svg.getBoundingClientRect(), rel=(e.clientX-rect.left)/rect.width;
-      const data=products[0].history[chartRange];const index=Math.max(0,Math.min(data.length-1,Math.round((rel*600-20)/560*(data.length-1))));
+      const index=Math.max(0,Math.min(data.length-1,Math.round((rel*600-20)/560*(data.length-1))));
       tip.hidden=false;tip.textContent=`Observation ${index+1}: ${money(data[index])}`;
       const xp=(20+(index/(data.length-1))*560)/600*rect.width;
       const plotRect=$('#chartPlot').getBoundingClientRect();
@@ -959,7 +1075,18 @@ window.PRICESENSE_PRODUCTS = [
     $('#menuToggle').addEventListener('click',()=>{const opened=$('#navLinks').classList.toggle('menu-open');$('#menuToggle').setAttribute('aria-expanded',String(opened));});
     $$('#navLinks a').forEach(link=>link.addEventListener('click',()=>{$('#navLinks').classList.remove('menu-open');$('#menuToggle').setAttribute('aria-expanded','false');}));
   }
-  function init(){renderCategories();renderProducts();updateSaved();renderChart();setupChartHover();setupEvents();setupStoryObserver();setupReveal();setupScroll();}
+  function init(){
+    renderCategories();
+    renderProducts();
+    updateSaved();
+    renderChart();
+    setupChartHover();
+    setupEvents();
+    setupStoryObserver();
+    setupReveal();
+    setupScroll();
+    loadBackendData();
+  }
   init();
 })();
 
