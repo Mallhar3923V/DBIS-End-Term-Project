@@ -1,13 +1,197 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <title>PriceWise - Smart Shopping Companion</title>
-  </head>
-  <body class="bg-gray-50 text-gray-900 antialiased">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10111f">
+  <meta name="description" content="PriceSense — a brighter way to buy. Explore colourful 3D scenes, price histories and sample marketplace comparisons.">
+  <title>PriceSense — A brighter way to buy.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="colour.css">
+  <script src="data.js" defer></script>
+  <script src="script.js" defer></script>
+  <script src="motion.js" defer></script>
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar" id="topbar">
+    <nav class="nav shell" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="PriceSense home"><span class="brand-mark" aria-hidden="true">✳</span>pricesense<span class="brand-period">.</span></a>
+      <div class="nav-links" id="navLinks">
+        <a href="#explore">Explore deals</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#insights">Price insights</a>
+        <a href="#spatial">3D preview</a>
+      </div>
+      <div class="nav-actions">
+        <button class="watchlist-nav" id="watchlistButton" type="button" aria-label="Open watchlist"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg><span>Saved</span><span class="saved-number" id="savedCount">0</span></button>
+        <a class="nav-cta" href="#explore">Find a deal <span aria-hidden="true">↗</span></a>
+        <button class="mobile-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" type="button"><span></span><span></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-orb hero-orb-one" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-two" aria-hidden="true"></div>
+      <div class="shell hero-inner">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> A BRIGHTER WAY TO BUY <span class="eyebrow-star">✳</span></div>
+          <h1 id="hero-title">Good things.<br>Better <span class="serif-word">prices.</span></h1>
+          <p class="hero-sub">One product. Every store. The whole price story. Find the right deal, know when to buy, and never overpay again.</p>
+          <form class="hero-search" id="heroSearchForm" role="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="7"/><path d="m16 16 5 5"/></svg><input id="heroSearch" type="search" name="search" autocomplete="off" placeholder="Search headphones, laptops, phones..." aria-label="Search products"><button type="submit">Search <span aria-hidden="true">↗</span></button></form>
+          <div class="hero-small"><span class="tiny-avatars" aria-hidden="true"><i>◎</i><i>✳</i><i>◉</i></span><span>More clarity. Less checkout regret.</span></div>
+        </div>
+        <div class="hero-art" id="heroArt" aria-label="Featured headphones with illustrative price comparisons">
+          <div class="hero-visual-grid" aria-hidden="true"></div>
+          <div class="hero-ring hero-ring-one" aria-hidden="true"></div><div class="hero-ring hero-ring-two" aria-hidden="true"></div>
+          <div class="hero-ghost">THE<br>GOOD<br>DEAL.</div>
+          <div class="hero-product"><img src="assets/headphones.svg" alt="Illustration of black wireless headphones"></div>
+          <div class="float-card float-card-price"><div class="float-card-icon">↘</div><div><small>PRICE JUST DROPPED</small><strong>₹2,000 <span>less</span></strong></div></div>
+          <div class="float-card float-card-store"><div class="store-dot">a</div><div><small>BEST PRICE FOUND</small><strong>₹24,999</strong><span class="float-caption">Illustrative price</span></div><span class="float-card-arrow">↗</span></div>
+          <div class="float-sticker">BUY<br><em>SMART.</em><span>✳</span></div>
+          <div class="hero-art-foot">THE PRICE DOESN'T TELL THE WHOLE STORY. <span>↗</span></div>
+        </div>
+      </div>
+      <div class="hero-bottom shell"><span>SCROLL TO EXPLORE <span class="scroll-indicator">↓</span></span><span>01 — 04 &nbsp; / &nbsp; DISCOVER BETTER</span></div>
+    </section>
+
+    <div class="marquee" aria-label="Compare prices. Track drops. Shop smarter."><div class="marquee-track" aria-hidden="true"><span>LESS GUESSWORK <b>✳</b> MORE GOOD DEALS <b>✳</b> KNOW BEFORE YOU BUY <b>✳</b> LESS GUESSWORK <b>✳</b> MORE GOOD DEALS <b>✳</b> KNOW BEFORE YOU BUY <b>✳</b></span><span>LESS GUESSWORK <b>✳</b> MORE GOOD DEALS <b>✳</b> KNOW BEFORE YOU BUY <b>✳</b> LESS GUESSWORK <b>✳</b> MORE GOOD DEALS <b>✳</b> KNOW BEFORE YOU BUY <b>✳</b></span></div></div>
+
+
+    <section class="explore-section" id="explore" aria-labelledby="explore-heading">
+      <div class="shell">
+        <div class="section-header"><div><span class="section-kicker dark-kicker">01 / THE GOOD STUFF</span><h2 id="explore-heading">Find something <span class="serif-word">worth it.</span></h2><p>See how PriceSense could surface better buys. Prices below are sample data for the frontend preview.</p></div><div class="outline-stamp"><span>BETTER</span><b>↗</b><span>EVERYDAY</span></div></div>
+        <div class="explore-toolbar"><div class="filter-chips" id="categoryFilters" role="group" aria-label="Filter product categories"></div><div class="toolbar-right"><label class="inline-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="productSearch" type="search" placeholder="Find a product..." aria-label="Filter products"></label><select id="sortSelect" aria-label="Sort products"><option value="featured">Featured</option><option value="lowest">Lowest price</option><option value="discount">Biggest drop</option><option value="name">Name A–Z</option></select></div></div>
+        <div class="results-heading"><span id="resultsCount">0 products</span><span>✳ HANDPICKED FOR THE DEMO</span></div>
+        <div class="product-grid" id="productGrid" aria-live="polite"></div>
+        <div class="empty-state" id="emptyState" hidden><span>⌕</span><h3>No matches found.</h3><p>Try a different product or category.</p><button id="resetFilters" type="button">Clear filters ↗</button></div>
+      </div>
+    </section>
+
+    <!-- Visible, freely rotating 3D preview in normal document flow. -->
+    <section class="spatial-section" id="spatial" aria-labelledby="spatialTitle">
+      <div class="spatial-sticky">
+        <div class="spatial-grid" aria-hidden="true"></div>
+        <div class="spatial-noise" aria-hidden="true"></div>
+        <div class="shell spatial-inner">
+          <div class="spatial-copy">
+            <div class="spatial-eyebrow"><span class="spatial-beacon"></span> THE EXPERIENCE / 3D PRICE INTELLIGENCE</div>
+            <div class="spatial-counter"><span id="spatialChapter">01</span> <span>/ 04</span><i></i> INTERACTIVE CONCEPT</div>
+            <h2 id="spatialTitle">The price has <em>another dimension.</em></h2>
+            <p id="spatialDescription">It turns slowly on its own. Click and drag to explore the product, stores, history and watchlist.</p>
+            <div class="spatial-controls" role="group" aria-label="Choose a 3D preview view">
+              <button type="button" data-cube-face="0" aria-pressed="true">Product</button>
+              <button type="button" data-cube-face="1" aria-pressed="false">Stores</button>
+              <button type="button" data-cube-face="2" aria-pressed="false">History</button>
+              <button type="button" data-cube-face="3" aria-pressed="false">Watchlist</button>
+            </div>
+            <div class="cube-playback"><button type="button" id="cubeAutoRotate" aria-label="Automatic cube rotation" aria-pressed="true">Pause rotation</button><span id="cubeInteractionHint">Click + drag, or focus the cube and use arrow keys.</span></div>
+            <a class="spatial-link" href="#explore">Back to products <span aria-hidden="true">↑</span></a>
+          </div>
+          <div class="spatial-visual" id="spatialVisual">
+            <div class="spatial-glow" aria-hidden="true"></div>
+            <div class="spatial-orbit orbit-outer" aria-hidden="true"></div>
+            <div class="spatial-orbit orbit-inner" aria-hidden="true"></div>
+            <div class="spatial-shadow" aria-hidden="true"></div>
+            <div class="cube-viewport" id="cubeViewport" aria-label="Slowly rotating three-dimensional product preview. Click and drag to rotate it, or use the view and pause buttons." role="group" tabindex="0" aria-describedby="cubeInteractionHint">
+              <div class="spatial-cube" id="spatialCube">
+                <div class="cube-face cube-front">
+                  <div class="cube-corner">PRICESENSE<br>PRODUCT / 001</div>
+                  <span class="cube-face-star">✳</span>
+                  <img src="assets/headphones.svg" alt="" class="cube-product-art">
+                  <div class="cube-front-bottom"><strong>SONY XM5</strong><span>THE PRODUCT</span></div>
+                </div>
+                <div class="cube-face cube-right">
+                  <div class="cube-side-kicker">01 / ALL STORES</div>
+                  <h3>The better<br>number.</h3>
+                  <div class="cube-stores"><div><span>AMAZON</span><b>₹24,999</b></div><div><span>FLIPKART</span><b>₹25,499</b></div><div><span>CROMA</span><b>₹26,199</b></div></div>
+                  <small>ILLUSTRATIVE PRICES</small>
+                </div>
+                <div class="cube-face cube-back">
+                  <div class="cube-side-kicker">02 / THE HISTORY</div>
+                  <h3>Past prices.<br>Future clarity.</h3>
+                  <svg viewBox="0 0 220 100" aria-hidden="true"><path d="M0 22 L25 37 L48 25 L74 48 L96 42 L124 70 L146 59 L172 76 L197 69 L220 89" fill="none" stroke="#ffb49e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <div class="cube-back-stat"><b>↘ 7.4%</b><span>ILLUSTRATIVE TREND</span></div>
+                </div>
+                <div class="cube-face cube-left">
+                  <div class="cube-side-kicker">03 / STAY IN THE LOOP</div>
+                  <div class="cube-heart">♡</div>
+                  <h3>Worth<br>watching.</h3>
+                  <p>Keep an eye on your next favorite thing.</p>
+                </div>
+                <div class="cube-face cube-top"><span>PRICESENSE ✳</span><span>BUY BETTER / 2026</span></div>
+                <div class="cube-face cube-bottom"><span>THE DEAL UNIVERSE</span></div>
+              </div>
+            </div>
+            <div class="spatial-hud hud-top" aria-hidden="true"><i></i> 3D SCENE / INTERACTIVE</div>
+            <div class="spatial-hud hud-bottom" aria-hidden="true"><span>↔ CLICK + DRAG</span><span id="cubeMotionLabel">SLOW AUTO ROTATION</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section" id="how-it-works" aria-labelledby="story-heading">
+      <div class="shell story-heading"><div><span class="section-kicker">02 / HOW IT WORKS</span><h2 id="story-heading">Your next good deal<br>is <span class="serif-word ink-serif">a scroll away.</span></h2></div><p>No 27 open tabs. No guessing if a discount is real. Just the right information, beautifully put together.</p></div>
+      <div class="story-layout shell">
+        <div class="story-sticky">
+          <div class="demo-window" id="storyStage" data-scene="0">
+            <div class="demo-titlebar"><span><i></i><i></i><i></i></span><span>PRICESENSE / DEAL INTELLIGENCE</span><span>✳ LIVE PREVIEW</span></div>
+            <div class="demo-content">
+              <div class="demo-tag">YOUR PRODUCT, DECODED <span>↗</span></div>
+              <div class="demo-topline"><div><h3 id="storyScreenTitle">All stores.<br>One clear winner.</h3><p id="storyScreenText">Compare prices without the tab-juggling.</p></div><div class="demo-mini-product"><img src="assets/headphones.svg" alt="Wireless headphones"></div></div>
+              <div class="demo-list"><div class="demo-row row-one"><span><span class="store-bubble">a</span> Amazon <small>Best overall price</small></span><b>₹24,999</b><i>BEST</i></div><div class="demo-row row-two"><span><span class="store-bubble flip">F</span> Flipkart <small>Free delivery</small></span><b>₹25,499</b><i>+ ₹500</i></div><div class="demo-row row-three"><span><span class="store-bubble croma">C</span> Croma <small>In stock</small></span><b>₹26,199</b><i>+ ₹1,200</i></div></div>
+              <div class="demo-history"><div><span>PRICE MOVEMENT</span><b id="storyMetric">−7.4%</b></div><svg viewBox="0 0 440 96" role="img" aria-label="Illustrative falling price trend"><defs><linearGradient id="demoFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86e2f2" stop-opacity=".35"/><stop offset="1" stop-color="#86e2f2" stop-opacity="0"/></linearGradient></defs><path class="demo-area" d="M0 30 L48 41 L92 24 L136 49 L183 42 L231 59 L275 38 L322 63 L362 62 L402 75 L440 86 V96 H0Z" fill="url(#demoFill)"/><path class="demo-line" d="M0 30 L48 41 L92 24 L136 49 L183 42 L231 59 L275 38 L322 63 L362 62 L402 75 L440 86" fill="none" stroke="#86e2f2" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="440" cy="86" r="5" fill="#86e2f2"/></svg></div>
+            </div>
+            <div class="demo-bottom"><span><span class="live-pulse"></span> Illustrative data — not live prices</span><span id="sceneLabel">01 / COMPARE</span></div>
+          </div>
+        </div>
+        <div class="story-steps">
+          <article class="story-step active" data-step="0"><span class="step-index">01 / COMPARE</span><div class="step-icon">↗</div><h3>See every price.<br><em>Pick the best.</em></h3><p>Side-by-side listings across stores show the actual cost and availability. No more bouncing between shopping sites.</p></article>
+          <article class="story-step" data-step="1"><span class="step-index">02 / UNDERSTAND</span><div class="step-icon">⌁</div><h3>Know the history.<br><em>Skip the hype.</em></h3><p>See whether today's deal is genuinely special by comparing current prices with earlier price observations.</p></article>
+          <article class="story-step" data-step="2"><span class="step-index">03 / WATCH</span><div class="step-icon">♡</div><h3>Set your target.<br><em>We keep watch.</em></h3><p>Save products and prepare price alerts for the moment they hit your budget. Backend alerts come in the next phase.</p></article>
+        </div>
+      </div>
+    </section>
+
+
+
+
+    <!-- Feature cards in normal flow; native swiping on compact screens. -->
+    <section class="rail-section" id="features" aria-labelledby="railTitle">
+      <div class="rail-sticky">
+        <div class="shell rail-head"><div><span class="rail-kicker">THE PRODUCT IS THE EXPERIENCE / 02</span><h2 id="railTitle">Shopping, <em>reimagined.</em></h2></div><span class="rail-instruction">COMPARE. TRACK. SAVE.</span></div>
+        <div class="rail-viewport" id="railViewport" tabindex="0" role="region" aria-label="Shopping features. On compact screens, swipe or use left and right arrow keys.">
+          <div class="rail-track" id="railTrack">
+            <article class="rail-panel rail-panel-one"><div class="rail-panel-heading"><span>01 / ALL THE OPTIONS</span><span>↗</span></div><div class="rail-panel-body"><h3>One tab.<br>Every store.</h3><p>The same product, across marketplaces, organized around what you'll actually pay.</p></div><div class="rail-graphic stores-graphic" aria-hidden="true"><div><span>AMAZON</span><strong>₹24,999</strong><i>BEST DEAL</i></div><div><span>FLIPKART</span><strong>₹25,499</strong></div><div><span>CROMA</span><strong>₹26,199</strong></div></div><span class="rail-panel-foot">NO MORE TAB-HOPPING ✳</span></article>
+            <article class="rail-panel rail-panel-two"><div class="rail-panel-heading"><span>02 / REAL CONTEXT</span><span>↗</span></div><div class="rail-panel-body"><h3>Time tells<br>the truth.</h3><p>Go beyond promotional stickers with the price history behind the product.</p></div><div class="rail-graphic graph-graphic" aria-hidden="true"><div class="graph-top"><span>PRICE TREND</span><b>↘ 7.4%</b></div><svg viewBox="0 0 520 230" preserveAspectRatio="none"><defs><linearGradient id="railGradient" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#86e2f2" stop-opacity=".25"/><stop offset="1" stop-color="#86e2f2" stop-opacity="0"/></linearGradient></defs><path d="M0 42 L65 68 L125 50 L190 90 L252 107 L315 112 L365 154 L410 149 L465 192 L520 185 L520 230 L0 230Z" fill="url(#railGradient)"/><path d="M0 42 L65 68 L125 50 L190 90 L252 107 L315 112 L365 154 L410 149 L465 192 L520 185" fill="none" stroke="#86e2f2" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/></svg></div><span class="rail-panel-foot">THE NUMBERS DON'T LIE ✳</span></article>
+            <article class="rail-panel rail-panel-three"><div class="rail-panel-heading"><span>03 / NEVER MISS OUT</span><span>↗</span></div><div class="rail-panel-body"><h3>Save it now.<br>Smile later.</h3><p>Create a shortlist. Price-drop notifications will join when the database and backend are ready.</p></div><div class="rail-graphic watch-graphic" aria-hidden="true"><div class="watch-icon-3d">♡</div><div class="watch-demo"><small>WATCHLIST / PREVIEW</small><strong>Sony XM5</strong><span>Saved for later ✳</span></div></div><span class="rail-panel-foot">YOUR WISHLIST, ELEVATED ✳</span></article>
+          </div>
+        </div>
+        <div class="shell rail-footer"><span>THREE WAYS TO SHOP SMARTER</span><span>01 — 03</span></div>
+      </div>
+    </section>
+
+    <section class="insights-section" id="insights" aria-labelledby="insights-heading">
+      <div class="shell insights-grid">
+        <div class="insights-copy"><span class="section-kicker">03 / THE BIG PICTURE</span><h2 id="insights-heading">A discount isn't<br>always <span class="serif-word">a deal.</span></h2><p>Price history changes the question from “Is it on sale?” to “Is this actually a good time to buy?”</p><div class="insights-stat"><span class="stat-star">✳</span><div><strong>Know the trend.</strong><small>Track the price journey instead of trusting the sticker.</small></div></div><a href="#explore" class="underlined-link">Explore sample products <span>↗</span></a></div>
+        <div class="chart-card"><div class="chart-top"><div><span>PRICE HISTORY / PREVIEW</span><h3>Sony WH-1000XM5</h3></div><span class="chart-indicator"><i></i> DEMO DATA</span></div><div class="chart-value"><strong id="chartCurrent">₹24,999</strong><span id="chartChange">↓ 7.4% over period</span></div><div class="chart-plot" id="chartPlot"><div class="chart-y-labels" aria-hidden="true"><span id="chartHigh">₹29k</span><span id="chartMid">₹27k</span><span id="chartLow">₹24k</span></div><svg id="historyChart" viewBox="0 0 600 205" preserveAspectRatio="none" role="img" aria-label="Illustrative product price history chart"></svg><div class="chart-tooltip" id="chartTooltip" hidden></div></div><div class="chart-foot"><span id="chartPeriodLabel">Past 30 days</span><div class="range-buttons" role="group" aria-label="History period"><button type="button" data-range="30" class="selected" aria-pressed="true">30D</button><button type="button" data-range="90" aria-pressed="false">90D</button><button type="button" data-range="365" aria-pressed="false">1Y</button></div></div></div>
+      </div>
+    </section>
+
+    <section class="closing-section"><div class="closing-glow" aria-hidden="true"></div><div class="shell closing-inner"><span class="section-kicker dark-kicker">04 / BETTER STARTS HERE</span><h2>Better deals.<br><span class="serif-word">Zero drama.</span></h2><p>Your new favorite way to decide what to buy.</p><a class="closing-cta" href="#explore">Explore the good stuff <span>↗</span></a><span class="closing-spark closing-spark-one">✳</span><span class="closing-spark closing-spark-two">✦</span></div></section>
+  </main>
+  <footer class="footer"><div class="shell footer-row"><div><a class="brand" href="#top"><span class="brand-mark">✳</span>pricesense<span class="brand-period">.</span></a><p>Smarter decisions. Better prices.</p></div><div class="footer-right"><span>Built as a DBIS project frontend concept</span><span>All prices and trends are illustrative.</span><a href="#top">BACK TO TOP ↑</a></div></div></footer>
+
+  <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+  <aside class="watch-drawer" id="watchDrawer" role="dialog" aria-modal="true" aria-label="Saved products" aria-hidden="true" inert tabindex="-1"><div class="drawer-head"><div><small>YOUR SHORTLIST</small><h2>Saved products <span>♡</span></h2></div><button type="button" id="closeDrawer" class="icon-button" aria-label="Close watchlist">✕</button></div><div id="savedProducts" class="saved-products"></div><div class="drawer-bottom"><p>Saved items stay in this browser. Price alert notifications will work when the backend is connected.</p><a href="#explore" id="drawerExplore">Discover more ↗</a></div></aside>
+
+  <dialog id="compareDialog" class="compare-dialog" aria-labelledby="compareTitle"><div class="modal-top"><span>PRICESENSE / COMPARE STORES</span><button type="button" id="closeCompare" class="icon-button" aria-label="Close comparison">✕</button></div><div id="compareContent"></div></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
 </html>

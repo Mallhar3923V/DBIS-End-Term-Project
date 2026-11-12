@@ -1,4 +1,4 @@
-# PriceWise — Online Shopping Price Comparison & Deal Intelligence DBMS
+# PriceSense — Online Shopping Price Comparison & Deal Intelligence DBMS
 
 > **CS 257 Database and Information Systems Lab Project**  
 > **Team Members**:
@@ -16,11 +16,11 @@ Modern e-commerce platforms (Amazon, Flipkart, Croma, Reliance Digital) sell ide
 3. Automatically monitor price fluctuations and receive notifications when a target threshold is hit.
 
 ### The Solution
-**PriceWise** is a full-stack, database-driven web application featuring:
+**PriceSense** is a full-stack, database-driven web application featuring:
 - **Centralized Relational Database Layer (MySQL 8.0)** maintaining products, hierarchical categories, store listings, 90-day price histories, promotional offers, user watchlists, and price alerts.
 - **Deal Intelligence Engine** evaluating net effective prices against 30-day/90-day moving averages and all-time lows.
 - **Automated Database Triggers** that synchronize current listing prices upon new history entries and instantly transition price alerts to `TRIGGERED` when prices fall below user target thresholds.
-- **Modern Web Interface (React + Vite + Tailwind CSS)** with side-by-side store comparison matrices, interactive price trend charts, and real-time deal badges.
+- **Modern Web Interface (PriceSense — Smooth Motion Edition)**: A responsive HTML5, CSS3, and JavaScript frontend with interactive 3D rotation, dynamic multi-store price comparisons, live search and category filtering, responsive watchlist drawer, and interactive 30d/90d/365d SVG price-trend charts.
 - **RESTful API Backend (Python FastAPI)** utilizing raw SQL queries and stored procedures to demonstrate relational database engineering principles.
 
 ---
@@ -49,15 +49,17 @@ Implementation/
 │       ├── alerts_router.py           # Price alert creation, listing, and simulator
 │       └── dashboard_router.py        # Consolidated user dashboard
 ├── frontend/
-│   ├── package.json                   # React, Vite, Tailwind, Recharts, Lucide dependencies
-│   ├── vite.config.js                 # Vite build & reverse-proxy configuration
-│   ├── index.html                     # HTML5 entry point
-│   └── src/
-│       ├── App.jsx                    # Root component with routing, auth context, toast notifications
-│       ├── api.js                     # Axios HTTP client with JWT interceptors
-│       ├── components/                # Reusable UI components (Navbar, ProductCard, PriceHistoryChart, etc.)
-│       └── pages/                     # Full views (HomePage, SearchPage, ProductPage, DealsPage, Dashboard, etc.)
-└── price_comparison_schema (1).sql     # Consolidated master SQL file (clean MySQL 8.0, NO comments)
+│   ├── index.html                     # PriceSense main application page
+│   ├── styles.css                     # Layout, responsive rules & smooth motion animations
+│   ├── colour.css                     # Palette design system (violet, cyan, coral, lime)
+│   ├── motion.js                      # 3D interactive cube controls & visibility observer
+│   ├── script.js                      # Search, filters, watchlist drawer, compare modal, SVG charts
+│   ├── data.js                        # Product catalog & price observations
+│   ├── assets/                        # Inlined SVG product artwork
+│   ├── build_demo.py                  # Standalone bundler script
+│   └── PriceSense_Interactive_Demo.html # Standalone all-in-one demo (works offline)
+├── PriceSense_Interactive_Demo.html   # Standalone demo in root of Implementation
+└── price_comparison_schema (1).sql    # Consolidated master SQL file (clean MySQL 8.0, NO comments)
 ```
 
 ---
@@ -125,13 +127,21 @@ uvicorn main:app --reload --port 8000
 ```
 - Interactive API Documentation (Swagger UI): `http://localhost:8000/docs`
 
-### Step 3: Frontend Setup & Launch
+### Step 3: Frontend Launch Options
+
+**Option A (Instant / Zero Dependencies)**:
+Simply double-click:
+```
+D:\END TERM PROJECT\Implementation\PriceSense_Interactive_Demo.html
+```
+in File Explorer to open the application in Chrome, Edge, or Firefox. It runs self-contained and works completely offline!
+
+**Option B (Local Development Server)**:
 ```bash
 cd "D:\END TERM PROJECT\Implementation\frontend"
-npm install
-npm run dev
+python -m http.server 5173
 ```
-- Open browser at `http://localhost:5173`
+- Open browser at `http://localhost:5173` (or run `npm run dev`)
 
 ---
 
@@ -149,6 +159,6 @@ npm run dev
 ### Demo 3: Automated Price Drop Trigger Demonstration
 1. Sign in as `rahul.sharma@gmail.com` (password: `password123`) or create a new user.
 2. Navigate to iPhone 15 Pro Max and set a Price Alert for ₹125,000.
-3. Sign in as admin (`admin@pricewise.com`, password: `password123`) and open the **Admin Trigger Simulator** in the Dashboard.
+3. Sign in as admin (`admin@pricesense.com`, password: `password123`) and open the **Admin Trigger Simulator** in the Dashboard.
 4. Update listing #1 price to ₹119,999.
 5. Watch MySQL trigger `trg_check_price_alerts` immediately transition the alert from `ACTIVE` to `TRIGGERED`!

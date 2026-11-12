@@ -91,7 +91,7 @@ def execute_sql_file(cursor, file_path):
 
 def main():
     print("=" * 60)
-    print("PriceWise DBMS - Automated Database Setup (MySQL)")
+    print("PriceSense DBMS - Automated Database Setup (MySQL)")
     print("=" * 60)
     print(f"Connecting to MySQL at {db_config['host']}:{db_config['port']} as user '{db_config['user']}'...")
 

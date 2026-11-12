@@ -9,7 +9,7 @@ if not exist %MYSQL_BIN% (
 )
 
 echo ========================================================
-echo  PriceWise DBMS - Direct SQL Loader (MySQL 8.0)
+echo  PriceSense DBMS - Direct SQL Loader (MySQL 8.0)
 echo ========================================================
 echo.
 set /p MYSQL_USER=Enter MySQL Username [default: root]: 

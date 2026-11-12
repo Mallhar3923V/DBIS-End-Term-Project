@@ -209,6 +209,95 @@ BEGIN
     VALUES (p_listing_id, NOW(), p_new_price);
 END //
 
+CREATE PROCEDURE sp_transactional_price_update(
+    IN p_listing_id INT,
+    IN p_new_price DECIMAL(12,2),
+    OUT p_status VARCHAR(50),
+    OUT p_message VARCHAR(255)
+)
+BEGIN
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SET p_status = 'ERROR';
+        SET p_message = 'Transaction rolled back due to error';
+    END;
+
+    START TRANSACTION;
+
+    IF p_new_price < 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Price cannot be negative';
+    END IF;
+
+    IF NOT EXISTS (SELECT 1 FROM store_listing WHERE listing_id = p_listing_id) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Listing does not exist';
+    END IF;
+
+    INSERT INTO price_history (listing_id, recorded_timestamp, price)
+    VALUES (p_listing_id, NOW(), p_new_price);
+
+    COMMIT;
+    SET p_status = 'SUCCESS';
+    SET p_message = 'Transaction committed successfully';
+END //
+
+CREATE PROCEDURE sp_atomic_product_onboarding(
+    IN p_product_name VARCHAR(255),
+    IN p_brand VARCHAR(100),
+    IN p_description TEXT,
+    IN p_category_id INT,
+    IN p_spec1_name VARCHAR(100),
+    IN p_spec1_val VARCHAR(255),
+    IN p_spec2_name VARCHAR(100),
+    IN p_spec2_val VARCHAR(255),
+    IN p_store_id INT,
+    IN p_store_product_id VARCHAR(100),
+    IN p_initial_price DECIMAL(12,2),
+    IN p_product_url VARCHAR(500),
+    OUT p_new_product_id INT,
+    OUT p_status VARCHAR(50)
+)
+BEGIN
+    DECLARE v_new_product_id INT;
+    DECLARE v_new_listing_id INT;
+
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION
+    BEGIN
+        ROLLBACK;
+        SET p_new_product_id = NULL;
+        SET p_status = 'ROLLED_BACK';
+    END;
+
+    START TRANSACTION;
+
+    INSERT INTO product (product_name, brand, description, category_id)
+    VALUES (p_product_name, p_brand, p_description, p_category_id);
+
+    SET v_new_product_id = LAST_INSERT_ID();
+
+    IF p_spec1_name IS NOT NULL AND p_spec1_val IS NOT NULL THEN
+        INSERT INTO product_spec (product_id, spec_name, spec_value)
+        VALUES (v_new_product_id, p_spec1_name, p_spec1_val);
+    END IF;
+
+    IF p_spec2_name IS NOT NULL AND p_spec2_val IS NOT NULL THEN
+        INSERT INTO product_spec (product_id, spec_name, spec_value)
+        VALUES (v_new_product_id, p_spec2_name, p_spec2_val);
+    END IF;
+
+    INSERT INTO store_listing (product_id, store_id, store_product_id, current_price, product_url, last_updated)
+    VALUES (v_new_product_id, p_store_id, p_store_product_id, p_initial_price, p_product_url, NOW());
+
+    SET v_new_listing_id = LAST_INSERT_ID();
+
+    INSERT INTO price_history (listing_id, recorded_timestamp, price)
+    VALUES (v_new_listing_id, NOW(), p_initial_price);
+
+    COMMIT;
+    SET p_new_product_id = v_new_product_id;
+    SET p_status = 'COMMITTED';
+END //
+
 DELIMITER ;
 
 CREATE VIEW v_offer AS
