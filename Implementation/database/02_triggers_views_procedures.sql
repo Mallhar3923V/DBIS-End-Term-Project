@@ -2,28 +2,37 @@ USE price_comparison_db;
 
 DELIMITER //
 
+-- TRIGGER 1: A new price-history row updates the current listing price.
+-- Similar to tutorial Q9: AFTER INSERT updates another table.
 CREATE TRIGGER trg_sync_listing_price
 AFTER INSERT ON price_history
 FOR EACH ROW
 BEGIN
+    -- NEW means the new price_history row.
     UPDATE store_listing
     SET current_price = NEW.price,
         last_updated = NEW.recorded_timestamp
     WHERE listing_id = NEW.listing_id
+      -- Older history must not replace a newer current price.
       AND last_updated <= NEW.recorded_timestamp;
 END //
 
+-- TRIGGER 2: When a price drops, mark matching active alerts as triggered.
+-- OLD = value before UPDATE; NEW = value after UPDATE.
 CREATE TRIGGER trg_check_price_alerts
 AFTER UPDATE ON store_listing
 FOR EACH ROW
 BEGIN
     IF NEW.current_price < OLD.current_price THEN
+
+        -- Affect active alerts for the same product when target >= new price.
         UPDATE price_alert
         SET alert_status = 'TRIGGERED',
             triggered_date = CURDATE()
         WHERE product_id = NEW.product_id
           AND alert_status = 'ACTIVE'
           AND target_price >= NEW.current_price;
+
     END IF;
 END //
 
