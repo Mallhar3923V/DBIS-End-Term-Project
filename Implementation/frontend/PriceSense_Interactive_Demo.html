@@ -760,7 +760,7 @@ window.PRICESENSE_PRODUCTS = [
   const artSrc = name => window.PRICESENSE_ASSET_MAP?.[name] || `assets/${name}`;
   const escapeHTML = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const $ = selector => document.querySelector(selector);
-  const $ = selector => Array.from(document.querySelectorAll(selector));
+  const $$ = selector => Array.from(document.querySelectorAll(selector));
   const heartIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg>';
   const LS_KEY = 'pricesense-demo-watchlist-v1';
   let saved = new Set();
@@ -999,7 +999,7 @@ window.PRICESENSE_PRODUCTS = [
     $('#chartMid').textContent=money(Math.round((ymax+ymin)/2000)*1000);
     $('#chartLow').textContent=money(Math.floor(ymin/1000)*1000);
     $('#chartPeriodLabel').textContent=`Past ${chartRange===365?'year':chartRange+' days'}`;
-    $('.range-buttons button').forEach(b=>{const isOn=Number(b.dataset.range)===chartRange;b.classList.toggle('selected',isOn);b.setAttribute('aria-pressed',String(isOn));});
+    $$('.range-buttons button').forEach(b=>{const isOn=Number(b.dataset.range)===chartRange;b.classList.toggle('selected',isOn);b.setAttribute('aria-pressed',String(isOn));});
   }
   function setupChartHover(){
     const svg=$('#historyChart'), tip=$('#chartTooltip');
@@ -1029,10 +1029,10 @@ window.PRICESENSE_PRODUCTS = [
     $('#storyScreenText').textContent=s.text;
     $('#storyMetric').textContent=s.metric;
     $('#sceneLabel').textContent=s.label;
-    $('.story-step').forEach((node,i)=>node.classList.toggle('active',i===index));
+    $$('.story-step').forEach((node,i)=>node.classList.toggle('active',i===index));
   }
   function setupStoryObserver(){
-    const nodes=$('.story-step');
+    const nodes=$$('.story-step');
     const observer=new IntersectionObserver(entries=>{
       for(const entry of entries){if(entry.isIntersecting)setStoryScene(Number(entry.target.dataset.step));}
     },{rootMargin:'-38% 0px -39% 0px',threshold:0});
@@ -1043,7 +1043,7 @@ window.PRICESENSE_PRODUCTS = [
     const observer=new IntersectionObserver(entries=>{
       entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target);}});
     },{threshold:.09,rootMargin:'0px 0px 60px 0px'});
-    $('.section-header, .story-heading, .insights-copy, .chart-card, .closing-inner').forEach(el=>{el.classList.add('reveal');observer.observe(el);});
+    $$('.section-header, .story-heading, .insights-copy, .chart-card, .closing-inner').forEach(el=>{el.classList.add('reveal');observer.observe(el);});
   }
   function setupScroll(){
     let pending=false;
@@ -1077,9 +1077,9 @@ window.PRICESENSE_PRODUCTS = [
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#watchDrawer').classList.contains('open'))closeDrawer();});
     $('#closeCompare').addEventListener('click',()=>$('#compareDialog').close());
     $('#compareDialog').addEventListener('click',e=>{if(e.target===$('#compareDialog'))$('#compareDialog').close();});
-    $('.range-buttons button').forEach(button=>button.addEventListener('click',()=>{chartRange=Number(button.dataset.range);renderChart();}));
+    $$('.range-buttons button').forEach(button=>button.addEventListener('click',()=>{chartRange=Number(button.dataset.range);renderChart();}));
     $('#menuToggle').addEventListener('click',()=>{const opened=$('#navLinks').classList.toggle('menu-open');$('#menuToggle').setAttribute('aria-expanded',String(opened));});
-    $('#navLinks a').forEach(link=>link.addEventListener('click',()=>{$('#navLinks').classList.remove('menu-open');$('#menuToggle').setAttribute('aria-expanded','false');}));
+    $$('#navLinks a').forEach(link=>link.addEventListener('click',()=>{$('#navLinks').classList.remove('menu-open');$('#menuToggle').setAttribute('aria-expanded','false');}));
   }
   function init(){
     renderCategories();
