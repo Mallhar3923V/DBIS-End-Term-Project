@@ -44,11 +44,11 @@
 
   async function loadBackendData() {
     try {
-      const res = await fetch(`${API_BASE}/products`, { signal: AbortSignal.timeout(2000) });
-      if (!res.ok) return;
+      const res = await fetch(`${API_BASE}/products`, { signal: AbortSignal.timeout(5000) });
+      if (!res.ok) throw new Error('Backend returned HTTP ' + res.status);
       const json = await res.json();
       const dbProducts = json.data || [];
-      if (!Array.isArray(dbProducts) || dbProducts.length === 0) return;
+      if (!Array.isArray(dbProducts) || dbProducts.length === 0) throw new Error('Backend returned no products');
 
       const loaded = [];
       for (const item of dbProducts) {
@@ -71,17 +71,22 @@
         } catch (_) {}
 
         try {
-          const histRes = await fetch(`${API_BASE}/products/${pid}/price-history?days=90`);
+          const histRes = await fetch(`${API_BASE}/products/${pid}/price-history?days=365`);
           if (histRes.ok) {
             const histJson = await histRes.json();
-            const hData = histJson.data || {};
-            const storeKeys = Object.keys(hData);
-            if (storeKeys.length > 0) {
-              const primaryPoints = (hData[storeKeys[0]] || []).map(pt => Number(pt.price));
-              if (primaryPoints.length > 0) {
-                detailHistory[30] = primaryPoints.slice(-10);
-                detailHistory[90] = primaryPoints;
-                detailHistory[365] = primaryPoints;
+
+            // The API returns an ARRAY of stores, each with its own history array.
+            const storesWithHistory = Array.isArray(histJson.data) ? histJson.data : [];
+            const firstStore = storesWithHistory.find(s => Array.isArray(s.history) && s.history.length > 0);
+
+            if (firstStore) {
+              const points = firstStore.history
+                .map(p => ({ time: new Date(p.recorded_timestamp.replace(' ', 'T')).getTime(), price: Number(p.price) }))
+                .filter(p => Number.isFinite(p.time) && Number.isFinite(p.price));
+
+              for (const days of [30, 90, 365]) {
+                const cutoff = Date.now() - days * 24 * 60 * 60 * 1000;
+                detailHistory[days] = points.filter(p => p.time >= cutoff).map(p => p.price);
               }
             }
           }
@@ -123,8 +128,10 @@
         renderChart();
         notify(`Connected to MySQL DB! Loaded ${products.length} live products.`);
       }
-    } catch (_) {
-      // Backend not running or offline: fallback to sample data in data.js
+    } catch (error) {
+      // Sample mode is useful offline, but it must not be confused with MySQL.
+      console.warn('PriceSense is using sample data, not MySQL:', error);
+      notify('Sample-data preview: MySQL backend not connected.');
     }
   }
 
