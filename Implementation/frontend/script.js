@@ -106,17 +106,12 @@
           price: minP,
           oldPrice: maxP > minP ? maxP : Math.round(minP * 1.12),
           rating: 4.7,
-          stores: detailStores.length > 0 ? detailStores : [
-            { name: 'Amazon', base: minP, delivery: 0, available: true },
-            { name: 'Flipkart', base: Math.round(minP * 1.03), delivery: 0, available: true }
-          ],
+          // Do not invent store prices when the database detail request fails.
+          stores: detailStores,
           description: item.description || `${item.brand} ${item.product_name}`,
           model: `${item.brand} Official`,
-          history: detailHistory[30].length > 0 ? detailHistory : {
-            30: [minP * 1.1, minP * 1.08, minP * 1.05, minP],
-            90: [minP * 1.15, minP * 1.12, minP * 1.08, minP],
-            365: [minP * 1.25, minP * 1.18, minP * 1.12, minP]
-          }
+          // Show only recorded database history in MySQL mode.
+          history: detailHistory
         });
       }
 
@@ -126,7 +121,7 @@
         renderCategories();
         renderProducts();
         renderChart();
-        notify(`Connected to MySQL DB! Loaded ${products.length} live products.`);
+        notify(`MySQL connected: ${products.length} stored demo products loaded.`);
       }
     } catch (error) {
       // Sample mode is useful offline, but it must not be confused with MySQL.
@@ -228,9 +223,13 @@
     if(!products || products.length === 0) return;
     const prod = products[0];
     const data = prod.history ? prod.history[chartRange] : null; 
-    if(!data || data.length === 0) return;
+    if(!data || data.length === 0) {
+      $('#historyChart').innerHTML = '';
+      $('#chartChange').textContent = 'No recorded price history for this period';
+      return;
+    }
     const min=Math.min(...data), max=Math.max(...data), padding=Math.max((max-min)*.13,450), ymin=min-padding, ymax=max+padding;
-    const toX=i=>20+(i/(data.length-1))*560;
+    const toX=i=>20+(i/Math.max(data.length-1,1))*560;
     const toY=v=>196-((v-ymin)/(ymax-ymin))*178;
     const poly=data.map((v,i)=>`${toX(i).toFixed(1)},${toY(v).toFixed(1)}`).join(' ');
     const path=data.map((v,i)=>`${i?'L':'M'}${toX(i).toFixed(1)} ${toY(v).toFixed(1)}`).join(' ');
@@ -238,7 +237,7 @@
     const grid=[15,72,130,188].map(y=>`<line x1="20" y1="${y}" x2="580" y2="${y}" stroke="#5a7690" stroke-dasharray="3 6" stroke-width="1"/>`).join('');
     $('#historyChart').innerHTML=`<defs><linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86e2f2" stop-opacity=".30"/><stop offset="1" stop-color="#86e2f2" stop-opacity="0"/></linearGradient></defs>${grid}<path d="${area}" fill="url(#priceGradient)"/><path d="${path}" fill="none" stroke="#86e2f2" stroke-width="3.7" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><circle cx="580" cy="${toY(data.at(-1))}" r="6" fill="#86e2f2" stroke="#1b2b3d" stroke-width="3"/><polyline points="${poly}" fill="none" stroke="transparent" stroke-width="18" data-hoverline="true"/>`;
     $('#historyChart').setAttribute('aria-label',`${chartRange}-day price observations for ${prod.brand} ${prod.name}, from ${money(data[0])} to ${money(data.at(-1))}`);
-    const pct=((data.at(-1)-data[0])/data[0]*100).toFixed(1);
+    const pct=data[0] > 0 ? ((data.at(-1)-data[0])/data[0]*100).toFixed(1) : '0.0';
     $('#chartChange').textContent=`${Number(pct)<=0?'↓':'↑'} ${Math.abs(Number(pct)).toFixed(1)}% over period`;
     $('#chartCurrent').textContent=money(data.at(-1));
     $('#chartHigh').textContent=money(Math.ceil(ymax/1000)*1000);
@@ -256,7 +255,7 @@
       const rect=svg.getBoundingClientRect(), rel=(e.clientX-rect.left)/rect.width;
       const index=Math.max(0,Math.min(data.length-1,Math.round((rel*600-20)/560*(data.length-1))));
       tip.hidden=false;tip.textContent=`Observation ${index+1}: ${money(data[index])}`;
-      const xp=(20+(index/(data.length-1))*560)/600*rect.width;
+      const xp=(20+(index/Math.max(data.length-1,1))*560)/600*rect.width;
       const plotRect=$('#chartPlot').getBoundingClientRect();
       tip.style.left=`${rect.left-plotRect.left+xp}px`;
       tip.style.top=`${rect.top-plotRect.top+40}px`;
