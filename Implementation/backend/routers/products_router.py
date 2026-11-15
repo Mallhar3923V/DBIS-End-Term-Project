@@ -9,6 +9,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 
 from database import get_db
 from product_links import ProductLinkError, lookup_identity
+from product_fetch import MerchantDataUnavailable, fetch_public_product
 
 router = APIRouter(prefix="/api", tags=["Products"])
 
@@ -94,6 +95,98 @@ def find_product_by_link(url: str = Query(..., max_length=2048), cursor=Depends(
         )
 
     return {"status": "success", "data": {"product_id": product["product_id"]}}
+
+
+# ── POST /api/products/import-by-link ───────────────────────────────
+# Adds a genuine publicly available price observation to our existing DBMS schema.
+@router.post("/products/import-by-link")
+def import_product_by_link(url: str = Query(..., max_length=2048), cursor=Depends(get_db)):
+    # Network retrieval happens before any INSERT/UPDATE, so failed fetches
+    # cannot leave half-created database records.
+    try:
+        info = fetch_public_product(url)
+    except MerchantDataUnavailable as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+    store_id = info["store_id"]
+    product_code = info["store_product_id"]
+
+    # An already known store listing belongs to one product.
+    cursor.execute(
+        "SELECT product_id, listing_id, current_price FROM store_listing "
+        "WHERE store_id = %s AND store_product_id = %s LIMIT 1",
+        (store_id, product_code),
+    )
+    existing = cursor.fetchone()
+
+    if existing:
+        product_id = existing["product_id"]
+        listing_id = existing["listing_id"]
+        cursor.execute(
+            "UPDATE store_listing SET availability = %s, product_url = %s "
+            "WHERE listing_id = %s",
+            (info["availability"], info["product_url"], listing_id),
+        )
+    else:
+        # If no listing matches, don't guess that similarly named products from
+        # different stores are identical. Add a separate product instead.
+        cursor.execute(
+            "SELECT category_id FROM category WHERE category_name = 'Imported Products' LIMIT 1"
+        )
+        category = cursor.fetchone()
+        if not category:
+            cursor.execute(
+                "INSERT INTO category (category_name, description) VALUES (%s, %s)",
+                ("Imported Products", "Products imported from publicly available retailer pages"),
+            )
+            category_id = cursor.lastrowid
+        else:
+            category_id = category["category_id"]
+
+        cursor.execute(
+            "INSERT INTO product (product_name, brand, description, category_id) "
+            "VALUES (%s, %s, %s, %s)",
+            (info["title"], info["brand"], info["description"], category_id),
+        )
+        product_id = cursor.lastrowid
+        cursor.execute(
+            "INSERT INTO store_listing "
+            "(product_id, store_id, store_product_id, current_price, availability, product_url) "
+            "VALUES (%s, %s, %s, %s, %s, %s)",
+            (
+                product_id, store_id, product_code, info["price"],
+                info["availability"], info["product_url"],
+            ),
+        )
+        listing_id = cursor.lastrowid
+
+    # Avoid duplicate-key failures because price_history has a timestamp
+    # with SECOND precision: multiple requests in the same second are ignored.
+    cursor.execute(
+        "SELECT 1 FROM price_history "
+        "WHERE listing_id = %s AND recorded_timestamp = NOW() LIMIT 1",
+        (listing_id,),
+    )
+    same_second = cursor.fetchone() is not None
+    if not same_second:
+        cursor.execute(
+            "INSERT INTO price_history (listing_id, recorded_timestamp, price) "
+            "VALUES (%s, NOW(), %s)",
+            (listing_id, info["price"]),
+        )
+        # Existing AFTER INSERT trigger synchronizes current_price.
+        # Existing AFTER UPDATE trigger checks price drop alerts.
+
+    return {
+        "status": "success",
+        "data": {
+            "product_id": product_id,
+            "store_id": store_id,
+            "current_price": float(info["price"]),
+            "observation_saved": not same_second,
+        },
+        "message": "Public retailer metadata imported. No other store prices were inferred.",
+    }
 
 
 # ── GET /api/products/{product_id} ───────────────────────────────────
