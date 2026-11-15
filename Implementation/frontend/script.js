@@ -307,12 +307,56 @@
     new ResizeObserver(measure).observe(document.body);
     measure();
   }
+  async function searchProductOrLink(q) {
+    // Product names use the original local search. Merchant links need an API lookup.
+    if (!/^https?:\/\//i.test(q)) {
+      $('#productSearch').value = q;
+      search = q;
+      category = 'All';
+      renderCategories();
+      renderProducts();
+      return;
+    }
+
+    // The lookup checks only products already stored in MySQL.
+    if (!/^https:\/\//i.test(q)) {
+      notify('Please use an HTTPS product link.');
+      return;
+    }
+    try {
+      const response = await fetch(`${API_BASE}/products/by-link?url=${encodeURIComponent(q)}`, {
+        signal: AbortSignal.timeout(12000)
+      });
+      const body = await response.json();
+      if (!response.ok) {
+        notify(body.detail || 'Product link could not be found in the catalog.');
+        return;
+      }
+      const pid = Number(body?.data?.product_id);
+      const product = products.find(p => p.id === pid);
+      if (!product) {
+        notify('Product found in MySQL, but catalog is not loaded. Refresh after starting the backend.');
+        return;
+      }
+      category = 'All';
+      search = product.name;
+      $('#productSearch').value = search;
+      renderCategories();
+      renderProducts();
+      openCompare(pid);
+    } catch (error) {
+      console.warn('PriceSense link lookup failed:', error);
+      notify('Could not check product link. Check the backend connection.');
+    }
+  }
+
   function setupEvents(){
     $('#categoryFilters').addEventListener('click',e=>{const button=e.target.closest('[data-category]');if(!button)return;category=button.dataset.category;renderCategories();renderProducts();});
-    $('#productSearch').addEventListener('input',e=>{search=e.target.value.trim();renderProducts();});
+    $('#productSearch').addEventListener('input',e=>{const q=e.target.value.trim();if (/^https?:\/\//i.test(q)) return;search=q;renderProducts();});
+    $('#productSearch').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();searchProductOrLink(e.target.value.trim());}});
     $('#sortSelect').addEventListener('change',e=>{sortBy=e.target.value;renderProducts();});
     $('#productGrid').addEventListener('click',e=>{const saveBtn=e.target.closest('[data-save]'),compareBtn=e.target.closest('[data-compare]');if(saveBtn)toggleSaved(Number(saveBtn.dataset.save));else if(compareBtn)openCompare(Number(compareBtn.dataset.compare));});
-    $('#heroSearchForm').addEventListener('submit',e=>{e.preventDefault();const q=$('#heroSearch').value.trim();$('#productSearch').value=q;search=q;category='All';renderCategories();renderProducts();$('#explore').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});$('#productSearch').focus({preventScroll:true});});
+    $('#heroSearchForm').addEventListener('submit',e=>{e.preventDefault();const q=$('#heroSearch').value.trim();searchProductOrLink(q);$('#explore').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});});
     $('#resetFilters').addEventListener('click',()=>{search='';category='All';sortBy='featured';$('#productSearch').value='';$('#heroSearch').value='';$('#sortSelect').value='featured';renderCategories();renderProducts();});
     $('#watchlistButton').addEventListener('click',openDrawer);
     $('#closeDrawer').addEventListener('click',closeDrawer);
