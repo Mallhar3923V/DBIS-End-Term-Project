@@ -8,6 +8,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 
 from database import get_db
+from product_links import ProductLinkError, lookup_identity
 
 router = APIRouter(prefix="/api", tags=["Products"])
 
@@ -55,6 +56,44 @@ def search_products(
         "data": _serialise_rows(products),
         "message": f"{len(products)} product(s) found",
     }
+
+
+# ── GET /api/products/by-link ───────────────────────────────────────
+# Reads existing catalog listings. Does not scrape merchant websites.
+@router.get("/products/by-link")
+def find_product_by_link(url: str = Query(..., max_length=2048), cursor=Depends(get_db)):
+    try:
+        store_id, clean_url, store_product_id = lookup_identity(url)
+    except ProductLinkError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+    # First try a known product identifier (ASIN / Flipkart PID).
+    product = None
+    if store_product_id:
+        cursor.execute(
+            "SELECT product_id FROM store_listing "
+            "WHERE store_id = %s AND store_product_id = %s LIMIT 1",
+            (store_id, store_product_id),
+        )
+        product = cursor.fetchone()
+
+    # Also support exact full product URLs already saved in MySQL.
+    if product is None:
+        cursor.execute(
+            "SELECT product_id FROM store_listing "
+            "WHERE store_id = %s AND TRIM(TRAILING '/' FROM SUBSTRING_INDEX(product_url, '?', 1)) = %s "
+            "LIMIT 1",
+            (store_id, clean_url),
+        )
+        product = cursor.fetchone()
+
+    if product is None:
+        raise HTTPException(
+            status_code=404,
+            detail="Product link is valid, but this product is not in the PriceSense catalog. Search by product name instead.",
+        )
+
+    return {"status": "success", "data": {"product_id": product["product_id"]}}
 
 
 # ── GET /api/products/{product_id} ───────────────────────────────────
