@@ -6,6 +6,7 @@ For reliable coverage, replace this fetcher with an authorized retailer-data API
 import json
 import re
 from decimal import Decimal, InvalidOperation
+from html import unescape as html_unescape
 from html.parser import HTMLParser
 from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin
@@ -109,6 +110,37 @@ def _price_in_offers(offers):
     return None
 
 
+def _amazon_primary_price(html):
+    """Read a price ONLY from Amazon's main product price section.
+
+    We never search arbitrary page-wide prices, because these may refer to
+    unrelated recommended products. This is a best-effort public-page parser.
+    """
+    region = re.search(
+        r'id=[\'"](?:corePriceDisplay_desktop_feature_div|corePrice_feature_div|corePrice_desktop)[\'"]',
+        html,
+        flags=re.I,
+    )
+    if not region:
+        return None
+    section = html[region.start():region.start() + 14000]
+    # The screen-reader amount normally includes the currency sign.
+    amount = re.search(
+        r'class=[\'"][^\'"]*a-offscreen[^\'"]*[\'"][^>]*>\s*₹\s*([0-9][0-9,.]*)',
+        section,
+        flags=re.I,
+    )
+    if amount:
+        return _positive_inr(amount.group(1), "INR")
+    # Older Amazon layout exposes whole-rupee digits as a separate span.
+    whole = re.search(
+        r'class=[\'"][^\'"]*a-price-whole[^\'"]*[\'"][^>]*>\s*([0-9][0-9,]*)',
+        section,
+        flags=re.I,
+    )
+    return _positive_inr(whole.group(1), "INR") if whole else None
+
+
 def parse_product_html(html):
     """Return trustworthy title + INR price or raise a clear error."""
     page = PageMetadata()
@@ -123,6 +155,14 @@ def parse_product_html(html):
             break
 
     title = (product or {}).get("name") or page.meta.get("og:title") or ""
+    if not title:
+        # Amazon's product title is commonly exposed in a named span.
+        match = re.search(
+            r'<span[^>]*id=[\'"]productTitle[\'"][^>]*>(.*?)</span>',
+            html, flags=re.I | re.S,
+        )
+        if match:
+            title = html_unescape(re.sub(r"<[^>]+>", "", match.group(1)))
     if not isinstance(title, str) or not title.strip():
         raise MerchantDataUnavailable("This retailer page did not expose a product title.")
 
@@ -133,7 +173,9 @@ def parse_product_html(html):
             page.meta.get("product:price:currency", page.meta.get("pricecurrency")),
         )
     if price is None:
-        raise MerchantDataUnavailable("A verified INR product price was not available. No data was saved.")
+        price = _amazon_primary_price(html)
+    if price is None:
+        raise MerchantDataUnavailable("A publicly readable INR product price was not available. No data was saved.")
 
     brand = (product or {}).get("brand")
     if isinstance(brand, dict):
