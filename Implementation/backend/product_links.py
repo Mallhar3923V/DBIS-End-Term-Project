@@ -24,13 +24,17 @@ def check_link(url):
     """Return parsed HTTPS URL only for supported merchant hostnames."""
     if not isinstance(url, str) or len(url) > 2048:
         raise ProductLinkError("Product link is too long.")
-    parsed = urlsplit(url.strip())
+    try:
+        parsed = urlsplit(url.strip())
+        unsafe_port = parsed.port not in (None, 443)
+        has_credentials = parsed.username is not None or parsed.password is not None
+    except ValueError as exc:
+        raise ProductLinkError("Malformed retailer URL.") from exc
     if (
         parsed.scheme.lower() != "https"
         or parsed.hostname not in ALLOWED_HOSTS
-        or parsed.username is not None
-        or parsed.password is not None
-        or parsed.port not in (None, 443)
+        or has_credentials
+        or unsafe_port
     ):
         raise ProductLinkError("Only HTTPS Amazon India and Flipkart links are supported.")
     return parsed
