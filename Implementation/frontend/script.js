@@ -229,6 +229,10 @@
     if(!data || data.length === 0) {
       $('#historyChart').innerHTML = '';
       $('#chartChange').textContent = 'No recorded price history for this period';
+      $('#chartCurrent').textContent = '—';
+      $('#chartHigh').textContent = '—';
+      $('#chartMid').textContent = '—';
+      $('#chartLow').textContent = '—';
       return;
     }
     const min=Math.min(...data), max=Math.max(...data), padding=Math.max((max-min)*.13,450), ymin=min-padding, ymax=max+padding;
@@ -238,10 +242,10 @@
     const path=data.map((v,i)=>`${i?'L':'M'}${toX(i).toFixed(1)} ${toY(v).toFixed(1)}`).join(' ');
     const area=`${path} L580 205 L20 205 Z`;
     const grid=[15,72,130,188].map(y=>`<line x1="20" y1="${y}" x2="580" y2="${y}" stroke="#5a7690" stroke-dasharray="3 6" stroke-width="1"/>`).join('');
-    $('#historyChart').innerHTML=`<defs><linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86e2f2" stop-opacity=".30"/><stop offset="1" stop-color="#86e2f2" stop-opacity="0"/></linearGradient></defs>${grid}<path d="${area}" fill="url(#priceGradient)"/><path d="${path}" fill="none" stroke="#86e2f2" stroke-width="3.7" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><circle cx="580" cy="${toY(data.at(-1))}" r="6" fill="#86e2f2" stroke="#1b2b3d" stroke-width="3"/><polyline points="${poly}" fill="none" stroke="transparent" stroke-width="18" data-hoverline="true"/>`;
+    $('#historyChart').innerHTML=`<defs><linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86e2f2" stop-opacity=".30"/><stop offset="1" stop-color="#86e2f2" stop-opacity="0"/></linearGradient></defs>${grid}<path d="${area}" fill="url(#priceGradient)"/><path d="${path}" fill="none" stroke="#86e2f2" stroke-width="3.7" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><circle cx="${toX(data.length-1)}" cy="${toY(data.at(-1))}" r="6" fill="#86e2f2" stroke="#1b2b3d" stroke-width="3"/><polyline points="${poly}" fill="none" stroke="transparent" stroke-width="18" data-hoverline="true"/>`;
     $('#historyChart').setAttribute('aria-label',`${chartRange}-day price observations for ${prod.brand} ${prod.name}, from ${money(data[0])} to ${money(data.at(-1))}`);
     const pct=data[0] > 0 ? ((data.at(-1)-data[0])/data[0]*100).toFixed(1) : '0.0';
-    $('#chartChange').textContent=`${Number(pct)<=0?'↓':'↑'} ${Math.abs(Number(pct)).toFixed(1)}% over period`;
+    $('#chartChange').textContent=data.length === 1 ? 'First recorded price — trend not yet available' : `${Number(pct)<=0?'↓':'↑'} ${Math.abs(Number(pct)).toFixed(1)}% over period`;
     $('#chartCurrent').textContent=money(data.at(-1));
     $('#chartHigh').textContent=money(Math.ceil(ymax/1000)*1000);
     $('#chartMid').textContent=money(Math.round((ymax+ymin)/2000)*1000);
