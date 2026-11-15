@@ -13,6 +13,7 @@
   let search = '';
   let sortBy = 'featured';
   let chartRange = 30;
+  let chartProductId = null;
   let dbConnected = false;
   let toastTimeout;
   let lastFocus = null;
@@ -223,7 +224,7 @@
   }
   function renderChart(){
     if(!products || products.length === 0) return;
-    const prod = products[0];
+    const prod = products.find(p => p.id === chartProductId) || products[0];
     const data = prod.history ? prod.history[chartRange] : null; 
     if(!data || data.length === 0) {
       $('#historyChart').innerHTML = '';
@@ -252,7 +253,8 @@
     const svg=$('#historyChart'), tip=$('#chartTooltip');
     svg.addEventListener('pointermove',e=>{
       if(!products || products.length === 0) return;
-      const data=products[0].history ? products[0].history[chartRange] : null;
+      const chartProduct=products.find(p=>p.id===chartProductId)||products[0];
+      const data=chartProduct.history ? chartProduct.history[chartRange] : null;
       if(!data || data.length === 0) return;
       const rect=svg.getBoundingClientRect(), rel=(e.clientX-rect.left)/rect.width;
       const index=Math.max(0,Math.min(data.length-1,Math.round((rel*600-20)/560*(data.length-1))));
@@ -381,6 +383,27 @@
           stores: stores,
           history: { 30: [], 90: [], 365: [] }
         };
+        // A newly imported product starts with its first real observation.
+        // Never fabricate historical prices for dates when we have no data.
+        try {
+          const historyResponse = await fetch(`${API_BASE}/products/${pid}/price-history?days=365`);
+          if (historyResponse.ok) {
+            const groups = (await historyResponse.json()).data || [];
+            const actual = groups.find(g => Array.isArray(g.history) && g.history.length > 0);
+            if (actual) {
+              const points = actual.history.map(pt => ({
+                time: new Date(pt.recorded_timestamp.replace(' ', 'T')).getTime(),
+                price: Number(pt.price)
+              })).filter(pt => Number.isFinite(pt.time) && Number.isFinite(pt.price));
+              for (const days of [30, 90, 365]) {
+                const cutoff = Date.now() - days * 86400000;
+                product.history[days] = points.filter(pt => pt.time >= cutoff).map(pt => pt.price);
+              }
+            }
+          }
+        } catch (error) {
+          console.warn('Imported price history not yet available:', error);
+        }
         products.push(product);
         categories = ['All', ...new Set(products.map(p => p.category))];
       }
@@ -390,6 +413,8 @@
       $('#productSearch').value = search;
       renderCategories();
       renderProducts();
+      chartProductId = pid;
+      renderChart();
       openCompare(pid);
     } catch (error) {
       console.warn('PriceSense link lookup failed:', error);
