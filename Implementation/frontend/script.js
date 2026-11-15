@@ -13,6 +13,7 @@
   let search = '';
   let sortBy = 'featured';
   let chartRange = 30;
+  let chartProductId = null;
   let dbConnected = false;
   let toastTimeout;
   let lastFocus = null;
@@ -216,18 +217,22 @@
     if($('#watchDrawer').classList.contains('open'))closeDrawer();
     const offers=p.stores.map(s=>({...s,total:s.base+s.delivery})).sort((a,b)=>Number(b.available)-Number(a.available)||a.total-b.total);
     const best=offers.find(s=>s.available)?.total;
-    $('#compareContent').innerHTML=`<div class="modal-product"><img src="${escapeHTML(artSrc(p.art))}" alt=""><div><small>${escapeHTML(p.brand.toUpperCase())} / ${escapeHTML(p.category.toUpperCase())}</small><h2 id="compareTitle">${escapeHTML(p.name)}</h2><p>${escapeHTML(p.model)}</p></div></div><span class="modal-label">LIVE STORE COMPARISON · SORTED BY TOTAL COST</span><div class="modal-list">${offers.map(s=>`<div class="modal-row ${s.available&&s.total===best?'best':''}"><div><strong>${escapeHTML(s.name)}</strong><small>${s.available? (s.total===best?'✳ Lowest total cost':'In stock'):'Out of stock'} · Delivery ${s.delivery===0?'free':money(s.delivery)}</small></div><div class="modal-price"><b>${money(s.total)}</b><small>Base: ${money(s.base)}</small></div></div>`).join('')}</div><p class="modal-note">* Stores retrieved from database. Total cost includes store item price + delivery charge.</p><div class="modal-actions"><button type="button" class="modal-secondary" id="modalSave">${saved.has(id)?'♡ Remove from saved':'♡ Save this product'}</button><button type="button" class="modal-primary" id="modalDone">Done ↗</button></div>`;
+    $('#compareContent').innerHTML=`<div class="modal-product"><img src="${escapeHTML(artSrc(p.art))}" alt=""><div><small>${escapeHTML(p.brand.toUpperCase())} / ${escapeHTML(p.category.toUpperCase())}</small><h2 id="compareTitle">${escapeHTML(p.name)}</h2><p>${escapeHTML(p.model)}</p></div></div><span class="modal-label">STORED STORE COMPARISON · SORTED BY TOTAL COST</span><div class="modal-list">${offers.map(s=>`<div class="modal-row ${s.available&&s.total===best?'best':''}"><div><strong>${escapeHTML(s.name)}</strong><small>${s.available? (s.total===best?'✳ Lowest total cost':'In stock'):'Out of stock'} · Delivery ${s.delivery===0?'free':money(s.delivery)}</small></div><div class="modal-price"><b>${money(s.total)}</b><small>Base: ${money(s.base)}</small></div></div>`).join('')}</div><p class="modal-note">* Stored observations may be illustrative demo data. Imported listings reflect retailer metadata at the observation time. Total includes delivery.</p><div class="modal-actions"><button type="button" class="modal-secondary" id="modalSave">${saved.has(id)?'♡ Remove from saved':'♡ Save this product'}</button><button type="button" class="modal-primary" id="modalDone">Done ↗</button></div>`;
     $('#modalSave').addEventListener('click',()=>{toggleSaved(id);$('#modalSave').textContent=saved.has(id)?'♡ Remove from saved':'♡ Save this product';});
     $('#modalDone').addEventListener('click',()=>$('#compareDialog').close());
     $('#compareDialog').showModal();
   }
   function renderChart(){
     if(!products || products.length === 0) return;
-    const prod = products[0];
+    const prod = products.find(p => p.id === chartProductId) || products[0];
     const data = prod.history ? prod.history[chartRange] : null; 
     if(!data || data.length === 0) {
       $('#historyChart').innerHTML = '';
       $('#chartChange').textContent = 'No recorded price history for this period';
+      $('#chartCurrent').textContent = '—';
+      $('#chartHigh').textContent = '—';
+      $('#chartMid').textContent = '—';
+      $('#chartLow').textContent = '—';
       return;
     }
     const min=Math.min(...data), max=Math.max(...data), padding=Math.max((max-min)*.13,450), ymin=min-padding, ymax=max+padding;
@@ -237,10 +242,10 @@
     const path=data.map((v,i)=>`${i?'L':'M'}${toX(i).toFixed(1)} ${toY(v).toFixed(1)}`).join(' ');
     const area=`${path} L580 205 L20 205 Z`;
     const grid=[15,72,130,188].map(y=>`<line x1="20" y1="${y}" x2="580" y2="${y}" stroke="#5a7690" stroke-dasharray="3 6" stroke-width="1"/>`).join('');
-    $('#historyChart').innerHTML=`<defs><linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86e2f2" stop-opacity=".30"/><stop offset="1" stop-color="#86e2f2" stop-opacity="0"/></linearGradient></defs>${grid}<path d="${area}" fill="url(#priceGradient)"/><path d="${path}" fill="none" stroke="#86e2f2" stroke-width="3.7" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><circle cx="580" cy="${toY(data.at(-1))}" r="6" fill="#86e2f2" stroke="#1b2b3d" stroke-width="3"/><polyline points="${poly}" fill="none" stroke="transparent" stroke-width="18" data-hoverline="true"/>`;
+    $('#historyChart').innerHTML=`<defs><linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#86e2f2" stop-opacity=".30"/><stop offset="1" stop-color="#86e2f2" stop-opacity="0"/></linearGradient></defs>${grid}<path d="${area}" fill="url(#priceGradient)"/><path d="${path}" fill="none" stroke="#86e2f2" stroke-width="3.7" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/><circle cx="${toX(data.length-1)}" cy="${toY(data.at(-1))}" r="6" fill="#86e2f2" stroke="#1b2b3d" stroke-width="3"/><polyline points="${poly}" fill="none" stroke="transparent" stroke-width="18" data-hoverline="true"/>`;
     $('#historyChart').setAttribute('aria-label',`${chartRange}-day price observations for ${prod.brand} ${prod.name}, from ${money(data[0])} to ${money(data.at(-1))}`);
     const pct=data[0] > 0 ? ((data.at(-1)-data[0])/data[0]*100).toFixed(1) : '0.0';
-    $('#chartChange').textContent=`${Number(pct)<=0?'↓':'↑'} ${Math.abs(Number(pct)).toFixed(1)}% over period`;
+    $('#chartChange').textContent=data.length === 1 ? 'First recorded price — trend not yet available' : `${Number(pct)<=0?'↓':'↑'} ${Math.abs(Number(pct)).toFixed(1)}% over period`;
     $('#chartCurrent').textContent=money(data.at(-1));
     $('#chartHigh').textContent=money(Math.ceil(ymax/1000)*1000);
     $('#chartMid').textContent=money(Math.round((ymax+ymin)/2000)*1000);
@@ -252,7 +257,8 @@
     const svg=$('#historyChart'), tip=$('#chartTooltip');
     svg.addEventListener('pointermove',e=>{
       if(!products || products.length === 0) return;
-      const data=products[0].history ? products[0].history[chartRange] : null;
+      const chartProduct=products.find(p=>p.id===chartProductId)||products[0];
+      const data=chartProduct.history ? chartProduct.history[chartRange] : null;
       if(!data || data.length === 0) return;
       const rect=svg.getBoundingClientRect(), rel=(e.clientX-rect.left)/rect.width;
       const index=Math.max(0,Math.min(data.length-1,Math.round((rel*600-20)/560*(data.length-1))));
@@ -310,7 +316,6 @@
     measure();
   }
   async function searchProductOrLink(q) {
-    // Product names use the original local search. Merchant links need an API lookup.
     if (!/^https?:\/\//i.test(q)) {
       $('#productSearch').value = q;
       search = q;
@@ -319,8 +324,6 @@
       renderProducts();
       return;
     }
-
-    // The lookup checks only products already stored in MySQL.
     if (!dbConnected) {
       notify('Start the MySQL backend before searching by product link.');
       return;
@@ -329,30 +332,94 @@
       notify('Please use an HTTPS product link.');
       return;
     }
+
     try {
-      const response = await fetch(`${API_BASE}/products/by-link?url=${encodeURIComponent(q)}`, {
-        signal: AbortSignal.timeout(12000)
+      notify('Checking the retailer for current product data...');
+      // A fresh retailer observation takes priority over a stored/demo price.
+      let response = await fetch(`${API_BASE}/products/import-by-link?url=${encodeURIComponent(q)}`, {
+        method: 'POST',
+        signal: AbortSignal.timeout(20000)
       });
-      const body = await response.json();
+      let body = await response.json();
+      const importedNow = response.ok;
       if (!response.ok) {
-        notify(body.detail || 'Product link could not be found in the catalog.');
-        return;
+        const reason = typeof body.detail === 'string' ? body.detail : 'Public retailer data unavailable';
+        // We may still show a previously saved matching product, but not as a live price.
+        response = await fetch(`${API_BASE}/products/by-link?url=${encodeURIComponent(q)}`, {
+          signal: AbortSignal.timeout(12000)
+        });
+        body = await response.json();
+        if (response.ok) notify('Retailer unavailable; displaying stored database price, not live.');
+        else {
+          notify(reason);
+          return;
+        }
       }
+
       const pid = Number(body?.data?.product_id);
-      const product = products.find(p => p.id === pid);
-      if (!product) {
-        notify('Product found in MySQL, but catalog is not loaded. Refresh after starting the backend.');
-        return;
+      if (!Number.isInteger(pid) || pid < 1) throw new Error('Invalid product ID');
+      const detailResponse = await fetch(`${API_BASE}/products/${pid}`);
+      if (!detailResponse.ok) throw new Error('Could not load product from MySQL');
+      const d = (await detailResponse.json()).data || {};
+      const info = d.product || {};
+      const stores = (d.stores || []).map(st => ({
+        name: st.store_name,
+        base: Number(st.current_price),
+        delivery: Number(st.delivery_charge || 0),
+        available: st.availability === 'IN_STOCK'
+      }));
+      const lowest = stores.filter(st => st.available).map(st => st.base);
+      const price = lowest.length ? Math.min(...lowest) : (stores[0]?.base || 0);
+      const entry = {
+        id: pid,
+        name: info.product_name,
+        brand: info.brand,
+        category: info.category_name || 'Imported Products',
+        color: assignColor(info.category_name),
+        art: assignArt(info.category_name),
+        tag: importedNow ? 'RETAILER OBSERVATION' : 'STORED PRICE',
+        description: info.description || '',
+        model: 'Store listing',
+        rating: 0,
+        price: price,
+        oldPrice: price,
+        stores: stores,
+        history: { 30: [], 90: [], 365: [] }
+      };
+
+      // Show only actual dated observations already recorded in MySQL.
+      const historyResponse = await fetch(`${API_BASE}/products/${pid}/price-history?days=365`);
+      if (historyResponse.ok) {
+        const groups = (await historyResponse.json()).data || [];
+        const actual = groups.find(g => Array.isArray(g.history) && g.history.length);
+        if (actual) {
+          const points = actual.history.map(pt => ({
+            time: new Date(pt.recorded_timestamp.replace(' ', 'T')).getTime(),
+            price: Number(pt.price)
+          })).filter(pt => Number.isFinite(pt.time) && Number.isFinite(pt.price));
+          for (const days of [30, 90, 365]) {
+            const cutoff = Date.now() - days * 86400000;
+            entry.history[days] = points.filter(pt => pt.time >= cutoff).map(pt => pt.price);
+          }
+        }
       }
+
+      const existingIndex = products.findIndex(p => p.id === pid);
+      if (existingIndex >= 0) products[existingIndex] = entry;
+      else products.push(entry);
+      categories = ['All', ...new Set(products.map(p => p.category))];
       category = 'All';
-      search = product.name;
+      search = entry.name;
       $('#productSearch').value = search;
       renderCategories();
       renderProducts();
+      chartProductId = pid;
+      renderChart();
       openCompare(pid);
+      if (importedNow) notify('Retailer observation saved in MySQL.');
     } catch (error) {
       console.warn('PriceSense link lookup failed:', error);
-      notify('Could not check product link. Check the backend connection.');
+      notify('Product lookup failed. Check FastAPI and retailer availability.');
     }
   }
 
