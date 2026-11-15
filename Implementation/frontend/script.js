@@ -216,7 +216,7 @@
     if($('#watchDrawer').classList.contains('open'))closeDrawer();
     const offers=p.stores.map(s=>({...s,total:s.base+s.delivery})).sort((a,b)=>Number(b.available)-Number(a.available)||a.total-b.total);
     const best=offers.find(s=>s.available)?.total;
-    $('#compareContent').innerHTML=`<div class="modal-product"><img src="${escapeHTML(artSrc(p.art))}" alt=""><div><small>${escapeHTML(p.brand.toUpperCase())} / ${escapeHTML(p.category.toUpperCase())}</small><h2 id="compareTitle">${escapeHTML(p.name)}</h2><p>${escapeHTML(p.model)}</p></div></div><span class="modal-label">LIVE STORE COMPARISON · SORTED BY TOTAL COST</span><div class="modal-list">${offers.map(s=>`<div class="modal-row ${s.available&&s.total===best?'best':''}"><div><strong>${escapeHTML(s.name)}</strong><small>${s.available? (s.total===best?'✳ Lowest total cost':'In stock'):'Out of stock'} · Delivery ${s.delivery===0?'free':money(s.delivery)}</small></div><div class="modal-price"><b>${money(s.total)}</b><small>Base: ${money(s.base)}</small></div></div>`).join('')}</div><p class="modal-note">* Stores retrieved from database. Total cost includes store item price + delivery charge.</p><div class="modal-actions"><button type="button" class="modal-secondary" id="modalSave">${saved.has(id)?'♡ Remove from saved':'♡ Save this product'}</button><button type="button" class="modal-primary" id="modalDone">Done ↗</button></div>`;
+    $('#compareContent').innerHTML=`<div class="modal-product"><img src="${escapeHTML(artSrc(p.art))}" alt=""><div><small>${escapeHTML(p.brand.toUpperCase())} / ${escapeHTML(p.category.toUpperCase())}</small><h2 id="compareTitle">${escapeHTML(p.name)}</h2><p>${escapeHTML(p.model)}</p></div></div><span class="modal-label">STORED STORE COMPARISON · SORTED BY TOTAL COST</span><div class="modal-list">${offers.map(s=>`<div class="modal-row ${s.available&&s.total===best?'best':''}"><div><strong>${escapeHTML(s.name)}</strong><small>${s.available? (s.total===best?'✳ Lowest total cost':'In stock'):'Out of stock'} · Delivery ${s.delivery===0?'free':money(s.delivery)}</small></div><div class="modal-price"><b>${money(s.total)}</b><small>Base: ${money(s.base)}</small></div></div>`).join('')}</div><p class="modal-note">* Stored observations may be illustrative demo data. Imported listings reflect retailer metadata at the observation time. Total includes delivery.</p><div class="modal-actions"><button type="button" class="modal-secondary" id="modalSave">${saved.has(id)?'♡ Remove from saved':'♡ Save this product'}</button><button type="button" class="modal-primary" id="modalDone">Done ↗</button></div>`;
     $('#modalSave').addEventListener('click',()=>{toggleSaved(id);$('#modalSave').textContent=saved.has(id)?'♡ Remove from saved':'♡ Save this product';});
     $('#modalDone').addEventListener('click',()=>$('#compareDialog').close());
     $('#compareDialog').showModal();
@@ -330,20 +330,61 @@
       return;
     }
     try {
-      const response = await fetch(`${API_BASE}/products/by-link?url=${encodeURIComponent(q)}`, {
+      let response = await fetch(`${API_BASE}/products/by-link?url=${encodeURIComponent(q)}`, {
         signal: AbortSignal.timeout(12000)
       });
-      const body = await response.json();
+      let body = await response.json();
+
+      if (response.status === 404) {
+        notify('Product not cached. Checking public retailer information...');
+        // Import only when the retailer actually publishes a title and INR price.
+        response = await fetch(`${API_BASE}/products/import-by-link?url=${encodeURIComponent(q)}`, {
+          method: 'POST',
+          signal: AbortSignal.timeout(20000)
+        });
+        body = await response.json();
+      }
+
       if (!response.ok) {
-        notify(body.detail || 'Product link could not be found in the catalog.');
+        notify(typeof body.detail === 'string' ? body.detail : 'Retailer price unavailable. No data was invented.');
         return;
       }
       const pid = Number(body?.data?.product_id);
-      const product = products.find(p => p.id === pid);
+      let product = products.find(p => p.id === pid);
+
+      // A newly imported item is not yet in the browser's original catalog.
+      // Fetch the single imported product rather than reloading every record.
       if (!product) {
-        notify('Product found in MySQL, but catalog is not loaded. Refresh after starting the backend.');
-        return;
+        const detailResponse = await fetch(`${API_BASE}/products/${pid}`);
+        if (!detailResponse.ok) throw new Error('Could not read imported product from MySQL');
+        const details = (await detailResponse.json()).data || {};
+        const d = details.product || {};
+        const stores = (details.stores || []).map(st => ({
+          name: st.store_name,
+          base: Number(st.current_price),
+          delivery: Number(st.delivery_charge || 0),
+          available: st.availability === 'IN_STOCK'
+        }));
+        product = {
+          id: pid,
+          name: d.product_name,
+          brand: d.brand,
+          category: d.category_name || 'Imported Products',
+          color: assignColor(d.category_name),
+          art: assignArt(d.category_name),
+          tag: 'RETAILER DATA',
+          description: d.description || '',
+          model: 'Retailer listing',
+          rating: 0,
+          price: stores.find(st => st.available)?.base || stores[0]?.base || 0,
+          oldPrice: stores.find(st => st.available)?.base || stores[0]?.base || 0,
+          stores: stores,
+          history: { 30: [], 90: [], 365: [] }
+        };
+        products.push(product);
+        categories = ['All', ...new Set(products.map(p => p.category))];
       }
+
       category = 'All';
       search = product.name;
       $('#productSearch').value = search;
