@@ -312,7 +312,6 @@
     measure();
   }
   async function searchProductOrLink(q) {
-    // Product names use the original local search. Merchant links need an API lookup.
     if (!/^https?:\/\//i.test(q)) {
       $('#productSearch').value = q;
       search = q;
@@ -321,8 +320,6 @@
       renderProducts();
       return;
     }
-
-    // The lookup checks only products already stored in MySQL.
     if (!dbConnected) {
       notify('Start the MySQL backend before searching by product link.');
       return;
@@ -331,94 +328,94 @@
       notify('Please use an HTTPS product link.');
       return;
     }
+
     try {
-      let response = await fetch(`${API_BASE}/products/by-link?url=${encodeURIComponent(q)}`, {
-        signal: AbortSignal.timeout(12000)
+      notify('Checking the retailer for current product data...');
+      // A fresh retailer observation takes priority over a stored/demo price.
+      let response = await fetch(`${API_BASE}/products/import-by-link?url=${encodeURIComponent(q)}`, {
+        method: 'POST',
+        signal: AbortSignal.timeout(20000)
       });
       let body = await response.json();
-
-      if (response.status === 404) {
-        notify('Product not cached. Checking public retailer information...');
-        // Import only when the retailer actually publishes a title and INR price.
-        response = await fetch(`${API_BASE}/products/import-by-link?url=${encodeURIComponent(q)}`, {
-          method: 'POST',
-          signal: AbortSignal.timeout(20000)
+      const importedNow = response.ok;
+      if (!response.ok) {
+        const reason = typeof body.detail === 'string' ? body.detail : 'Public retailer data unavailable';
+        // We may still show a previously saved matching product, but not as a live price.
+        response = await fetch(`${API_BASE}/products/by-link?url=${encodeURIComponent(q)}`, {
+          signal: AbortSignal.timeout(12000)
         });
         body = await response.json();
-      }
-
-      if (!response.ok) {
-        notify(typeof body.detail === 'string' ? body.detail : 'Retailer price unavailable. No data was invented.');
-        return;
-      }
-      const pid = Number(body?.data?.product_id);
-      let product = products.find(p => p.id === pid);
-
-      // A newly imported item is not yet in the browser's original catalog.
-      // Fetch the single imported product rather than reloading every record.
-      if (!product) {
-        const detailResponse = await fetch(`${API_BASE}/products/${pid}`);
-        if (!detailResponse.ok) throw new Error('Could not read imported product from MySQL');
-        const details = (await detailResponse.json()).data || {};
-        const d = details.product || {};
-        const stores = (details.stores || []).map(st => ({
-          name: st.store_name,
-          base: Number(st.current_price),
-          delivery: Number(st.delivery_charge || 0),
-          available: st.availability === 'IN_STOCK'
-        }));
-        product = {
-          id: pid,
-          name: d.product_name,
-          brand: d.brand,
-          category: d.category_name || 'Imported Products',
-          color: assignColor(d.category_name),
-          art: assignArt(d.category_name),
-          tag: 'RETAILER DATA',
-          description: d.description || '',
-          model: 'Retailer listing',
-          rating: 0,
-          price: stores.find(st => st.available)?.base || stores[0]?.base || 0,
-          oldPrice: stores.find(st => st.available)?.base || stores[0]?.base || 0,
-          stores: stores,
-          history: { 30: [], 90: [], 365: [] }
-        };
-        // A newly imported product starts with its first real observation.
-        // Never fabricate historical prices for dates when we have no data.
-        try {
-          const historyResponse = await fetch(`${API_BASE}/products/${pid}/price-history?days=365`);
-          if (historyResponse.ok) {
-            const groups = (await historyResponse.json()).data || [];
-            const actual = groups.find(g => Array.isArray(g.history) && g.history.length > 0);
-            if (actual) {
-              const points = actual.history.map(pt => ({
-                time: new Date(pt.recorded_timestamp.replace(' ', 'T')).getTime(),
-                price: Number(pt.price)
-              })).filter(pt => Number.isFinite(pt.time) && Number.isFinite(pt.price));
-              for (const days of [30, 90, 365]) {
-                const cutoff = Date.now() - days * 86400000;
-                product.history[days] = points.filter(pt => pt.time >= cutoff).map(pt => pt.price);
-              }
-            }
-          }
-        } catch (error) {
-          console.warn('Imported price history not yet available:', error);
+        if (response.ok) notify('Retailer unavailable; displaying stored database price, not live.');
+        else {
+          notify(reason);
+          return;
         }
-        products.push(product);
-        categories = ['All', ...new Set(products.map(p => p.category))];
       }
 
+      const pid = Number(body?.data?.product_id);
+      if (!Number.isInteger(pid) || pid < 1) throw new Error('Invalid product ID');
+      const detailResponse = await fetch(`${API_BASE}/products/${pid}`);
+      if (!detailResponse.ok) throw new Error('Could not load product from MySQL');
+      const d = (await detailResponse.json()).data || {};
+      const info = d.product || {};
+      const stores = (d.stores || []).map(st => ({
+        name: st.store_name,
+        base: Number(st.current_price),
+        delivery: Number(st.delivery_charge || 0),
+        available: st.availability === 'IN_STOCK'
+      }));
+      const lowest = stores.filter(st => st.available).map(st => st.base);
+      const price = lowest.length ? Math.min(...lowest) : (stores[0]?.base || 0);
+      const entry = {
+        id: pid,
+        name: info.product_name,
+        brand: info.brand,
+        category: info.category_name || 'Imported Products',
+        color: assignColor(info.category_name),
+        art: assignArt(info.category_name),
+        tag: importedNow ? 'RETAILER OBSERVATION' : 'STORED PRICE',
+        description: info.description || '',
+        model: 'Store listing',
+        rating: 0,
+        price: price,
+        oldPrice: price,
+        stores: stores,
+        history: { 30: [], 90: [], 365: [] }
+      };
+
+      // Show only actual dated observations already recorded in MySQL.
+      const historyResponse = await fetch(`${API_BASE}/products/${pid}/price-history?days=365`);
+      if (historyResponse.ok) {
+        const groups = (await historyResponse.json()).data || [];
+        const actual = groups.find(g => Array.isArray(g.history) && g.history.length);
+        if (actual) {
+          const points = actual.history.map(pt => ({
+            time: new Date(pt.recorded_timestamp.replace(' ', 'T')).getTime(),
+            price: Number(pt.price)
+          })).filter(pt => Number.isFinite(pt.time) && Number.isFinite(pt.price));
+          for (const days of [30, 90, 365]) {
+            const cutoff = Date.now() - days * 86400000;
+            entry.history[days] = points.filter(pt => pt.time >= cutoff).map(pt => pt.price);
+          }
+        }
+      }
+
+      const existingIndex = products.findIndex(p => p.id === pid);
+      if (existingIndex >= 0) products[existingIndex] = entry;
+      else products.push(entry);
+      categories = ['All', ...new Set(products.map(p => p.category))];
       category = 'All';
-      search = product.name;
+      search = entry.name;
       $('#productSearch').value = search;
       renderCategories();
       renderProducts();
       chartProductId = pid;
       renderChart();
       openCompare(pid);
+      if (importedNow) notify('Retailer observation saved in MySQL.');
     } catch (error) {
       console.warn('PriceSense link lookup failed:', error);
-      notify('Could not check product link. Check the backend connection.');
+      notify('Product lookup failed. Check FastAPI and retailer availability.');
     }
   }
 
