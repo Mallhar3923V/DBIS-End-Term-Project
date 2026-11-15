@@ -13,6 +13,7 @@
   let search = '';
   let sortBy = 'featured';
   let chartRange = 30;
+  let dbConnected = false;
   let toastTimeout;
   let lastFocus = null;
   try { saved = new Set(JSON.parse(localStorage.getItem(LS_KEY) || '[]').map(Number).filter(Number.isFinite)); } catch(e) { saved = new Set(); }
@@ -117,6 +118,7 @@
 
       if (loaded.length > 0) {
         products = loaded;
+        dbConnected = true;
         categories = ['All', ...new Set(products.map(p => p.category))];
         renderCategories();
         renderProducts();
@@ -319,6 +321,10 @@
     }
 
     // The lookup checks only products already stored in MySQL.
+    if (!dbConnected) {
+      notify('Start the MySQL backend before searching by product link.');
+      return;
+    }
     if (!/^https:\/\//i.test(q)) {
       notify('Please use an HTTPS product link.');
       return;
